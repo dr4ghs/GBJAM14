@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://ciqdjthet6xcq"]
+
+[ext_resource type="PackedScene" uid="uid://snr34p2tj46r" path="res://Scenes/gameboy_shader.tscn" id="1_lj4ca"]
+[ext_resource type="Texture2D" uid="uid://nde2ijd35xup" path="res://Assets/Sprites/mockup_night.png" id="2_s0nau"]
+[ext_resource type="Script" uid="uid://corwj32far4gf" path="res://Scripts/ship.gd" id="3_616no"]
+[ext_resource type="Texture2D" uid="uid://isotmmuukf6g" path="res://Assets/Sprites/ship.png" id="4_616no"]
+[ext_resource type="Script" uid="uid://bba6nwrq7n782" path="res://Scripts/obstacle.gd" id="5_p805a"]
+[ext_resource type="Texture2D" uid="uid://dkll1apm1d8wr" path="res://Assets/Sprites/obstacle.png" id="6_pakvq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_loj0l"]
+size = Vector2(24, 22)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ipgva"]
+size = Vector2(20, 25)
+
+[node name="play_scene" type="Node2D" unique_id=458439781]
+
+[node name="Canvas Layer" type="CanvasLayer" parent="." unique_id=327212048]
+follow_viewport_enabled = true
+
+[node name="Gameboy Shader" parent="Canvas Layer" unique_id=736456625 instance=ExtResource("1_lj4ca")]
+visible = false
+offset_left = 79.2
+offset_top = 71.136
+offset_right = 80.0
+offset_bottom = 72.0
+
+[node name="Water" type="Sprite2D" parent="." unique_id=404584978]
+position = Vector2(80, 72)
+texture = ExtResource("2_s0nau")
+
+[node name="Obstacle" type="RigidBody2D" parent="." unique_id=234447296]
+position = Vector2(80, 42)
+gravity_scale = 0.0
+script = ExtResource("5_p805a")
+base_speed = 3.0
+
+[node name="Sprite" type="Sprite2D" parent="Obstacle" unique_id=1622098402]
+texture = ExtResource("6_pakvq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacle" unique_id=292839938]
+shape = SubResource("RectangleShape2D_loj0l")
+
+[node name="Ship" type="RigidBody2D" parent="." unique_id=1177857547]
+unique_name_in_owner = true
+position = Vector2(80, 104)
+gravity_scale = 0.0
+script = ExtResource("3_616no")
+
+[node name="Sprite" type="Sprite2D" parent="Ship" unique_id=1537554665]
+texture = ExtResource("4_616no")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ship" unique_id=1842953153]
+shape = SubResource("RectangleShape2D_ipgva")
