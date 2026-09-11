@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://kmm7668m6b7c"]
+
+[ext_resource type="PackedScene" uid="uid://c712blpx0eaxx" path="res://Scenes/startup_animation.tscn" id="1_r5l72"]
+[ext_resource type="PackedScene" uid="uid://snr34p2tj46r" path="res://Scenes/gameboy_shader.tscn" id="2_50ct6"]
+
+[node name="test_scene" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+scale = Vector2(4, 4)
+
+[node name="Canvas Layer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="Startup Animation" parent="Canvas Layer" instance=ExtResource("1_r5l72")]
+
+[node name="Gameboy Shader" parent="Canvas Layer" instance=ExtResource("2_50ct6")]
