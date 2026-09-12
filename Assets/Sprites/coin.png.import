@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ca3gutj3dhgap"
-path="res://.godot/imported/mockup_day.png-5bf315977b7c06016297f3c9deddebcd.ctex"
+uid="uid://c4t06lg00gjy"
+path="res://.godot/imported/coin.png-69cfccbe0dae60c8dcaf1a48ccf22974.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/mockup_day.png"
-dest_files=["res://.godot/imported/mockup_day.png-5bf315977b7c06016297f3c9deddebcd.ctex"]
+source_file="res://Assets/Sprites/coin.png"
+dest_files=["res://.godot/imported/coin.png-69cfccbe0dae60c8dcaf1a48ccf22974.ctex"]
 
 [params]
 

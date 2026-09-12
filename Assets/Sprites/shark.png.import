@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://nde2ijd35xup"
-path="res://.godot/imported/mockup_night.png-b0bcfd4d2cf56efe5a688739a1dbc407.ctex"
+uid="uid://c0ikslcwnet3r"
+path="res://.godot/imported/shark.png-c73ade7761462d088c07f3f10df46d12.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/mockup_night.png"
-dest_files=["res://.godot/imported/mockup_night.png-b0bcfd4d2cf56efe5a688739a1dbc407.ctex"]
+source_file="res://Assets/Sprites/shark.png"
+dest_files=["res://.godot/imported/shark.png-c73ade7761462d088c07f3f10df46d12.ctex"]
 
 [params]
 

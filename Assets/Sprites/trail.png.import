@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0ofj32jvpls4"
-path="res://.godot/imported/water_placeholder.png-e7cc500681b4adfd4b45ac2115c3b7d2.ctex"
+uid="uid://dpxu7ssuhnp1e"
+path="res://.godot/imported/trail.png-d49ea42b02c88fe5e1ab8927cbef7dce.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/water_placeholder.png"
-dest_files=["res://.godot/imported/water_placeholder.png-e7cc500681b4adfd4b45ac2115c3b7d2.ctex"]
+source_file="res://Assets/Sprites/trail.png"
+dest_files=["res://.godot/imported/trail.png-d49ea42b02c88fe5e1ab8927cbef7dce.ctex"]
 
 [params]
 

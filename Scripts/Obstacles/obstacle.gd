@@ -1,4 +1,6 @@
-extends Node2D
+@abstract
+class_name Obstacle
+extends Area2D
 
 @export var base_speed: float;
 @export var distance: float;
@@ -14,3 +16,6 @@ func _process(delta: float) -> void:
 	speed = ((int)(player.gold / 500) + base_speed) * delta
 	if distance < 100: distance += speed;
 	position.y += distance * delta;
+
+@abstract func damage() -> int;
+@abstract func gold() -> int;

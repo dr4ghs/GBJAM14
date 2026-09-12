@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c43mho4lr6ixn"
-path="res://.godot/imported/ship_placeholder.png-3f9d03c8c06560ac5310463391bdc6c6.ctex"
+uid="uid://d1ucmwkm6y4b5"
+path="res://.godot/imported/kraken.png-d515f577d6d6d82d3ddacdb58a031b73.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/ship_placeholder.png"
-dest_files=["res://.godot/imported/ship_placeholder.png-3f9d03c8c06560ac5310463391bdc6c6.ctex"]
+source_file="res://Assets/Sprites/kraken.png"
+dest_files=["res://.godot/imported/kraken.png-d515f577d6d6d82d3ddacdb58a031b73.ctex"]
 
 [params]
 

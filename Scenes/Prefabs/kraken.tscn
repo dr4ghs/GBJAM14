@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dq2aao1qyvqxu"]
+
+[ext_resource type="Script" uid="uid://di72e6xcgt4ll" path="res://Scripts/Obstacles/kraken_obstacle.gd" id="1_63b2a"]
+[ext_resource type="Texture2D" uid="uid://d1ucmwkm6y4b5" path="res://Assets/Sprites/kraken.png" id="2_mryse"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ipgva"]
+size = Vector2(64, 16)
+
+[node name="Kraken" type="Area2D" unique_id=689600885]
+script = ExtResource("1_63b2a")
+
+[node name="Graphics" type="Sprite2D" parent="." unique_id=273979772]
+position = Vector2(0, -16)
+texture = ExtResource("2_mryse")
+
+[node name="CollisionBox" type="CollisionShape2D" parent="." unique_id=1687460191]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_ipgva")
