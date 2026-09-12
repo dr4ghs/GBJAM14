@@ -1,9 +1,8 @@
 class_name Background
 extends Node2D
 
-#@onready var player: Player = %Ship;
+@onready var manager: GameStateManager = %GameState;
 @onready var anim_player: AnimationPlayer = $AnimationPlayer;
 
 func _process(delta: float) -> void:
-	pass;
-	#anim_player.speed_scale = 1 + (player.gold / 500)
+	anim_player.speed_scale = 1 + (manager.player._gold / 500)

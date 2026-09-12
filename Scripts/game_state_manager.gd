@@ -1,4 +1,4 @@
-class_name GameStateMangar extends Node2D
+class_name GameStateManager extends Node2D
 
 @export var ships: Array[Ship] = [];
 

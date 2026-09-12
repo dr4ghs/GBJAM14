@@ -2,9 +2,28 @@
 
 [ext_resource type="Script" uid="uid://d2vkre6j4fohq" path="res://Scripts/game_state_manager.gd" id="1_p805a"]
 [ext_resource type="Script" uid="uid://do1y72rfs57e" path="res://Scripts/background.gd" id="2_5lpdq"]
+[ext_resource type="FontFile" uid="uid://dx73sdghq4d41" path="res://Fonts/game-boy-startup-font.otf" id="2_p805a"]
 [ext_resource type="Texture2D" uid="uid://nde2ijd35xup" path="res://Assets/Sprites/background.png" id="2_s0nau"]
+[ext_resource type="Script" uid="uid://we1tsccsmi1m" path="res://Scripts/UI/gold_label.gd" id="4_5lpdq"]
 [ext_resource type="Texture2D" uid="uid://wg1o865y3xtj" path="res://Assets/Sprites/water.png" id="4_j1m55"]
 [ext_resource type="PackedScene" uid="uid://dqfu4rshct0w1" path="res://Scenes/Prefabs/player_ship.tscn" id="5_616no"]
+[ext_resource type="Script" uid="uid://i7xq76g5pvbb" path="res://Scripts/UI/health_bar.gd" id="5_ivbpn"]
+[ext_resource type="Texture2D" uid="uid://dsojiqq6ktrwu" path="res://Assets/Sprites/hearts.png" id="6_io55t"]
+[ext_resource type="PackedScene" uid="uid://c6p521cmwxr8i" path="res://Scenes/Prefabs/coin.tscn" id="6_p805a"]
+[ext_resource type="Texture2D" uid="uid://c4t06lg00gjy" path="res://Assets/Sprites/coin.png" id="10_knw1p"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vklac"]
+atlas = ExtResource("6_io55t")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_loj0l"]
+atlas = ExtResource("10_knw1p")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ipgva"]
+font = ExtResource("2_p805a")
+font_size = 10
+font_color = Color(0.12941177, 0.15294118, 0.23921569, 1)
 
 [sub_resource type="Animation" id="Animation_blhi5"]
 length = 0.001
@@ -23,7 +42,6 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_knw1p"]
 resource_name = "default"
-length = 2.0
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -32,7 +50,7 @@ tracks/0/path = NodePath("Water:region_rect:position:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1, 1.5),
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [0.0, 160.0, 320.0, 480.0]
@@ -46,13 +64,73 @@ _data = {
 
 [node name="PlayScene" type="Node2D" unique_id=458439781]
 
-[node name="GameState" type="Node2D" parent="." unique_id=1420079834 node_paths=PackedStringArray("ships")]
+[node name="GameState" type="Node2D" parent="." unique_id=1420079834]
 unique_name_in_owner = true
 script = ExtResource("1_p805a")
-ships = [NodePath(""), NodePath(""), NodePath(""), NodePath("")]
 
 [node name="Canvas Layer" type="CanvasLayer" parent="." unique_id=327212048]
 follow_viewport_enabled = true
+
+[node name="HealthBar" type="Control" parent="Canvas Layer" unique_id=920961760]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="Layout" type="HBoxContainer" parent="Canvas Layer/HealthBar" unique_id=807463794]
+propagate_maximum_size = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -28.0
+offset_right = 28.0
+offset_bottom = 16.0
+grow_horizontal = 2
+script = ExtResource("5_ivbpn")
+
+[node name="Heart1" type="TextureRect" parent="Canvas Layer/HealthBar/Layout" unique_id=61537434]
+layout_mode = 2
+texture = SubResource("AtlasTexture_vklac")
+stretch_mode = 1
+
+[node name="Heart2" type="TextureRect" parent="Canvas Layer/HealthBar/Layout" unique_id=1558400809]
+layout_mode = 2
+texture = SubResource("AtlasTexture_vklac")
+stretch_mode = 1
+
+[node name="Heart3" type="TextureRect" parent="Canvas Layer/HealthBar/Layout" unique_id=1272040958]
+layout_mode = 2
+texture = SubResource("AtlasTexture_vklac")
+stretch_mode = 1
+
+[node name="Golds" type="Control" parent="Canvas Layer" unique_id=130460174]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 31.0
+
+[node name="Layout" type="HBoxContainer" parent="Canvas Layer/Golds" unique_id=2121739606]
+propagate_maximum_size = false
+layout_mode = 0
+offset_right = 42.0
+offset_bottom = 16.0
+
+[node name="TextureRect" type="TextureRect" parent="Canvas Layer/Golds/Layout" unique_id=1648073522]
+layout_mode = 2
+texture = SubResource("AtlasTexture_loj0l")
+
+[node name="Label" type="Label" parent="Canvas Layer/Golds/Layout" unique_id=677530950]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "0"
+label_settings = SubResource("LabelSettings_ipgva")
+horizontal_alignment = 1
+script = ExtResource("4_5lpdq")
 
 [node name="Background" type="Node2D" parent="." unique_id=119347257]
 script = ExtResource("2_5lpdq")
@@ -63,10 +141,11 @@ position = Vector2(80, 72)
 texture = ExtResource("2_s0nau")
 
 [node name="Water" type="Sprite2D" parent="Background" unique_id=266602801]
-position = Vector2(80, 88)
+z_index = -9
+position = Vector2(80, 96)
 texture = ExtResource("4_j1m55")
 region_enabled = true
-region_rect = Rect2(0, 0, 160, 112)
+region_rect = Rect2(0, 0, 160, 96)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Background" unique_id=2113695187]
 libraries/ = SubResource("AnimationLibrary_ivbpn")
@@ -74,7 +153,12 @@ autoplay = &"default"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1155018366]
 position = Vector2(80, 72)
-zoom = Vector2(4, 4)
 
 [node name="PlayerShip" parent="." unique_id=630683284 instance=ExtResource("5_616no")]
-position = Vector2(80, 128)
+position = Vector2(80, 136)
+
+[node name="Coin" parent="." unique_id=1379323098 instance=ExtResource("6_p805a")]
+position = Vector2(80, 48)
+distance = 150.0
+
+[connection signal="gold_taken" from="PlayerShip" to="Canvas Layer/Golds/Layout/Label" method="on_gold_taken"]

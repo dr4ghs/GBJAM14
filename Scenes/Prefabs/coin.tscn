@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ddxags0ecnqqf" path="res://Scripts/Obstacles/coin.gd" id="1_wpps8"]
 [ext_resource type="Texture2D" uid="uid://c4t06lg00gjy" path="res://Assets/Sprites/coin.png" id="2_nsvvg"]
+[ext_resource type="Texture2D" uid="uid://ck258yie3336b" path="res://Assets/Sprites/clipping_mask.png" id="3_mmtjo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ipgva"]
 size = Vector2(16, 16)
@@ -45,15 +46,20 @@ _data = {
 }
 
 [node name="Coin" type="Area2D" unique_id=1379323098]
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_wpps8")
 is_gold = true
 _gold = 1
 
 [node name="Graphics" type="Sprite2D" parent="." unique_id=1572700646]
+clip_children = 2
 position = Vector2(0, -8)
 texture = ExtResource("2_nsvvg")
 region_enabled = true
 region_rect = Rect2(0, 0, 16, 16)
+
+[node name="Mask" type="Sprite2D" parent="Graphics" unique_id=1574907224]
+texture = ExtResource("3_mmtjo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=214073722]
 position = Vector2(0, -8)
