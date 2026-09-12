@@ -1,24 +1,22 @@
-class_name Player extends Area2D
+class_name Ship extends Area2D
 
-@export var gold: int;
+signal damage_taken(damage: int);
+signal gold_taken(damate: int);
+signal death();
 
 @onready var collision_box: CollisionShape2D = $CollisionBox;
 @onready var graphics: Sprite2D = $Graphics;
 @onready var animation_player: AnimationPlayer = $AnimationPlayer;
 
-var curr_lane: int = 2;
+@export var _health: int;
+
+var _gold: int;
+var _curr_lane: int = 2;
 
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("steer_left"):
-		if curr_lane > 0:
-			curr_lane -= 1;
-	elif Input.is_action_just_pressed("steer_right"):
-		if curr_lane < len(SpawnPoints.lanes) - 1:
-			curr_lane += 1;
-	
-	position.x = lerp(position.x, SpawnPoints.lanes[curr_lane], 0.2);
-	animation_player.speed_scale = 1 + (gold / 500)
+	position.x = lerp(position.x, SpawnPoints.lanes[_curr_lane], 0.2);
+	animation_player.speed_scale = 1 + (_gold / 500)
 
 func _on_area_entered(obstacle: Obstacle) -> void:
-	if obstacle.is_damaging: print("%d DAMAGE" % obstacle.damage())
-	if obstacle.is_gold: print("GOLD +%d" % obstacle.gold())
+	if obstacle.is_damaging: damage_taken.emit(obstacle.damage());
+	if obstacle.is_gold: gold_taken.emit(obstacle.gold());

@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://do1y72rfs57e" path="res://Scripts/background.gd" id="2_5lpdq"]
 [ext_resource type="Texture2D" uid="uid://nde2ijd35xup" path="res://Assets/Sprites/background.png" id="2_s0nau"]
 [ext_resource type="Texture2D" uid="uid://wg1o865y3xtj" path="res://Assets/Sprites/water.png" id="4_j1m55"]
-[ext_resource type="PackedScene" uid="uid://bqp43oasmei58" path="res://Scenes/Prefabs/Ship.tscn" id="5_616no"]
+[ext_resource type="PackedScene" uid="uid://dqfu4rshct0w1" path="res://Scenes/Prefabs/player_ship.tscn" id="5_616no"]
 
 [sub_resource type="Animation" id="Animation_blhi5"]
 length = 0.001
@@ -46,9 +46,10 @@ _data = {
 
 [node name="PlayScene" type="Node2D" unique_id=458439781]
 
-[node name="GameState" type="Node2D" parent="." unique_id=1420079834]
+[node name="GameState" type="Node2D" parent="." unique_id=1420079834 node_paths=PackedStringArray("ships")]
 unique_name_in_owner = true
 script = ExtResource("1_p805a")
+ships = [NodePath(""), NodePath(""), NodePath(""), NodePath("")]
 
 [node name="Canvas Layer" type="CanvasLayer" parent="." unique_id=327212048]
 follow_viewport_enabled = true
@@ -75,5 +76,5 @@ autoplay = &"default"
 position = Vector2(80, 72)
 zoom = Vector2(4, 4)
 
-[node name="Ship" parent="." unique_id=154425032 instance=ExtResource("5_616no")]
+[node name="PlayerShip" parent="." unique_id=630683284 instance=ExtResource("5_616no")]
 position = Vector2(80, 128)
