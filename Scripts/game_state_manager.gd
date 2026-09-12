@@ -1,0 +1,1 @@
+class_name GameStateMangar extends Node2D

@@ -1,39 +1,79 @@
 [gd_scene format=3 uid="uid://ciqdjthet6xcq"]
 
-[ext_resource type="Script" uid="uid://dqmk7jsj40thu" path="res://Scripts/play_scene_manager.gd" id="1_p805a"]
+[ext_resource type="Script" uid="uid://d2vkre6j4fohq" path="res://Scripts/game_state_manager.gd" id="1_p805a"]
+[ext_resource type="Script" uid="uid://do1y72rfs57e" path="res://Scripts/background.gd" id="2_5lpdq"]
 [ext_resource type="Texture2D" uid="uid://nde2ijd35xup" path="res://Assets/Sprites/background.png" id="2_s0nau"]
-[ext_resource type="PackedScene" uid="uid://dq2aao1qyvqxu" path="res://Scenes/Prefabs/kraken.tscn" id="4_s0nau"]
+[ext_resource type="Texture2D" uid="uid://wg1o865y3xtj" path="res://Assets/Sprites/water.png" id="4_j1m55"]
 [ext_resource type="PackedScene" uid="uid://bqp43oasmei58" path="res://Scenes/Prefabs/Ship.tscn" id="5_616no"]
-[ext_resource type="PackedScene" uid="uid://b2y082tgh8xdm" path="res://Scenes/Prefabs/shark.tscn" id="5_p805a"]
-[ext_resource type="PackedScene" uid="uid://c6p521cmwxr8i" path="res://Scenes/Prefabs/coin.tscn" id="6_p805a"]
+
+[sub_resource type="Animation" id="Animation_blhi5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Water:region_rect:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_knw1p"]
+resource_name = "default"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Water:region_rect:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0.0, 160.0, 320.0, 480.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ivbpn"]
+_data = {
+&"RESET": SubResource("Animation_blhi5"),
+&"default": SubResource("Animation_knw1p")
+}
 
 [node name="PlayScene" type="Node2D" unique_id=458439781]
+
+[node name="GameState" type="Node2D" parent="." unique_id=1420079834]
+unique_name_in_owner = true
 script = ExtResource("1_p805a")
 
 [node name="Canvas Layer" type="CanvasLayer" parent="." unique_id=327212048]
 follow_viewport_enabled = true
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1155018366]
-position = Vector2(80, 72)
-zoom = Vector2(4, 4)
+[node name="Background" type="Node2D" parent="." unique_id=119347257]
+script = ExtResource("2_5lpdq")
 
-[node name="Water" type="Sprite2D" parent="." unique_id=404584978]
+[node name="Sky" type="Sprite2D" parent="Background" unique_id=404584978]
 z_index = -10
 position = Vector2(80, 72)
 texture = ExtResource("2_s0nau")
 
-[node name="Kraken" parent="." unique_id=689600885 instance=ExtResource("4_s0nau")]
-position = Vector2(112, 32)
-base_speed = 5.0
+[node name="Water" type="Sprite2D" parent="Background" unique_id=266602801]
+position = Vector2(80, 88)
+texture = ExtResource("4_j1m55")
+region_enabled = true
+region_rect = Rect2(0, 0, 160, 112)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Background" unique_id=2113695187]
+libraries/ = SubResource("AnimationLibrary_ivbpn")
+autoplay = &"default"
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1155018366]
+position = Vector2(80, 72)
+zoom = Vector2(4, 4)
 
 [node name="Ship" parent="." unique_id=154425032 instance=ExtResource("5_616no")]
-unique_name_in_owner = true
 position = Vector2(80, 128)
-
-[node name="Shark" parent="." unique_id=722612719 instance=ExtResource("5_p805a")]
-position = Vector2(80, 32)
-base_speed = 10.0
-
-[node name="Coin" parent="." unique_id=1379323098 instance=ExtResource("6_p805a")]
-position = Vector2(48, 32)
-base_speed = 10.0

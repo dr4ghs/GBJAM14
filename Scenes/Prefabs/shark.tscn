@@ -8,6 +8,8 @@ size = Vector2(16, 16)
 
 [node name="Shark" type="Area2D" unique_id=722612719]
 script = ExtResource("1_vsvoj")
+is_damaging = true
+_damage = 1
 
 [node name="Graphics" type="Sprite2D" parent="." unique_id=1626556249]
 position = Vector2(0, -12)

@@ -5,6 +5,12 @@ extends Area2D
 @export var base_speed: float;
 @export var distance: float;
 
+@export var is_damaging: bool;
+@export var _damage: int;
+
+@export var is_gold: bool;
+@export var _gold: int;
+
 @onready var player: Player = %Ship;
 
 var speed: float;
@@ -17,5 +23,12 @@ func _process(delta: float) -> void:
 	if distance < 100: distance += speed;
 	position.y += distance * delta;
 
-@abstract func damage() -> int;
-@abstract func gold() -> int;
+func damage() -> int:
+	if is_damaging: return _damage;
+	
+	return 0;
+
+func gold() -> int:
+	if is_gold: return _gold;
+	
+	return 0;

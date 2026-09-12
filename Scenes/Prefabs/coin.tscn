@@ -6,15 +6,61 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ipgva"]
 size = Vector2(16, 16)
 
+[sub_resource type="Animation" id="Animation_nsvvg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics:region_rect:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_mmtjo"]
+resource_name = "idle"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics:region_rect:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0.0, 16.0, 32.0, 16.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f8ghi"]
+_data = {
+&"RESET": SubResource("Animation_nsvvg"),
+&"idle": SubResource("Animation_mmtjo")
+}
+
 [node name="Coin" type="Area2D" unique_id=1379323098]
 script = ExtResource("1_wpps8")
+is_gold = true
+_gold = 1
 
 [node name="Graphics" type="Sprite2D" parent="." unique_id=1572700646]
 position = Vector2(0, -8)
 texture = ExtResource("2_nsvvg")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=214073722]
 position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_ipgva")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=530355099]
+libraries/ = SubResource("AnimationLibrary_f8ghi")
+autoplay = &"idle"
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

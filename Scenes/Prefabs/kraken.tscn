@@ -8,6 +8,8 @@ size = Vector2(64, 16)
 
 [node name="Kraken" type="Area2D" unique_id=689600885]
 script = ExtResource("1_63b2a")
+is_damaging = true
+_damage = 1
 
 [node name="Graphics" type="Sprite2D" parent="." unique_id=273979772]
 position = Vector2(0, -16)

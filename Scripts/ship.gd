@@ -20,5 +20,5 @@ func _process(delta: float) -> void:
 	animation_player.speed_scale = 1 + (gold / 500)
 
 func _on_area_entered(obstacle: Obstacle) -> void:
-	if obstacle.damage() > 0: print("%d DAMAGE" % obstacle.damage())
-	if obstacle.gold() > 0: print("GOLD +%d" % obstacle.gold())
+	if obstacle.is_damaging: print("%d DAMAGE" % obstacle.damage())
+	if obstacle.is_gold: print("GOLD +%d" % obstacle.gold())
