@@ -68,5 +68,6 @@ func _process(delta: float) -> void:
 	position.y = get_viewport_rect().size.y - (delta_d * (get_viewport_rect().size.y - 48));
 
 func _on_area_entered(_area: Area2D) -> void:
-	print("COLLIDED");
+	if z_index < _area.z_index: return;
+	
 	self.queue_free()

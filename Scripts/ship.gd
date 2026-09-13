@@ -21,5 +21,11 @@ func _process(delta: float) -> void:
 	animation_player.speed_scale = 1 + (_gold / 500)
 
 func _on_area_entered(obstacle: Entity) -> void:
-	if obstacle.is_damaging: damage_taken.emit(obstacle.damage());
-	if obstacle.is_gold: gold_taken.emit(obstacle.gold());
+	if z_index > obstacle.z_index: return;
+	
+	if obstacle.is_damaging: 
+		_health -= obstacle.damage()
+		damage_taken.emit(_health);
+	if obstacle.is_gold:
+		_gold += obstacle.gold()
+		gold_taken.emit(_gold);

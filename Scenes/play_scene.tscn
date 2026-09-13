@@ -10,11 +10,16 @@
 [ext_resource type="Script" uid="uid://i7xq76g5pvbb" path="res://Scripts/UI/health_bar.gd" id="5_ivbpn"]
 [ext_resource type="Texture2D" uid="uid://dsojiqq6ktrwu" path="res://Assets/Sprites/hearts.png" id="6_io55t"]
 [ext_resource type="Texture2D" uid="uid://c4t06lg00gjy" path="res://Assets/Sprites/coin.png" id="10_knw1p"]
-[ext_resource type="Script" uid="uid://d4c7iw6xdus3v" path="res://Scripts/entity.gd" id="11_j3qlu"]
 [ext_resource type="Resource" uid="uid://qulyym73n8fl" path="res://Assets/Resources/shark_entity.tres" id="12_ivbpn"]
-[ext_resource type="Texture2D" uid="uid://ck258yie3336b" path="res://Assets/Sprites/clipping_mask.png" id="13_fbpj1"]
-[ext_resource type="Resource" uid="uid://csijcc10nc2mj" path="res://Assets/Resources/coin_entity.tres" id="13_io55t"]
-[ext_resource type="AnimationLibrary" uid="uid://pfu4k7ss0qye" path="res://Assets/Animations/entity_anims.tres" id="14_3cjv5"]
+[ext_resource type="PackedScene" uid="uid://b2cn7dwr1s7vj" path="res://Scenes/Prefabs/entity.tscn" id="15_fbpj1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ivbpn"]
+atlas = ExtResource("6_io55t")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_io55t"]
+atlas = ExtResource("6_io55t")
+region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vklac"]
 atlas = ExtResource("6_io55t")
@@ -66,26 +71,6 @@ _data = {
 &"default": SubResource("Animation_knw1p")
 }
 
-[sub_resource type="Animation" id="Animation_b1v8y"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Graphics:region_rect:position:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0.0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_v5u45"]
-_data = {
-&"RESET": SubResource("Animation_b1v8y")
-}
-
 [node name="PlayScene" type="Node2D" unique_id=458439781]
 
 [node name="GameState" type="Node2D" parent="." unique_id=1420079834]
@@ -104,7 +89,7 @@ grow_horizontal = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 
-[node name="Layout" type="HBoxContainer" parent="Canvas Layer/HealthBar" unique_id=807463794]
+[node name="Layout" type="HBoxContainer" parent="Canvas Layer/HealthBar" unique_id=807463794 node_paths=PackedStringArray("hearts")]
 propagate_maximum_size = false
 layout_mode = 1
 anchors_preset = 5
@@ -115,6 +100,9 @@ offset_right = 28.0
 offset_bottom = 16.0
 grow_horizontal = 2
 script = ExtResource("5_ivbpn")
+hearts = [NodePath("Heart1"), NodePath("Heart2"), NodePath("Heart3")]
+full_heart = SubResource("AtlasTexture_ivbpn")
+empty_heart = SubResource("AtlasTexture_io55t")
 
 [node name="Heart1" type="TextureRect" parent="Canvas Layer/HealthBar/Layout" unique_id=61537434]
 layout_mode = 2
@@ -179,49 +167,14 @@ position = Vector2(80, 72)
 
 [node name="PlayerShip" parent="." unique_id=630683284 instance=ExtResource("5_616no")]
 position = Vector2(80, 136)
+collision_mask = 2
+_health = 3
 
-[node name="Shark" type="Area2D" parent="." unique_id=355213405]
-z_index = -1
-position = Vector2(80, 48)
-scale = Vector2(0.8, 0.8)
-script = ExtResource("11_j3qlu")
-distance = 2.0
+[node name="Entity" parent="." unique_id=1546749861 instance=ExtResource("15_fbpj1")]
+position = Vector2(80, 0)
+collision_layer = 2
+collision_mask = 1
 res = ExtResource("12_ivbpn")
 
-[node name="Graphics" type="Sprite2D" parent="Shark" unique_id=1217976356]
-clip_children = 2
-
-[node name="Mask" type="Sprite2D" parent="Shark/Graphics" unique_id=1205552088]
-visible = false
-texture = ExtResource("13_fbpj1")
-
-[node name="CollisionBox" type="CollisionShape2D" parent="Shark" unique_id=475559142]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Shark" unique_id=1070795933]
-libraries/ = SubResource("AnimationLibrary_v5u45")
-libraries/entity_anims = ExtResource("14_3cjv5")
-autoplay = &"entity_anims/coin"
-
-[node name="Coin1" type="Area2D" parent="." unique_id=259630410]
-z_index = -1
-position = Vector2(80, 48)
-scale = Vector2(0.8, 0.8)
-script = ExtResource("11_j3qlu")
-res = ExtResource("13_io55t")
-
-[node name="Graphics" type="Sprite2D" parent="Coin1" unique_id=1667972865]
-clip_children = 2
-
-[node name="Mask" type="Sprite2D" parent="Coin1/Graphics" unique_id=222393277]
-visible = false
-texture = ExtResource("13_fbpj1")
-
-[node name="CollisionBox" type="CollisionShape2D" parent="Coin1" unique_id=663765513]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Coin1" unique_id=1018200551]
-libraries/ = SubResource("AnimationLibrary_v5u45")
-libraries/entity_anims = ExtResource("14_3cjv5")
-autoplay = &"entity_anims/coin"
-
-[connection signal="area_entered" from="Shark" to="Shark" method="_on_area_entered"]
-[connection signal="area_entered" from="Coin1" to="Coin1" method="_on_area_entered"]
+[connection signal="damage_taken" from="PlayerShip" to="Canvas Layer/HealthBar/Layout" method="on_damage_taken"]
+[connection signal="gold_taken" from="PlayerShip" to="Canvas Layer/Golds/Layout/Label" method="on_gold_taken"]

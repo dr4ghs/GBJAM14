@@ -27,7 +27,7 @@ _data = {
 [node name="Entity" type="Area2D" unique_id=355213405]
 z_index = -1
 scale = Vector2(0.8, 0.8)
-collision_layer = 2
+collision_mask = 0
 script = ExtResource("1_53wb5")
 
 [node name="Graphics" type="Sprite2D" parent="." unique_id=1217976356]
