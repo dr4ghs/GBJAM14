@@ -4,9 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://ck258yie3336b" path="res://Assets/Sprites/clipping_mask.png" id="2_sorwi"]
 [ext_resource type="AnimationLibrary" uid="uid://pfu4k7ss0qye" path="res://Assets/Animations/entity_anims.tres" id="3_4c1g7"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_45wvb"]
-size = Vector2(16, 16)
-
 [sub_resource type="Animation" id="Animation_b1v8y"]
 length = 0.001
 tracks/0/type = "value"
@@ -28,6 +25,8 @@ _data = {
 }
 
 [node name="Entity" type="Area2D" unique_id=355213405]
+z_index = -1
+scale = Vector2(0.8, 0.8)
 collision_layer = 2
 script = ExtResource("1_53wb5")
 
@@ -39,7 +38,6 @@ visible = false
 texture = ExtResource("2_sorwi")
 
 [node name="CollisionBox" type="CollisionShape2D" parent="." unique_id=475559142]
-shape = SubResource("RectangleShape2D_45wvb")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1070795933]
 libraries/ = SubResource("AnimationLibrary_v5u45")

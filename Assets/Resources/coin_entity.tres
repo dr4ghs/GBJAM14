@@ -12,6 +12,5 @@ script = ExtResource("1_dgmu1")
 gold = 1
 width = 1
 texture = SubResource("AtlasTexture_cqye3")
-atlas_size = Vector2(16, 16)
 anim_name = &"entity_anims/coin"
 metadata/_custom_type_script = "uid://bbjwpf1qcdh7b"

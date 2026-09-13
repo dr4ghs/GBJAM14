@@ -13,6 +13,9 @@ signal death();
 var _gold: int;
 var _curr_lane: int = 2;
 
+func gold() -> int:
+	return _gold;
+
 func _process(delta: float) -> void:
 	position.x = lerp(position.x, SpawnPoints.lanes[_curr_lane], 0.2);
 	animation_player.speed_scale = 1 + (_gold / 500)

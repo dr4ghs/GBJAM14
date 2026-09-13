@@ -1,5 +1,7 @@
 class_name PlayerShip extends Ship
 
+@export var speed: float = 1;
+
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("steer_left"):
 		if _curr_lane > 0: _curr_lane -= 1;

@@ -71,7 +71,6 @@ _data = {
 
 [node name="PlayerShip" type="Area2D" unique_id=630683284]
 script = ExtResource("1_p4o72")
-_health = 3
 
 [node name="Trail" type="Sprite2D" parent="." unique_id=962454058]
 z_index = -1
@@ -93,5 +92,3 @@ libraries/ = SubResource("AnimationLibrary_knw1p")
 autoplay = &"ship_idle"
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="damage_taken" from="." to="." method="_on_damage_taken"]
-[connection signal="gold_taken" from="." to="." method="_on_gold_taken"]

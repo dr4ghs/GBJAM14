@@ -15,12 +15,10 @@ var _damage: int;
 var is_gold: bool;
 var _gold: int;
 
-var speed: float;
-
 @export var res: EntityResource;
 
 func _ready() -> void:
-	populate(res, 1)
+	populate(res, distance)
 
 func populate(resource: EntityResource, dist: int) -> void:
 	is_damaging = resource.damage > 0;
@@ -37,9 +35,13 @@ func populate(resource: EntityResource, dist: int) -> void:
 	else:
 		gfx.texture = resource.texture;
 	
+	collisions.shape = RectangleShape2D.new();
+	(collisions.shape as RectangleShape2D).size = Vector2(16 * resource.width, 16);
+	
 	anim_player.current_animation = resource.anim_name;
 	
-	distance = PlaySceneConstants.calculate_distance(dist);
+	distance = PlaySceneConstants.MAX_DISTANCE + (float(dist) / 10);
+	position.y = SpawnPoints.obstacle_altitude;
 	
 	mask.visible = true;
 
@@ -54,14 +56,17 @@ func gold() -> int:
 	return 0;
 
 func _process(delta: float) -> void:
-	speed = (PlaySceneConstants.BASE_SPEED + (game_state.player._gold / 100));
-	var n: float = position.y - SpawnPoints.obstacle_altitude;
-	n -= PlaySceneConstants.MAX_DISTANCE / (PlaySceneConstants.MAX_DISTANCE - distance);
+	distance -= PlaySceneConstants.BASE_SPEED * game_state.player.speed * delta;
 	
-	if position.y > SpawnPoints.obstacle_altitude + 4:
+	var delta_d: float = snapped(-4 * pow(distance, 2) + 4 * distance, 0.01);
+	
+	if distance <= 0.5 and delta_d == 1: 
+		self.z_index = 0;
 		mask.visible = false;
+	if distance < 0.4: scale = Vector2(1, 1);
 	
-	position.y += speed * (n / 2) * delta;
+	position.y = get_viewport_rect().size.y - (delta_d * (get_viewport_rect().size.y - 48));
 
-func _on_area_entered(area: Area2D) -> void:
-	if is_gold: self.queue_free();
+func _on_area_entered(_area: Area2D) -> void:
+	print("COLLIDED");
+	self.queue_free()
