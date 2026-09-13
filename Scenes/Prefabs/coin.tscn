@@ -46,7 +46,6 @@ _data = {
 }
 
 [node name="Coin" type="Area2D" unique_id=1379323098]
-scale = Vector2(0.5, 0.5)
 script = ExtResource("1_wpps8")
 is_gold = true
 _gold = 1

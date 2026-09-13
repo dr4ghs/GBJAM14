@@ -9,8 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://dqfu4rshct0w1" path="res://Scenes/Prefabs/player_ship.tscn" id="5_616no"]
 [ext_resource type="Script" uid="uid://i7xq76g5pvbb" path="res://Scripts/UI/health_bar.gd" id="5_ivbpn"]
 [ext_resource type="Texture2D" uid="uid://dsojiqq6ktrwu" path="res://Assets/Sprites/hearts.png" id="6_io55t"]
-[ext_resource type="PackedScene" uid="uid://c6p521cmwxr8i" path="res://Scenes/Prefabs/coin.tscn" id="6_p805a"]
 [ext_resource type="Texture2D" uid="uid://c4t06lg00gjy" path="res://Assets/Sprites/coin.png" id="10_knw1p"]
+[ext_resource type="PackedScene" uid="uid://b2cn7dwr1s7vj" path="res://Scenes/Prefabs/entity.tscn" id="11_knw1p"]
+[ext_resource type="Resource" uid="uid://qulyym73n8fl" path="res://Assets/Resources/shark_entity.tres" id="12_ivbpn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vklac"]
 atlas = ExtResource("6_io55t")
@@ -156,9 +157,10 @@ position = Vector2(80, 72)
 
 [node name="PlayerShip" parent="." unique_id=630683284 instance=ExtResource("5_616no")]
 position = Vector2(80, 136)
+collision_mask = 2
 
-[node name="Coin" parent="." unique_id=1379323098 instance=ExtResource("6_p805a")]
-position = Vector2(80, 48)
-distance = 150.0
+[node name="Entity" parent="." unique_id=355213405 instance=ExtResource("11_knw1p")]
+position = Vector2(80, 40)
+res = ExtResource("12_ivbpn")
 
 [connection signal="gold_taken" from="PlayerShip" to="Canvas Layer/Golds/Layout/Label" method="on_gold_taken"]

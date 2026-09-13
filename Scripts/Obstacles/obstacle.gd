@@ -26,10 +26,6 @@ func _process(delta: float) -> void:
 	if position.y > SpawnPoints.obstacle_altitude + 4:
 		mask.visible = false;
 	
-	if position.y > SpawnPoints.obstacle_altitude + 8:
-		scale.x = 1;
-		scale.y = 1;
-	
 	position.y += speed * (n / 2) * delta;
 
 func damage() -> int:

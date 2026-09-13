@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EntityResource" format=3 uid="uid://csijcc10nc2mj"]
+
+[ext_resource type="Script" uid="uid://bbjwpf1qcdh7b" path="res://Scripts/Resources/entity_res.gd" id="1_dgmu1"]
+[ext_resource type="Texture2D" uid="uid://c4t06lg00gjy" path="res://Assets/Sprites/coin.png" id="2_cqye3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cqye3"]
+atlas = ExtResource("2_cqye3")
+region = Rect2(0, 0, 16, 16)
+
+[resource]
+script = ExtResource("1_dgmu1")
+gold = 1
+width = 1
+texture = SubResource("AtlasTexture_cqye3")
+atlas_size = Vector2(16, 16)
+anim_name = &"entity_anims/coin"
+metadata/_custom_type_script = "uid://bbjwpf1qcdh7b"

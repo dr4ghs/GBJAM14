@@ -1,0 +1,22 @@
+[gd_resource type="AnimationLibrary" format=3 uid="uid://pfu4k7ss0qye"]
+
+[sub_resource type="Animation" id="Animation_g6my2"]
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics:region_rect:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0.0, 16.0, 32.0, 16.0]
+}
+
+[resource]
+_data = {
+&"coin": SubResource("Animation_g6my2")
+}

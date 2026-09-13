@@ -17,6 +17,6 @@ func _process(delta: float) -> void:
 	position.x = lerp(position.x, SpawnPoints.lanes[_curr_lane], 0.2);
 	animation_player.speed_scale = 1 + (_gold / 500)
 
-func _on_area_entered(obstacle: Obstacle) -> void:
+func _on_area_entered(obstacle: Entity) -> void:
 	if obstacle.is_damaging: damage_taken.emit(obstacle.damage());
 	if obstacle.is_gold: gold_taken.emit(obstacle.gold());
