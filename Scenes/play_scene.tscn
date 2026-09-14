@@ -10,8 +10,12 @@
 [ext_resource type="Script" uid="uid://i7xq76g5pvbb" path="res://Scripts/UI/health_bar.gd" id="5_ivbpn"]
 [ext_resource type="Texture2D" uid="uid://dsojiqq6ktrwu" path="res://Assets/Sprites/hearts.png" id="6_io55t"]
 [ext_resource type="Texture2D" uid="uid://c4t06lg00gjy" path="res://Assets/Sprites/coin.png" id="10_knw1p"]
-[ext_resource type="Resource" uid="uid://qulyym73n8fl" path="res://Assets/Resources/shark_entity.tres" id="12_ivbpn"]
-[ext_resource type="PackedScene" uid="uid://b2cn7dwr1s7vj" path="res://Scenes/Prefabs/entity.tscn" id="15_fbpj1"]
+[ext_resource type="Script" uid="uid://cgsv7pym7c47w" path="res://Scripts/entities_spawner.gd" id="11_knw1p"]
+[ext_resource type="Script" uid="uid://dxrsmg2rofqnv" path="res://Scripts/Resources/spawn_pattern.gd" id="12_j3qlu"]
+[ext_resource type="Script" uid="uid://buq1dvdvcbo5g" path="res://Scripts/Resources/spawn_entry.gd" id="13_fbpj1"]
+[ext_resource type="Script" uid="uid://dlc0aw4h320c2" path="res://Scripts/despawn_area.gd" id="13_io55t"]
+[ext_resource type="Resource" uid="uid://csijcc10nc2mj" path="res://Assets/Resources/coin_entity.tres" id="14_3cjv5"]
+[ext_resource type="Resource" uid="uid://qulyym73n8fl" path="res://Assets/Resources/shark_entity.tres" id="15_2kn3l"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ivbpn"]
 atlas = ExtResource("6_io55t")
@@ -70,6 +74,89 @@ _data = {
 &"RESET": SubResource("Animation_blhi5"),
 &"default": SubResource("Animation_knw1p")
 }
+
+[sub_resource type="Resource" id="Resource_w43cx"]
+script = ExtResource("13_fbpj1")
+entity = ExtResource("14_3cjv5")
+distance = 2.0
+metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
+
+[sub_resource type="Resource" id="Resource_7wcbn"]
+script = ExtResource("13_fbpj1")
+entity = ExtResource("14_3cjv5")
+distance = 1.0
+metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
+
+[sub_resource type="Resource" id="Resource_xjh8a"]
+script = ExtResource("13_fbpj1")
+entity = ExtResource("14_3cjv5")
+metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
+
+[sub_resource type="Resource" id="Resource_fg1lf"]
+script = ExtResource("12_j3qlu")
+entities = Array[ExtResource("13_fbpj1")]([SubResource("Resource_w43cx"), SubResource("Resource_7wcbn"), SubResource("Resource_xjh8a")])
+wait_time = 3.0
+metadata/_custom_type_script = "uid://dxrsmg2rofqnv"
+
+[sub_resource type="Resource" id="Resource_lneu0"]
+script = ExtResource("12_j3qlu")
+entities = Array[ExtResource("13_fbpj1")]([SubResource("Resource_w43cx"), SubResource("Resource_7wcbn"), SubResource("Resource_xjh8a")])
+wait_time = 3.0
+lane_shift = -1
+metadata/_custom_type_script = "uid://dxrsmg2rofqnv"
+
+[sub_resource type="Resource" id="Resource_45wvb"]
+script = ExtResource("13_fbpj1")
+entity = ExtResource("14_3cjv5")
+lane = 0
+metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
+
+[sub_resource type="Resource" id="Resource_cp8yn"]
+script = ExtResource("13_fbpj1")
+entity = ExtResource("14_3cjv5")
+lane = 4
+metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
+
+[sub_resource type="Resource" id="Resource_j3qlu"]
+script = ExtResource("13_fbpj1")
+entity = ExtResource("15_2kn3l")
+lane = 1
+distance = 1.0
+metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
+
+[sub_resource type="Resource" id="Resource_fbpj1"]
+script = ExtResource("13_fbpj1")
+entity = ExtResource("15_2kn3l")
+lane = 3
+distance = 1.0
+metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
+
+[sub_resource type="Resource" id="Resource_3cjv5"]
+script = ExtResource("13_fbpj1")
+entity = ExtResource("14_3cjv5")
+distance = 2.0
+metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
+
+[sub_resource type="Resource" id="Resource_2kn3l"]
+script = ExtResource("13_fbpj1")
+entity = ExtResource("14_3cjv5")
+distance = 3.0
+metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
+
+[sub_resource type="Resource" id="Resource_8n5jp"]
+script = ExtResource("13_fbpj1")
+entity = ExtResource("14_3cjv5")
+distance = 4.0
+metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
+
+[sub_resource type="Resource" id="Resource_3wskg"]
+script = ExtResource("12_j3qlu")
+entities = Array[ExtResource("13_fbpj1")]([SubResource("Resource_45wvb"), SubResource("Resource_cp8yn"), SubResource("Resource_j3qlu"), SubResource("Resource_fbpj1"), SubResource("Resource_3cjv5"), SubResource("Resource_2kn3l"), SubResource("Resource_8n5jp")])
+metadata/_custom_type_script = "uid://dxrsmg2rofqnv"
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_loj0l"]
+a = Vector2(0, 191)
+b = Vector2(160, 191)
 
 [node name="PlayScene" type="Node2D" unique_id=458439781]
 
@@ -170,11 +257,18 @@ position = Vector2(80, 136)
 collision_mask = 2
 _health = 3
 
-[node name="Entity" parent="." unique_id=1546749861 instance=ExtResource("15_fbpj1")]
-position = Vector2(80, 0)
-collision_layer = 2
-collision_mask = 1
-res = ExtResource("12_ivbpn")
+[node name="EntitiesSpawner" type="Node2D" parent="." unique_id=1555581684]
+script = ExtResource("11_knw1p")
+pattern = Array[ExtResource("12_j3qlu")]([SubResource("Resource_fg1lf"), SubResource("Resource_lneu0"), SubResource("Resource_3wskg")])
+
+[node name="DespawnArea" type="Area2D" parent="." unique_id=1608426840]
+collision_layer = 512
+collision_mask = 2
+script = ExtResource("13_io55t")
+
+[node name="CollisionLine" type="CollisionShape2D" parent="DespawnArea" unique_id=1177822595]
+shape = SubResource("SegmentShape2D_loj0l")
 
 [connection signal="damage_taken" from="PlayerShip" to="Canvas Layer/HealthBar/Layout" method="on_damage_taken"]
 [connection signal="gold_taken" from="PlayerShip" to="Canvas Layer/Golds/Layout/Label" method="on_gold_taken"]
+[connection signal="area_entered" from="DespawnArea" to="DespawnArea" method="_on_area_entered"]

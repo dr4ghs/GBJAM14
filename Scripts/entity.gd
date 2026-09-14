@@ -1,7 +1,6 @@
 class_name Entity
 extends Area2D
 
-@onready var game_state: GameStateManager = %GameState;
 @onready var gfx: Sprite2D = $Graphics;
 @onready var mask: Sprite2D = $Graphics/Mask;
 @onready var collisions: CollisionShape2D = $CollisionBox;
@@ -16,9 +15,6 @@ var is_gold: bool;
 var _gold: int;
 
 @export var res: EntityResource;
-
-func _ready() -> void:
-	populate(res, distance)
 
 func populate(resource: EntityResource, dist: int) -> void:
 	is_damaging = resource.damage > 0;
@@ -56,7 +52,8 @@ func gold() -> int:
 	return 0;
 
 func _process(delta: float) -> void:
-	distance -= PlaySceneConstants.BASE_SPEED * game_state.player.speed * delta;
+	distance -= PlaySceneConstants.BASE_SPEED * PlayerStats.speed * delta;
+	if distance > PlaySceneConstants.MAX_DISTANCE: return;
 	
 	var delta_d: float = snapped(-4 * pow(distance, 2) + 4 * distance, 0.01);
 	
