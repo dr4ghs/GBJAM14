@@ -7,6 +7,7 @@ signal death();
 @onready var collision_box: CollisionShape2D = $CollisionBox;
 @onready var graphics: Sprite2D = $Graphics;
 @onready var animation_player: AnimationPlayer = $AnimationPlayer;
+@onready var coin: AnimationPlayer = $Coin/AnimationPlayer
 
 @export var _health: int;
 
@@ -17,6 +18,11 @@ func gold() -> int:
 	return _gold;
 
 func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("steer_left"):
+		if _curr_lane > 0: _curr_lane -= 1;
+	elif Input.is_action_just_pressed("steer_right"):
+		if _curr_lane < len(SpawnPoints.lanes) - 1: _curr_lane += 1;
+	
 	position.x = lerp(position.x, SpawnPoints.lanes[_curr_lane], 0.2);
 	animation_player.speed_scale = 1 + (_gold / 500)
 
@@ -25,7 +31,10 @@ func _on_area_entered(obstacle: Entity) -> void:
 	
 	if obstacle.is_damaging: 
 		_health -= obstacle.damage()
-		damage_taken.emit(_health);
+		if (_health <= 0): death.emit();
+		else: damage_taken.emit(_health);
 	if obstacle.is_gold:
 		_gold += obstacle.gold()
+		coin.stop();
+		coin.play("defualt");
 		gold_taken.emit(_gold);

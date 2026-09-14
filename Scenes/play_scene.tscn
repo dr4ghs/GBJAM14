@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://ciqdjthet6xcq"]
 
-[ext_resource type="Script" uid="uid://d2vkre6j4fohq" path="res://Scripts/game_state_manager.gd" id="1_p805a"]
 [ext_resource type="Script" uid="uid://do1y72rfs57e" path="res://Scripts/background.gd" id="2_5lpdq"]
 [ext_resource type="FontFile" uid="uid://dx73sdghq4d41" path="res://Fonts/game-boy-startup-font.otf" id="2_p805a"]
 [ext_resource type="Texture2D" uid="uid://nde2ijd35xup" path="res://Assets/Sprites/background.png" id="2_s0nau"]
@@ -130,10 +129,6 @@ b = Vector2(160, 191)
 
 [node name="PlayScene" type="Node2D" unique_id=458439781]
 
-[node name="GameState" type="Node2D" parent="." unique_id=1420079834]
-unique_name_in_owner = true
-script = ExtResource("1_p805a")
-
 [node name="Canvas Layer" type="CanvasLayer" parent="." unique_id=327212048]
 follow_viewport_enabled = true
 
@@ -241,4 +236,6 @@ _health = 3
 
 [connection signal="area_entered" from="DespawnArea" to="DespawnArea" method="_on_area_entered"]
 [connection signal="damage_taken" from="PlayerShip" to="Canvas Layer/HealthBar/Layout" method="on_damage_taken"]
+[connection signal="damage_taken" from="PlayerShip" to="PlayerShip" method="_on_damage_taken"]
 [connection signal="gold_taken" from="PlayerShip" to="Canvas Layer/Golds/Layout/Label" method="on_gold_taken"]
+[connection signal="gold_taken" from="PlayerShip" to="PlayerShip" method="_on_gold_taken"]
