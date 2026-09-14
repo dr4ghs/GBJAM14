@@ -8,12 +8,12 @@
 [ext_resource type="PackedScene" uid="uid://dqfu4rshct0w1" path="res://Scenes/Prefabs/player_ship.tscn" id="5_616no"]
 [ext_resource type="Script" uid="uid://i7xq76g5pvbb" path="res://Scripts/UI/health_bar.gd" id="5_ivbpn"]
 [ext_resource type="Texture2D" uid="uid://dsojiqq6ktrwu" path="res://Assets/Sprites/hearts.png" id="6_io55t"]
+[ext_resource type="Script" uid="uid://yfhna855ntn1" path="res://Scripts/play_scene_camera_controller.gd" id="9_j3qlu"]
 [ext_resource type="Texture2D" uid="uid://c4t06lg00gjy" path="res://Assets/Sprites/coin.png" id="10_knw1p"]
 [ext_resource type="Script" uid="uid://cgsv7pym7c47w" path="res://Scripts/entities_spawner.gd" id="11_knw1p"]
 [ext_resource type="Script" uid="uid://dxrsmg2rofqnv" path="res://Scripts/Resources/spawn_pattern.gd" id="12_j3qlu"]
 [ext_resource type="Script" uid="uid://buq1dvdvcbo5g" path="res://Scripts/Resources/spawn_entry.gd" id="13_fbpj1"]
 [ext_resource type="Script" uid="uid://dlc0aw4h320c2" path="res://Scripts/despawn_area.gd" id="13_io55t"]
-[ext_resource type="Resource" uid="uid://csijcc10nc2mj" path="res://Assets/Resources/coin_entity.tres" id="14_3cjv5"]
 [ext_resource type="Resource" uid="uid://qulyym73n8fl" path="res://Assets/Resources/shark_entity.tres" id="15_2kn3l"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ivbpn"]
@@ -74,53 +74,64 @@ _data = {
 &"default": SubResource("Animation_knw1p")
 }
 
-[sub_resource type="Resource" id="Resource_45wvb"]
-script = ExtResource("13_fbpj1")
-entity = ExtResource("14_3cjv5")
-lane = 0
-metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
+[sub_resource type="Animation" id="Animation_j3qlu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
 
-[sub_resource type="Resource" id="Resource_cp8yn"]
-script = ExtResource("13_fbpj1")
-entity = ExtResource("14_3cjv5")
-lane = 4
-metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
+[sub_resource type="Animation" id="Animation_45wvb"]
+resource_name = "shake"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [-3.0, 3.0, -2.0, 2.0, -1.0, 1.0, 0.0]
+}
 
-[sub_resource type="Resource" id="Resource_j3qlu"]
-script = ExtResource("13_fbpj1")
-entity = ExtResource("15_2kn3l")
-lane = 1
-distance = 1.0
-metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j3qlu"]
+_data = {
+&"RESET": SubResource("Animation_j3qlu"),
+&"shake": SubResource("Animation_45wvb")
+}
 
 [sub_resource type="Resource" id="Resource_fbpj1"]
 script = ExtResource("13_fbpj1")
 entity = ExtResource("15_2kn3l")
-lane = 3
-distance = 1.0
+lane = 1
 metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
 
 [sub_resource type="Resource" id="Resource_3cjv5"]
 script = ExtResource("13_fbpj1")
-entity = ExtResource("14_3cjv5")
-distance = 2.0
+entity = ExtResource("15_2kn3l")
+lane = 3
 metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
 
 [sub_resource type="Resource" id="Resource_2kn3l"]
 script = ExtResource("13_fbpj1")
-entity = ExtResource("14_3cjv5")
-distance = 3.0
+entity = ExtResource("15_2kn3l")
+distance = 1.0
 metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
 
-[sub_resource type="Resource" id="Resource_8n5jp"]
-script = ExtResource("13_fbpj1")
-entity = ExtResource("14_3cjv5")
-distance = 4.0
-metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
-
-[sub_resource type="Resource" id="Resource_3wskg"]
+[sub_resource type="Resource" id="Resource_j3qlu"]
 script = ExtResource("12_j3qlu")
-entities = Array[ExtResource("13_fbpj1")]([SubResource("Resource_45wvb"), SubResource("Resource_cp8yn"), SubResource("Resource_j3qlu"), SubResource("Resource_fbpj1"), SubResource("Resource_3cjv5"), SubResource("Resource_2kn3l"), SubResource("Resource_8n5jp")])
+entities = Array[ExtResource("13_fbpj1")]([SubResource("Resource_fbpj1"), SubResource("Resource_3cjv5"), SubResource("Resource_2kn3l")])
 metadata/_custom_type_script = "uid://dxrsmg2rofqnv"
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_loj0l"]
@@ -216,10 +227,14 @@ autoplay = &"default"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1155018366]
 position = Vector2(80, 72)
+script = ExtResource("9_j3qlu")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera2D" unique_id=602952602]
+libraries/ = SubResource("AnimationLibrary_j3qlu")
 
 [node name="EntitiesSpawner" type="Node2D" parent="." unique_id=1555581684]
 script = ExtResource("11_knw1p")
-pattern = Array[ExtResource("12_j3qlu")]([SubResource("Resource_3wskg")])
+pattern = Array[ExtResource("12_j3qlu")]([SubResource("Resource_j3qlu")])
 
 [node name="DespawnArea" type="Area2D" parent="." unique_id=1608426840]
 collision_layer = 512
@@ -236,6 +251,7 @@ _health = 3
 
 [connection signal="area_entered" from="DespawnArea" to="DespawnArea" method="_on_area_entered"]
 [connection signal="damage_taken" from="PlayerShip" to="Canvas Layer/HealthBar/Layout" method="on_damage_taken"]
+[connection signal="damage_taken" from="PlayerShip" to="Camera2D" method="screen_shake"]
 [connection signal="damage_taken" from="PlayerShip" to="PlayerShip" method="_on_damage_taken"]
 [connection signal="gold_taken" from="PlayerShip" to="Canvas Layer/Golds/Layout/Label" method="on_gold_taken"]
 [connection signal="gold_taken" from="PlayerShip" to="PlayerShip" method="_on_gold_taken"]

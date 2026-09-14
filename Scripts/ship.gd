@@ -13,9 +13,14 @@ signal death();
 
 var _gold: int;
 var _curr_lane: int = 2;
+var damaged: bool;
 
 func gold() -> int:
 	return _gold;
+
+func on_damaged_anim_end() -> void:
+	animation_player.play("ship_idle");
+	damaged = false;
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("steer_left"):
@@ -29,10 +34,13 @@ func _process(delta: float) -> void:
 func _on_area_entered(obstacle: Entity) -> void:
 	if z_index > obstacle.z_index: return;
 	
-	if obstacle.is_damaging: 
+	if obstacle.is_damaging and not damaged:
 		_health -= obstacle.damage()
 		if (_health <= 0): death.emit();
-		else: damage_taken.emit(_health);
+		else:
+			damaged = true;
+			animation_player.play("damaged"); 
+			damage_taken.emit(_health);
 	if obstacle.is_gold:
 		_gold += obstacle.gold()
 		coin.stop();
