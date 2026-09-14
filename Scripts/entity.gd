@@ -1,6 +1,10 @@
 class_name Entity
 extends Area2D
 
+const WARN_SIGN_Y: int = 32;
+
+var warn_sign: PackedScene = preload("res://Scenes/Prefabs/warning_sign.tscn");
+
 @onready var gfx: Sprite2D = $Graphics;
 @onready var mask: Sprite2D = $Graphics/Mask;
 @onready var collisions: CollisionShape2D = $CollisionBox;
@@ -13,6 +17,8 @@ var _damage: int;
 
 var is_gold: bool;
 var _gold: int;
+
+var warned: bool;
 
 @export var res: EntityResource;
 
@@ -53,6 +59,14 @@ func gold() -> int:
 
 func _process(delta: float) -> void:
 	distance -= PlaySceneConstants.BASE_SPEED * PlayerStats.speed * delta;
+	
+	if is_damaging and not warned and distance <= PlaySceneConstants.MAX_DISTANCE * 0.75:
+		var warn: Node = warn_sign.instantiate();
+		$"..".add_child(warn);
+		warn.position.y = WARN_SIGN_Y;
+		warn.position.x = position.x;
+		warned = true;
+	
 	if distance > PlaySceneConstants.MAX_DISTANCE: return;
 	
 	var delta_d: float = snapped(-4 * pow(distance, 2) + 4 * distance, 0.01);

@@ -3,7 +3,7 @@ extends Node
 
 @export var pattern: Array[SpawnPattern];
 
-var entity_scene = preload("res://Scenes/Prefabs/entity.tscn");
+var entity_scene: PackedScene = preload("res://Scenes/Prefabs/entity.tscn");
 
 var wait_time: float;
 var curr_pattern: int;
@@ -16,6 +16,7 @@ func spawn() -> void:
 		add_child(entity);
 		entity.populate(res.entity, res.distance);
 		entity.position.x = SpawnPoints.lanes[res.lane + pattern[curr_pattern].lane_shift];
+		
 	wait_time = pattern[curr_pattern].wait_time;
 	curr_pattern += 1;
 

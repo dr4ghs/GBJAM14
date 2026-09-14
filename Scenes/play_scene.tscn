@@ -75,36 +75,6 @@ _data = {
 &"default": SubResource("Animation_knw1p")
 }
 
-[sub_resource type="Resource" id="Resource_w43cx"]
-script = ExtResource("13_fbpj1")
-entity = ExtResource("14_3cjv5")
-distance = 2.0
-metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
-
-[sub_resource type="Resource" id="Resource_7wcbn"]
-script = ExtResource("13_fbpj1")
-entity = ExtResource("14_3cjv5")
-distance = 1.0
-metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
-
-[sub_resource type="Resource" id="Resource_xjh8a"]
-script = ExtResource("13_fbpj1")
-entity = ExtResource("14_3cjv5")
-metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
-
-[sub_resource type="Resource" id="Resource_fg1lf"]
-script = ExtResource("12_j3qlu")
-entities = Array[ExtResource("13_fbpj1")]([SubResource("Resource_w43cx"), SubResource("Resource_7wcbn"), SubResource("Resource_xjh8a")])
-wait_time = 3.0
-metadata/_custom_type_script = "uid://dxrsmg2rofqnv"
-
-[sub_resource type="Resource" id="Resource_lneu0"]
-script = ExtResource("12_j3qlu")
-entities = Array[ExtResource("13_fbpj1")]([SubResource("Resource_w43cx"), SubResource("Resource_7wcbn"), SubResource("Resource_xjh8a")])
-wait_time = 3.0
-lane_shift = -1
-metadata/_custom_type_script = "uid://dxrsmg2rofqnv"
-
 [sub_resource type="Resource" id="Resource_45wvb"]
 script = ExtResource("13_fbpj1")
 entity = ExtResource("14_3cjv5")
@@ -252,14 +222,9 @@ autoplay = &"default"
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1155018366]
 position = Vector2(80, 72)
 
-[node name="PlayerShip" parent="." unique_id=630683284 instance=ExtResource("5_616no")]
-position = Vector2(80, 136)
-collision_mask = 2
-_health = 3
-
 [node name="EntitiesSpawner" type="Node2D" parent="." unique_id=1555581684]
 script = ExtResource("11_knw1p")
-pattern = Array[ExtResource("12_j3qlu")]([SubResource("Resource_fg1lf"), SubResource("Resource_lneu0"), SubResource("Resource_3wskg")])
+pattern = Array[ExtResource("12_j3qlu")]([SubResource("Resource_3wskg")])
 
 [node name="DespawnArea" type="Area2D" parent="." unique_id=1608426840]
 collision_layer = 512
@@ -269,6 +234,11 @@ script = ExtResource("13_io55t")
 [node name="CollisionLine" type="CollisionShape2D" parent="DespawnArea" unique_id=1177822595]
 shape = SubResource("SegmentShape2D_loj0l")
 
+[node name="PlayerShip" parent="." unique_id=630683284 instance=ExtResource("5_616no")]
+position = Vector2(80, 136)
+collision_mask = 2
+_health = 3
+
+[connection signal="area_entered" from="DespawnArea" to="DespawnArea" method="_on_area_entered"]
 [connection signal="damage_taken" from="PlayerShip" to="Canvas Layer/HealthBar/Layout" method="on_damage_taken"]
 [connection signal="gold_taken" from="PlayerShip" to="Canvas Layer/Golds/Layout/Label" method="on_gold_taken"]
-[connection signal="area_entered" from="DespawnArea" to="DespawnArea" method="_on_area_entered"]

@@ -73,12 +73,10 @@ _data = {
 script = ExtResource("1_p4o72")
 
 [node name="Trail" type="Sprite2D" parent="." unique_id=962454058]
-z_index = -1
 position = Vector2(0, 4)
 texture = ExtResource("2_jbf0a")
 
 [node name="Graphics" type="Sprite2D" parent="." unique_id=23222570]
-z_index = 1
 position = Vector2(0, -6)
 texture = ExtResource("3_pik1w")
 
