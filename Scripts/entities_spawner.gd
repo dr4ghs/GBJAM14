@@ -1,24 +1,26 @@
 class_name EntitiesSpawner
 extends Node
 
-@export var pattern: Array[SpawnPattern];
+@export var pattern: SpawnPattern;
 
 var entity_scene: PackedScene = preload("res://Scenes/Prefabs/entity.tscn");
 
 var wait_time: float;
-var curr_pattern: int;
 
 func spawn() -> void:
-	if curr_pattern >= len(pattern): return;
-	
-	for res in pattern[curr_pattern].entities:
+	var lane: float = 0;
+	if pattern.random_lane:
+		lane = SpawnPoints.lanes[randi() % 5];
+	for res in pattern.entities:
 		var entity: Entity = entity_scene.instantiate();
 		add_child(entity);
-		entity.populate(res.entity, res.distance);
-		entity.position.x = SpawnPoints.lanes[res.lane + pattern[curr_pattern].lane_shift];
+		entity.populate(res.entity, int(res.distance));
+		if pattern.random_lane:
+			entity.position.x = lane;
+		else:
+			entity.position.x = SpawnPoints.lanes[res.lane + pattern.lane_shift];
 		
-	wait_time = pattern[curr_pattern].wait_time;
-	curr_pattern += 1;
+	wait_time = pattern.wait_time;
 
 func _ready() -> void:
 	spawn();

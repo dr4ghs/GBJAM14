@@ -11,10 +11,8 @@
 [ext_resource type="Script" uid="uid://yfhna855ntn1" path="res://Scripts/play_scene_camera_controller.gd" id="9_j3qlu"]
 [ext_resource type="Texture2D" uid="uid://c4t06lg00gjy" path="res://Assets/Sprites/coin.png" id="10_knw1p"]
 [ext_resource type="Script" uid="uid://cgsv7pym7c47w" path="res://Scripts/entities_spawner.gd" id="11_knw1p"]
-[ext_resource type="Script" uid="uid://dxrsmg2rofqnv" path="res://Scripts/Resources/spawn_pattern.gd" id="12_j3qlu"]
-[ext_resource type="Script" uid="uid://buq1dvdvcbo5g" path="res://Scripts/Resources/spawn_entry.gd" id="13_fbpj1"]
+[ext_resource type="Resource" uid="uid://uqh55qaj8jw" path="res://Assets/Resources/Patterns/three_coin_col.tres" id="12_45wvb"]
 [ext_resource type="Script" uid="uid://dlc0aw4h320c2" path="res://Scripts/despawn_area.gd" id="13_io55t"]
-[ext_resource type="Resource" uid="uid://qulyym73n8fl" path="res://Assets/Resources/shark_entity.tres" id="15_2kn3l"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ivbpn"]
 atlas = ExtResource("6_io55t")
@@ -110,29 +108,6 @@ _data = {
 &"RESET": SubResource("Animation_j3qlu"),
 &"shake": SubResource("Animation_45wvb")
 }
-
-[sub_resource type="Resource" id="Resource_fbpj1"]
-script = ExtResource("13_fbpj1")
-entity = ExtResource("15_2kn3l")
-lane = 1
-metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
-
-[sub_resource type="Resource" id="Resource_3cjv5"]
-script = ExtResource("13_fbpj1")
-entity = ExtResource("15_2kn3l")
-lane = 3
-metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
-
-[sub_resource type="Resource" id="Resource_2kn3l"]
-script = ExtResource("13_fbpj1")
-entity = ExtResource("15_2kn3l")
-distance = 1.0
-metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
-
-[sub_resource type="Resource" id="Resource_j3qlu"]
-script = ExtResource("12_j3qlu")
-entities = Array[ExtResource("13_fbpj1")]([SubResource("Resource_fbpj1"), SubResource("Resource_3cjv5"), SubResource("Resource_2kn3l")])
-metadata/_custom_type_script = "uid://dxrsmg2rofqnv"
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_loj0l"]
 a = Vector2(0, 191)
@@ -234,7 +209,7 @@ libraries/ = SubResource("AnimationLibrary_j3qlu")
 
 [node name="EntitiesSpawner" type="Node2D" parent="." unique_id=1555581684]
 script = ExtResource("11_knw1p")
-pattern = Array[ExtResource("12_j3qlu")]([SubResource("Resource_j3qlu")])
+pattern = ExtResource("12_45wvb")
 
 [node name="DespawnArea" type="Area2D" parent="." unique_id=1608426840]
 collision_layer = 512

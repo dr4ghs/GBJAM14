@@ -3,5 +3,5 @@ extends Node2D
 
 @onready var anim_player: AnimationPlayer = $AnimationPlayer;
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	anim_player.speed_scale = PlayerStats.speed

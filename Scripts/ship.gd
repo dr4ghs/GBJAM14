@@ -22,14 +22,14 @@ func on_damaged_anim_end() -> void:
 	animation_player.play("ship_idle");
 	damaged = false;
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("steer_left"):
 		if _curr_lane > 0: _curr_lane -= 1;
 	elif Input.is_action_just_pressed("steer_right"):
 		if _curr_lane < len(SpawnPoints.lanes) - 1: _curr_lane += 1;
 	
 	position.x = lerp(position.x, SpawnPoints.lanes[_curr_lane], 0.2);
-	animation_player.speed_scale = 1 + (_gold / 500)
+	animation_player.speed_scale = PlayerStats.speed;
 
 func _on_area_entered(obstacle: Entity) -> void:
 	if z_index > obstacle.z_index: return;

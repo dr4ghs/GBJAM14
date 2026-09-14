@@ -24,4 +24,6 @@ metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
 [resource]
 script = ExtResource("2_7wcbn")
 entities = Array[ExtResource("1_w43cx")]([SubResource("Resource_w43cx"), SubResource("Resource_7wcbn"), SubResource("Resource_xjh8a")])
+wait_time = 2.0
+random_lane = true
 metadata/_custom_type_script = "uid://dxrsmg2rofqnv"
