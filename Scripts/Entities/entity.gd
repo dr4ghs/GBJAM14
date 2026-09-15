@@ -58,7 +58,7 @@ func gold() -> int:
 	return 0;
 
 func _process(delta: float) -> void:
-	distance -= PlaySceneConstants.BASE_SPEED * PlayerStats.speed * delta;
+	distance -= PlaySceneConstants.BASE_SPEED * PlayerStats.curr_speed * delta;
 	
 	if is_damaging and not warned and distance <= PlaySceneConstants.MAX_DISTANCE * 0.75:
 		var warn: Node = warn_sign.instantiate();

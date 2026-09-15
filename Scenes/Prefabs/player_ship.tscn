@@ -5,6 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://isotmmuukf6g" path="res://Assets/Sprites/ship.png" id="3_pik1w"]
 [ext_resource type="Texture2D" uid="uid://c4t06lg00gjy" path="res://Assets/Sprites/coin.png" id="4_jbf0a"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_3cjv5"]
+atlas = ExtResource("3_pik1w")
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ipgva"]
 size = Vector2(16, 24)
 
@@ -59,6 +62,30 @@ tracks/3/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Graphics:region_rect:position:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Trail:position:y")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4.0]
+}
 
 [sub_resource type="Animation" id="Animation_24gcl"]
 resource_name = "damaged"
@@ -102,6 +129,51 @@ tracks/2/keys = {
 "values": [true, false]
 }
 
+[sub_resource type="Animation" id="Animation_wbm7o"]
+resource_name = "death"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-18.5, 38.5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Trail:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [4.5, 61.0]
+}
+
+[sub_resource type="Animation" id="Animation_vssdm"]
+resource_name = "invincible"
+length = 0.19999999999999998
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics:region_rect:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0.0, 32.0]
+}
+
 [sub_resource type="Animation" id="Animation_pakvq"]
 resource_name = "ship_idle"
 loop_mode = 1
@@ -129,11 +201,25 @@ tracks/1/keys = {
 "update": 1,
 "values": [1.0, 0.9]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Graphics:region_rect:position:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_knw1p"]
 _data = {
 &"RESET": SubResource("Animation_j1m55"),
 &"damaged": SubResource("Animation_24gcl"),
+&"death": SubResource("Animation_wbm7o"),
+&"invincible": SubResource("Animation_vssdm"),
 &"ship_idle": SubResource("Animation_pakvq")
 }
 
@@ -263,7 +349,9 @@ texture = ExtResource("2_jbf0a")
 
 [node name="Graphics" type="Sprite2D" parent="." unique_id=23222570]
 position = Vector2(0, -6)
-texture = ExtResource("3_pik1w")
+texture = SubResource("AtlasTexture_3cjv5")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 38)
 
 [node name="CollisionBox" type="CollisionShape2D" parent="." unique_id=159209679]
 z_index = 10
@@ -287,3 +375,4 @@ frame_progress = 0.41375318
 libraries/ = SubResource("AnimationLibrary_24gcl")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="death" from="." to="." method="on_death"]
