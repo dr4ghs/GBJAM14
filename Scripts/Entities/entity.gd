@@ -78,7 +78,8 @@ func _process(delta: float) -> void:
 	
 	position.y = get_viewport_rect().size.y - (delta_d * (get_viewport_rect().size.y - 48));
 
-func _on_area_entered(_area: Area2D) -> void:
-	if z_index < _area.z_index: return;
+func _on_area_entered(area: Area2D) -> void:
+	if z_index < area.z_index: return;
+	if is_damaging: return;
 	
 	self.queue_free()

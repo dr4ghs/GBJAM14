@@ -33,7 +33,7 @@ func on_damaged_anim_end() -> void:
 	animation_player.play("idle");
 	damaged = false;
 
-func on_death() -> void:
+func _on_death() -> void:
 	animation_player.play("death");
 	PlayerStats.curr_speed = 0;
 
@@ -41,6 +41,8 @@ func _ready() -> void:
 	setup();
 
 func _process(delta: float) -> void:
+	if _health <= 0: return;
+	
 	if Input.is_action_just_pressed("steer_left"):
 		if _curr_lane > 0: _curr_lane -= 1;
 	elif Input.is_action_just_pressed("steer_right"):
@@ -60,21 +62,22 @@ func _process(delta: float) -> void:
 			invincible = false;
 			ship_gfx.region_rect.position.x = 0;
 			animation_player.play("idle");
-	
-func _on_area_entered(obstacle: Entity) -> void:
-	if z_index > obstacle.z_index: return;
+
+func _on_area_entered(entity: Entity) -> void:
+	if z_index > entity.z_index: return;
 	if _health <= 0: return;
 	
-	if obstacle.is_damaging and not damaged:
+	if entity.is_damaging and not damaged:
 		if invincible: return;
 		
-		_health -= obstacle.damage()
+		_health -= entity.damage()
 		damaged = true;
 		animation_player.play("damaged"); 
 		damage_taken.emit(_health);
 		if (_health <= 0): death.emit();
-	if obstacle.is_gold:
-		_gold += obstacle.gold()
+	
+	if entity.is_gold:
+		_gold += entity.gold()
 		coin.stop();
 		coin.play("defualt");
 		gold_taken.emit(_gold);

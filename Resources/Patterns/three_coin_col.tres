@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://buq1dvdvcbo5g" path="res://Scripts/Resources/spawn_entry.gd" id="1_w43cx"]
 [ext_resource type="Script" uid="uid://dxrsmg2rofqnv" path="res://Scripts/Resources/spawn_pattern.gd" id="2_7wcbn"]
-[ext_resource type="Resource" uid="uid://csijcc10nc2mj" path="res://Assets/Resources/coin_entity.tres" id="2_xjh8a"]
-[ext_resource type="Resource" uid="uid://qulyym73n8fl" path="res://Assets/Resources/shark_entity.tres" id="3_fjt65"]
+[ext_resource type="Resource" uid="uid://csijcc10nc2mj" path="res://Resources/Entities/coin_entity.tres" id="2_xjh8a"]
+[ext_resource type="Resource" uid="uid://qulyym73n8fl" path="res://Resources/Entities/shark_entity.tres" id="3_fjt65"]
 
 [sub_resource type="Resource" id="Resource_w43cx"]
 script = ExtResource("1_w43cx")

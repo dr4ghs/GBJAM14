@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://dqfu4rshct0w1"]
+[gd_scene format=3 uid="uid://drdaeoco5y2uo"]
 
 [ext_resource type="Script" uid="uid://corwj32far4gf" path="res://Scripts/Entities/player.gd" id="1_jbf0a"]
 [ext_resource type="Texture2D" uid="uid://dpxu7ssuhnp1e" path="res://Assets/Sprites/trail.png" id="2_jbf0a"]
@@ -157,7 +157,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_cb7df"]
 resource_name = "entering"
-length = 0.39999999999999997
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -215,7 +215,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_fdt7q"]
 resource_name = "invincible"
-length = 0.19999999999999998
+length = 0.2
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -357,31 +357,32 @@ _data = {
 &"defualt": SubResource("Animation_pik1w")
 }
 
-[node name="Player" type="Area2D" unique_id=630683284]
+[node name="Player" type="Area2D" unique_id=1107116930]
+collision_mask = 2
 script = ExtResource("1_jbf0a")
 
-[node name="Graphics" type="Node2D" parent="." unique_id=2132150555]
+[node name="Graphics" type="Node2D" parent="." unique_id=668509043]
 
-[node name="Trail" type="Sprite2D" parent="Graphics" unique_id=962454058]
+[node name="Trail" type="Sprite2D" parent="Graphics" unique_id=1154150871]
 position = Vector2(0, 4)
 texture = ExtResource("2_jbf0a")
 
-[node name="Ship" type="Sprite2D" parent="Graphics" unique_id=23222570]
+[node name="Ship" type="Sprite2D" parent="Graphics" unique_id=1022322939]
 position = Vector2(0, -19)
 texture = SubResource("AtlasTexture_3cjv5")
 region_enabled = true
 region_rect = Rect2(0, 0, 32, 38)
 
-[node name="CollisionBox" type="CollisionShape2D" parent="." unique_id=159209679]
+[node name="CollisionBox" type="CollisionShape2D" parent="." unique_id=582936615]
 z_index = 10
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_ipgva")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=11970968]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=719256030]
 libraries/ = SubResource("AnimationLibrary_ak25i")
 autoplay = &"entering"
 
-[node name="Coin" type="AnimatedSprite2D" parent="." unique_id=1994309254]
+[node name="Coin" type="AnimatedSprite2D" parent="." unique_id=620396989]
 visible = false
 z_index = 10
 position = Vector2(0, -25)
@@ -390,8 +391,8 @@ autoplay = "default"
 frame = 3
 frame_progress = 0.41375318
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Coin" unique_id=354107833]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Coin" unique_id=1026505172]
 libraries/ = SubResource("AnimationLibrary_24gcl")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="death" from="." to="." method="on_death"]
+[connection signal="death" from="." to="." method="_on_death"]

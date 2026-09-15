@@ -1,37 +1,52 @@
 class_name PlaySceneManager
 extends Node2D
 
-enum State {
+enum {
 	START,
 	PLAY,
 	GAME_OVER,
 };
 
-signal on_starting();
-signal on_play();
-signal on_game_over();
+signal start();
+signal play();
+signal game_over();
 
 var player_ps: PackedScene = preload("res://Scenes/Prefabs/player.tscn");
 
+@onready var player_spawn: Node2D = $PlayerSpawner;
+@onready var health_bar: HealthBar = $HUD/HealthBar;
+@onready var golds_label: GoldLabel = $HUD/Golds/Label;
+
 var player: Player;
 
-var state: State:
+var state: int:
 	set(value):
 		state = value;
-		if state == State.START:
-			on_starting.emit()
-		elif  state == State.PLAY:
-			on_play.emit()
-		elif state == State.GAME_OVER:
-			on_game_over.emit()
+		if state == START:
+			start.emit()
+		elif  state == PLAY:
+			play.emit()
+		elif state == GAME_OVER:
+			game_over.emit()
 
-func start() -> void:
-	#player = player_ps.instantiate();
-	#add_child(player);
+func _ready() -> void:
+	state = START;
 	pass;
 
-func play() -> void:
+func _on_start() -> void:
+	player = player_ps.instantiate();
+	player.position = player_spawn.position;
+	player.damage_taken.connect(health_bar.on_damage_taken);
+	player.gold_taken.connect(golds_label.on_gold_taken);
+	player.setup();
+	
+	add_child(player);
+	health_bar.populate(PlayerStats.curr_health);
+	
 	pass;
 
-func game_over() -> void:
+func _on_play() -> void:
+	pass;
+
+func _on_game_over() -> void:
 	pass;
