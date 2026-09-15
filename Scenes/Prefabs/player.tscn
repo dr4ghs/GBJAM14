@@ -1,16 +1,18 @@
-[gd_scene format=3 uid="uid://dqfu4rshct0w1"]
+[gd_scene format=3 uid="uid://drdaeoco5y2uo"]
 
-[ext_resource type="Script" uid="uid://corwj32far4gf" path="res://Scripts/Entities/ship.gd" id="1_jbf0a"]
+[ext_resource type="Script" uid="uid://corwj32far4gf" path="res://Scripts/Entities/player.gd" id="1_jbf0a"]
 [ext_resource type="Texture2D" uid="uid://dpxu7ssuhnp1e" path="res://Assets/Sprites/trail.png" id="2_jbf0a"]
 [ext_resource type="Texture2D" uid="uid://isotmmuukf6g" path="res://Assets/Sprites/ship.png" id="3_pik1w"]
 [ext_resource type="Texture2D" uid="uid://c4t06lg00gjy" path="res://Assets/Sprites/coin.png" id="4_jbf0a"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_3cjv5"]
+atlas = ExtResource("3_pik1w")
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ipgva"]
 size = Vector2(16, 24)
 
-[sub_resource type="Animation" id="Animation_j1m55"]
+[sub_resource type="Animation" id="Animation_0ctox"]
 length = 0.001
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -21,59 +23,82 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [-6.0]
+"values": [0.0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Trail:scale:x")
+tracks/1/path = NodePath("Graphics/Ship:position:y")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": []
+"values": [-19.0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Graphics:modulate:a")
+tracks/2/path = NodePath("CollisionBox:position:y")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [1.0]
+"values": [-12.0]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CollisionBox:disabled")
+tracks/3/path = NodePath("Graphics/Ship:modulate:a")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
+"values": [1.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Graphics/Ship:region_rect:position:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CollisionBox:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
 "values": [false]
 }
 
-[sub_resource type="Animation" id="Animation_24gcl"]
+[sub_resource type="Animation" id="Animation_ak25i"]
 resource_name = "damaged"
-length = 1.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Graphics:modulate:a")
+tracks/0/path = NodePath("Graphics/Ship:modulate:a")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.39999998, 0.5, 0.59999996, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0]
+"values": [1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0]
 }
 tracks/1/type = "method"
 tracks/1/imported = false
@@ -82,29 +107,17 @@ tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(1.2),
+"times": PackedFloat32Array(1),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
 "method": &"on_damaged_anim_end"
 }]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CollisionBox:disabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 1.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
 
-[sub_resource type="Animation" id="Animation_pakvq"]
-resource_name = "ship_idle"
-loop_mode = 1
+[sub_resource type="Animation" id="Animation_k7ict"]
+resource_name = "death"
+length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -112,29 +125,119 @@ tracks/0/path = NodePath("Graphics:position:y")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 2),
 "transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [-18.5, -19.5]
+"update": 0,
+"values": [0.0, 64.0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Trail:scale:x")
+tracks/1/path = NodePath("CollisionBox:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionBox:position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-12.0, 52.0]
+}
+
+[sub_resource type="Animation" id="Animation_cb7df"]
+resource_name = "entering"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics:position:y")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [64.0, 0.0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"idle", -1, 1.0, false],
+"method": &"play"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionBox:position:y")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [52.0, -12.0]
+}
+
+[sub_resource type="Animation" id="Animation_v34u6"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics/Ship:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [1.0, 0.9]
+"values": [-19.0, -20.0]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_knw1p"]
+[sub_resource type="Animation" id="Animation_fdt7q"]
+resource_name = "invincible"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics/Ship:region_rect:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0.0, 32.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ak25i"]
 _data = {
-&"RESET": SubResource("Animation_j1m55"),
-&"damaged": SubResource("Animation_24gcl"),
-&"ship_idle": SubResource("Animation_pakvq")
+&"RESET": SubResource("Animation_0ctox"),
+&"damaged": SubResource("Animation_ak25i"),
+&"death": SubResource("Animation_k7ict"),
+&"entering": SubResource("Animation_cb7df"),
+&"idle": SubResource("Animation_v34u6"),
+&"invincible": SubResource("Animation_fdt7q")
 }
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pik1w"]
@@ -254,27 +357,32 @@ _data = {
 &"defualt": SubResource("Animation_pik1w")
 }
 
-[node name="PlayerShip" type="Area2D" unique_id=630683284]
+[node name="Player" type="Area2D" unique_id=1107116930]
+collision_mask = 2
 script = ExtResource("1_jbf0a")
 
-[node name="Trail" type="Sprite2D" parent="." unique_id=962454058]
+[node name="Graphics" type="Node2D" parent="." unique_id=668509043]
+
+[node name="Trail" type="Sprite2D" parent="Graphics" unique_id=1154150871]
 position = Vector2(0, 4)
 texture = ExtResource("2_jbf0a")
 
-[node name="Graphics" type="Sprite2D" parent="." unique_id=23222570]
-position = Vector2(0, -6)
-texture = ExtResource("3_pik1w")
+[node name="Ship" type="Sprite2D" parent="Graphics" unique_id=1022322939]
+position = Vector2(0, -19)
+texture = SubResource("AtlasTexture_3cjv5")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 38)
 
-[node name="CollisionBox" type="CollisionShape2D" parent="." unique_id=159209679]
+[node name="CollisionBox" type="CollisionShape2D" parent="." unique_id=582936615]
 z_index = 10
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_ipgva")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=369161380]
-libraries/ = SubResource("AnimationLibrary_knw1p")
-autoplay = &"ship_idle"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=719256030]
+libraries/ = SubResource("AnimationLibrary_ak25i")
+autoplay = &"entering"
 
-[node name="Coin" type="AnimatedSprite2D" parent="." unique_id=1994309254]
+[node name="Coin" type="AnimatedSprite2D" parent="." unique_id=620396989]
 visible = false
 z_index = 10
 position = Vector2(0, -25)
@@ -283,7 +391,8 @@ autoplay = "default"
 frame = 3
 frame_progress = 0.41375318
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Coin" unique_id=354107833]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Coin" unique_id=1026505172]
 libraries/ = SubResource("AnimationLibrary_24gcl")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="death" from="." to="." method="_on_death"]

@@ -1,79 +1,24 @@
 [gd_scene format=3 uid="uid://ciqdjthet6xcq"]
 
+[ext_resource type="Script" uid="uid://duhv3c67c0pna" path="res://Scripts/Scenes/Play/play_scene_manager.gd" id="1_3cjv5"]
 [ext_resource type="Script" uid="uid://do1y72rfs57e" path="res://Scripts/Scenes/Play/background.gd" id="2_5lpdq"]
 [ext_resource type="FontFile" uid="uid://dx73sdghq4d41" path="res://Fonts/game-boy-startup-font.otf" id="2_p805a"]
 [ext_resource type="Texture2D" uid="uid://nde2ijd35xup" path="res://Assets/Sprites/background.png" id="2_s0nau"]
+[ext_resource type="AudioStream" uid="uid://jdi2k8wtpbl2" path="res://Assets/Audio/SFX/play_scene_ready.wav" id="4_3cjv5"]
 [ext_resource type="Script" uid="uid://we1tsccsmi1m" path="res://Scripts/UI/gold_label.gd" id="4_5lpdq"]
 [ext_resource type="Texture2D" uid="uid://wg1o865y3xtj" path="res://Assets/Sprites/water.png" id="4_j1m55"]
-[ext_resource type="PackedScene" uid="uid://dqfu4rshct0w1" path="res://Scenes/Prefabs/player_ship.tscn" id="5_616no"]
+[ext_resource type="AudioStream" uid="uid://c0dtlakpxduhg" path="res://Assets/Audio/SFX/play_scene_plunder.wav" id="5_2kn3l"]
 [ext_resource type="Script" uid="uid://i7xq76g5pvbb" path="res://Scripts/UI/health_bar.gd" id="5_ivbpn"]
 [ext_resource type="Texture2D" uid="uid://dsojiqq6ktrwu" path="res://Assets/Sprites/hearts.png" id="6_io55t"]
 [ext_resource type="AudioStream" uid="uid://ccntjy40nve6u" path="res://Assets/Audio/SFX/crashing_waves.wav" id="9_fbpj1"]
 [ext_resource type="Script" uid="uid://yfhna855ntn1" path="res://Scripts/Scenes/Play/play_scene_camera_controller.gd" id="9_j3qlu"]
 [ext_resource type="Texture2D" uid="uid://c4t06lg00gjy" path="res://Assets/Sprites/coin.png" id="10_knw1p"]
 [ext_resource type="Script" uid="uid://cgsv7pym7c47w" path="res://Scripts/Entities/entities_spawner.gd" id="11_knw1p"]
-[ext_resource type="Resource" uid="uid://uqh55qaj8jw" path="res://Assets/Resources/Patterns/three_coin_col.tres" id="12_45wvb"]
+[ext_resource type="Resource" uid="uid://uqh55qaj8jw" path="res://Resources/Patterns/three_coin_col.tres" id="12_45wvb"]
 [ext_resource type="Script" uid="uid://dlc0aw4h320c2" path="res://Scripts/Scenes/Play/despawn_area.gd" id="13_io55t"]
 [ext_resource type="Script" uid="uid://cwx316oleyeju" path="res://Scripts/Scenes/Play/audio_stream_player.gd" id="14_45wvb"]
-[ext_resource type="AudioStream" uid="uid://4jto1213agr6" path="res://Assets/Audio/BGM/main_theme.wav" id="16_fbpj1"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ivbpn"]
-atlas = ExtResource("6_io55t")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_io55t"]
-atlas = ExtResource("6_io55t")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vklac"]
-atlas = ExtResource("6_io55t")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_loj0l"]
-atlas = ExtResource("10_knw1p")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="LabelSettings" id="LabelSettings_ipgva"]
-font = ExtResource("2_p805a")
-font_size = 10
-font_color = Color(0.12941177, 0.15294118, 0.23921569, 1)
-
-[sub_resource type="Animation" id="Animation_blhi5"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Water:region_rect:position:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0.0]
-}
-
-[sub_resource type="Animation" id="Animation_knw1p"]
-resource_name = "default"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Water:region_rect:position:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0.0, 160.0, 320.0, 480.0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ivbpn"]
-_data = {
-&"RESET": SubResource("Animation_blhi5"),
-&"default": SubResource("Animation_knw1p")
-}
+[ext_resource type="AudioStream" uid="uid://cgtut0umy3835" path="res://Assets/Audio/BGM/main_theme_2.wav" id="16_fbpj1"]
+[ext_resource type="AudioStream" uid="uid://d1qmw447q3d57" path="res://Assets/Audio/SFX/damage_taken.wav" id="17_8n5jp"]
 
 [sub_resource type="Animation" id="Animation_j3qlu"]
 length = 0.001
@@ -112,71 +57,434 @@ _data = {
 &"shake": SubResource("Animation_45wvb")
 }
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ivbpn"]
+atlas = ExtResource("6_io55t")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_io55t"]
+atlas = ExtResource("6_io55t")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_loj0l"]
+atlas = ExtResource("10_knw1p")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ipgva"]
+font = ExtResource("2_p805a")
+font_size = 10
+font_color = Color(0.12941177, 0.15294118, 0.23921569, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_loj0l"]
+line_spacing = 1.0
+font = ExtResource("2_p805a")
+font_color = Color(0.12941177, 0.15294118, 0.23921569, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_vklac"]
+font = ExtResource("2_p805a")
+font_size = 10
+
+[sub_resource type="Animation" id="Animation_blhi5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Water:region_rect:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_knw1p"]
+resource_name = "default"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Water:region_rect:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0.0, 160.0, 320.0, 480.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ivbpn"]
+_data = {
+&"RESET": SubResource("Animation_blhi5"),
+&"default": SubResource("Animation_knw1p")
+}
+
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_loj0l"]
 a = Vector2(0, 191)
 b = Vector2(160, 191)
 
+[sub_resource type="Animation" id="Animation_3cjv5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HUD/Control/Prompts:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["READY"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HUD/Control/Prompts:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Audio/SFX:stream")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Audio/SFX:volume_db")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("HUD/Control/Hint:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Audio/BGM:stream")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("16_fbpj1")]
+}
+
+[sub_resource type="Animation" id="Animation_8n5jp"]
+resource_name = "game_over"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HUD/Control/Prompts:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["GAME OVER"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HUD/Control/Prompts:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Audio/SFX")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [0.0],
+"method": &"play"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Audio/SFX:stream")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("17_8n5jp")]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Audio/SFX:volume_db")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -8.0, -16.0, -32.0]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Audio/BGM")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"stop"
+}]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("HUD/Control/Hint:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_2kn3l"]
+resource_name = "ready"
+length = 3.0000000000000004
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HUD/Control/Prompts:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["READY", "PLUNDER"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HUD/Control/Prompts:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 1.5, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Audio/SFX:stream")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("4_3cjv5"), ExtResource("5_2kn3l")]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Audio/SFX")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [0.0],
+"method": &"play"
+}]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("EntitiesSpawner")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"start"
+}]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Audio/BGM:stream")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("16_fbpj1")]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Audio/BGM")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Audio/SFX:volume_db")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("HUD/Control/Hint:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8n5jp"]
+_data = {
+&"RESET": SubResource("Animation_3cjv5"),
+&"game_over": SubResource("Animation_8n5jp"),
+&"ready": SubResource("Animation_2kn3l")
+}
+
 [node name="PlayScene" type="Node2D" unique_id=458439781]
+script = ExtResource("1_3cjv5")
 
-[node name="Canvas Layer" type="CanvasLayer" parent="." unique_id=327212048]
-follow_viewport_enabled = true
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1155018366]
+position = Vector2(80, 72)
+script = ExtResource("9_j3qlu")
 
-[node name="HealthBar" type="Control" parent="Canvas Layer" unique_id=920961760]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera2D" unique_id=602952602]
+libraries/ = SubResource("AnimationLibrary_j3qlu")
+
+[node name="Audio" type="Node2D" parent="." unique_id=470699547]
+
+[node name="SFX" type="AudioStreamPlayer" parent="Audio" unique_id=1811947695]
+bus = &"SFX"
+script = ExtResource("14_45wvb")
+
+[node name="BGM" type="AudioStreamPlayer" parent="Audio" unique_id=1088805355]
+stream = ExtResource("16_fbpj1")
+autoplay = true
+
+[node name="HUD" type="Control" parent="." unique_id=1355296688]
 layout_mode = 3
-anchors_preset = 5
+anchors_preset = 8
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 160.0
+offset_bottom = 144.0
 grow_horizontal = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
+grow_vertical = 2
 
-[node name="Layout" type="HBoxContainer" parent="Canvas Layer/HealthBar" unique_id=807463794 node_paths=PackedStringArray("hearts")]
+[node name="HealthBar" type="HBoxContainer" parent="HUD" unique_id=807463794]
 propagate_maximum_size = false
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -28.0
-offset_right = 28.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -16.0
 offset_bottom = 16.0
-grow_horizontal = 2
+grow_horizontal = 0
+alignment = 2
 script = ExtResource("5_ivbpn")
-hearts = [NodePath("Heart1"), NodePath("Heart2"), NodePath("Heart3")]
 full_heart = SubResource("AtlasTexture_ivbpn")
 empty_heart = SubResource("AtlasTexture_io55t")
 
-[node name="Heart1" type="TextureRect" parent="Canvas Layer/HealthBar/Layout" unique_id=61537434]
-layout_mode = 2
-texture = SubResource("AtlasTexture_vklac")
-stretch_mode = 1
-
-[node name="Heart2" type="TextureRect" parent="Canvas Layer/HealthBar/Layout" unique_id=1558400809]
-layout_mode = 2
-texture = SubResource("AtlasTexture_vklac")
-stretch_mode = 1
-
-[node name="Heart3" type="TextureRect" parent="Canvas Layer/HealthBar/Layout" unique_id=1272040958]
-layout_mode = 2
-texture = SubResource("AtlasTexture_vklac")
-stretch_mode = 1
-
-[node name="Golds" type="Control" parent="Canvas Layer" unique_id=130460174]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 31.0
-
-[node name="Layout" type="HBoxContainer" parent="Canvas Layer/Golds" unique_id=2121739606]
+[node name="Golds" type="HBoxContainer" parent="HUD" unique_id=2121739606]
 propagate_maximum_size = false
 layout_mode = 0
 offset_right = 42.0
 offset_bottom = 16.0
 
-[node name="TextureRect" type="TextureRect" parent="Canvas Layer/Golds/Layout" unique_id=1648073522]
+[node name="TextureRect" type="TextureRect" parent="HUD/Golds" unique_id=1648073522]
 layout_mode = 2
 texture = SubResource("AtlasTexture_loj0l")
 
-[node name="Label" type="Label" parent="Canvas Layer/Golds/Layout" unique_id=677530950]
+[node name="Label" type="Label" parent="HUD/Golds" unique_id=677530950]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
@@ -184,6 +492,36 @@ text = "0"
 label_settings = SubResource("LabelSettings_ipgva")
 horizontal_alignment = 1
 script = ExtResource("4_5lpdq")
+
+[node name="Control" type="Control" parent="HUD" unique_id=801283551]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Prompts" type="Label" parent="HUD/Control" unique_id=1001979456]
+z_index = 100
+layout_mode = 0
+offset_top = 65.0
+offset_right = 160.0
+offset_bottom = 83.0
+text = "READY"
+label_settings = SubResource("LabelSettings_loj0l")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Hint" type="Label" parent="HUD/Control" unique_id=876897913]
+visible = false
+z_index = 100
+layout_mode = 0
+offset_top = 84.0
+offset_right = 160.0
+offset_bottom = 95.0
+text = "PRESS A TO CONTINUE"
+label_settings = SubResource("LabelSettings_vklac")
+horizontal_alignment = 1
 
 [node name="Background" type="Node2D" parent="." unique_id=119347257]
 script = ExtResource("2_5lpdq")
@@ -208,42 +546,27 @@ stream = ExtResource("9_fbpj1")
 autoplay = true
 playback_type = 1
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1155018366]
-position = Vector2(80, 72)
-script = ExtResource("9_j3qlu")
+[node name="DespawnArea" type="Area2D" parent="Background" unique_id=1608426840]
+collision_layer = 512
+collision_mask = 2
+script = ExtResource("13_io55t")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera2D" unique_id=602952602]
-libraries/ = SubResource("AnimationLibrary_j3qlu")
+[node name="CollisionLine" type="CollisionShape2D" parent="Background/DespawnArea" unique_id=1177822595]
+shape = SubResource("SegmentShape2D_loj0l")
 
 [node name="EntitiesSpawner" type="Node2D" parent="." unique_id=1555581684]
 script = ExtResource("11_knw1p")
 pattern = ExtResource("12_45wvb")
 
-[node name="DespawnArea" type="Area2D" parent="." unique_id=1608426840]
-collision_layer = 512
-collision_mask = 2
-script = ExtResource("13_io55t")
+[node name="PlayerSpawner" type="VisibleOnScreenNotifier2D" parent="." unique_id=48098516]
+position = Vector2(80, 128)
+rect = Rect2(-10, -10, 16, 16)
 
-[node name="CollisionLine" type="CollisionShape2D" parent="DespawnArea" unique_id=1177822595]
-shape = SubResource("SegmentShape2D_loj0l")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2097316283]
+libraries/ = SubResource("AnimationLibrary_8n5jp")
 
-[node name="PlayerShip" parent="." unique_id=630683284 instance=ExtResource("5_616no")]
-position = Vector2(80, 136)
-collision_mask = 2
-_health = 3
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1811947695]
-script = ExtResource("14_45wvb")
-
-[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="." unique_id=1088805355]
-stream = ExtResource("16_fbpj1")
-autoplay = true
-
-[connection signal="area_entered" from="DespawnArea" to="DespawnArea" method="_on_area_entered"]
-[connection signal="damage_taken" from="PlayerShip" to="Canvas Layer/HealthBar/Layout" method="on_damage_taken"]
-[connection signal="damage_taken" from="PlayerShip" to="Camera2D" method="screen_shake"]
-[connection signal="damage_taken" from="PlayerShip" to="PlayerShip" method="_on_damage_taken"]
-[connection signal="damage_taken" from="PlayerShip" to="AudioStreamPlayer" method="on_damage_taken"]
-[connection signal="gold_taken" from="PlayerShip" to="Canvas Layer/Golds/Layout/Label" method="on_gold_taken"]
-[connection signal="gold_taken" from="PlayerShip" to="PlayerShip" method="_on_gold_taken"]
-[connection signal="gold_taken" from="PlayerShip" to="AudioStreamPlayer" method="on_gold_gained"]
+[connection signal="game_over" from="." to="." method="_on_game_over"]
+[connection signal="pause" from="." to="." method="_on_pause"]
+[connection signal="play" from="." to="." method="_on_play"]
+[connection signal="start" from="." to="." method="_on_start"]
+[connection signal="area_entered" from="Background/DespawnArea" to="Background/DespawnArea" method="_on_area_entered"]

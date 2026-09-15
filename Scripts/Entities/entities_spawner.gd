@@ -7,6 +7,16 @@ var entity_scene: PackedScene = preload("res://Scenes/Prefabs/entity.tscn");
 
 var wait_time: float;
 
+var working: bool;
+
+func start() -> void:
+	working = true;
+
+func reset() -> void:
+	working = false;
+	for child in get_children():
+		child.queue_free();
+
 func spawn() -> void:
 	var lane: float = 0;
 	if pattern.random_lane:
@@ -22,10 +32,9 @@ func spawn() -> void:
 		
 	wait_time = pattern.wait_time;
 
-func _ready() -> void:
-	spawn();
-
 func _process(delta: float) -> void:
+	if not working: return;
+	
 	if wait_time > 0:
 		wait_time -= delta * PlayerStats.speed;
 	if wait_time <= 0: spawn();
