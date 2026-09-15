@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ciqdjthet6xcq"]
 
-[ext_resource type="Script" uid="uid://do1y72rfs57e" path="res://Scripts/background.gd" id="2_5lpdq"]
+[ext_resource type="Script" uid="uid://do1y72rfs57e" path="res://Scripts/Scenes/Play/background.gd" id="2_5lpdq"]
 [ext_resource type="FontFile" uid="uid://dx73sdghq4d41" path="res://Fonts/game-boy-startup-font.otf" id="2_p805a"]
 [ext_resource type="Texture2D" uid="uid://nde2ijd35xup" path="res://Assets/Sprites/background.png" id="2_s0nau"]
 [ext_resource type="Script" uid="uid://we1tsccsmi1m" path="res://Scripts/UI/gold_label.gd" id="4_5lpdq"]
@@ -8,11 +8,14 @@
 [ext_resource type="PackedScene" uid="uid://dqfu4rshct0w1" path="res://Scenes/Prefabs/player_ship.tscn" id="5_616no"]
 [ext_resource type="Script" uid="uid://i7xq76g5pvbb" path="res://Scripts/UI/health_bar.gd" id="5_ivbpn"]
 [ext_resource type="Texture2D" uid="uid://dsojiqq6ktrwu" path="res://Assets/Sprites/hearts.png" id="6_io55t"]
-[ext_resource type="Script" uid="uid://yfhna855ntn1" path="res://Scripts/play_scene_camera_controller.gd" id="9_j3qlu"]
+[ext_resource type="AudioStream" uid="uid://ccntjy40nve6u" path="res://Assets/Audio/SFX/crashing_waves.wav" id="9_fbpj1"]
+[ext_resource type="Script" uid="uid://yfhna855ntn1" path="res://Scripts/Scenes/Play/play_scene_camera_controller.gd" id="9_j3qlu"]
 [ext_resource type="Texture2D" uid="uid://c4t06lg00gjy" path="res://Assets/Sprites/coin.png" id="10_knw1p"]
-[ext_resource type="Script" uid="uid://cgsv7pym7c47w" path="res://Scripts/entities_spawner.gd" id="11_knw1p"]
+[ext_resource type="Script" uid="uid://cgsv7pym7c47w" path="res://Scripts/Entities/entities_spawner.gd" id="11_knw1p"]
 [ext_resource type="Resource" uid="uid://uqh55qaj8jw" path="res://Assets/Resources/Patterns/three_coin_col.tres" id="12_45wvb"]
-[ext_resource type="Script" uid="uid://dlc0aw4h320c2" path="res://Scripts/despawn_area.gd" id="13_io55t"]
+[ext_resource type="Script" uid="uid://dlc0aw4h320c2" path="res://Scripts/Scenes/Play/despawn_area.gd" id="13_io55t"]
+[ext_resource type="Script" uid="uid://cwx316oleyeju" path="res://Scripts/Scenes/Play/audio_stream_player.gd" id="14_45wvb"]
+[ext_resource type="AudioStream" uid="uid://4jto1213agr6" path="res://Assets/Audio/BGM/main_theme.wav" id="16_fbpj1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ivbpn"]
 atlas = ExtResource("6_io55t")
@@ -200,6 +203,11 @@ region_rect = Rect2(0, 0, 160, 96)
 libraries/ = SubResource("AnimationLibrary_ivbpn")
 autoplay = &"default"
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Background" unique_id=156176197]
+stream = ExtResource("9_fbpj1")
+autoplay = true
+playback_type = 1
+
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1155018366]
 position = Vector2(80, 72)
 script = ExtResource("9_j3qlu")
@@ -224,9 +232,18 @@ position = Vector2(80, 136)
 collision_mask = 2
 _health = 3
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1811947695]
+script = ExtResource("14_45wvb")
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="." unique_id=1088805355]
+stream = ExtResource("16_fbpj1")
+autoplay = true
+
 [connection signal="area_entered" from="DespawnArea" to="DespawnArea" method="_on_area_entered"]
 [connection signal="damage_taken" from="PlayerShip" to="Canvas Layer/HealthBar/Layout" method="on_damage_taken"]
 [connection signal="damage_taken" from="PlayerShip" to="Camera2D" method="screen_shake"]
 [connection signal="damage_taken" from="PlayerShip" to="PlayerShip" method="_on_damage_taken"]
+[connection signal="damage_taken" from="PlayerShip" to="AudioStreamPlayer" method="on_damage_taken"]
 [connection signal="gold_taken" from="PlayerShip" to="Canvas Layer/Golds/Layout/Label" method="on_gold_taken"]
 [connection signal="gold_taken" from="PlayerShip" to="PlayerShip" method="_on_gold_taken"]
+[connection signal="gold_taken" from="PlayerShip" to="AudioStreamPlayer" method="on_gold_gained"]

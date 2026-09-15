@@ -1,13 +1,6 @@
-class_name SpawnEntry extends Resource
-
-enum Lane {
-	LEFT = 0,
-	CENTER_LEFT,
-	CENTER,
-	CENTER_RIGHT,
-	RIGHT
-}
+class_name SpawnEntry
+extends Resource
 
 @export var entity: EntityResource;
-@export var lane: Lane = Lane.CENTER;
+@export var lane: Enums.Lane = Enums.Lane.CENTER;
 @export var distance: float;

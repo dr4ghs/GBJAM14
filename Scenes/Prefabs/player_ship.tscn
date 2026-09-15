@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dqfu4rshct0w1"]
 
-[ext_resource type="Script" uid="uid://corwj32far4gf" path="res://Scripts/ship.gd" id="1_jbf0a"]
+[ext_resource type="Script" uid="uid://corwj32far4gf" path="res://Scripts/Entities/ship.gd" id="1_jbf0a"]
 [ext_resource type="Texture2D" uid="uid://dpxu7ssuhnp1e" path="res://Assets/Sprites/trail.png" id="2_jbf0a"]
 [ext_resource type="Texture2D" uid="uid://isotmmuukf6g" path="res://Assets/Sprites/ship.png" id="3_pik1w"]
 [ext_resource type="Texture2D" uid="uid://c4t06lg00gjy" path="res://Assets/Sprites/coin.png" id="4_jbf0a"]
@@ -47,6 +47,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [1.0]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CollisionBox:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_24gcl"]
 resource_name = "damaged"
@@ -76,6 +88,18 @@ tracks/1/keys = {
 "args": [],
 "method": &"on_damaged_anim_end"
 }]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionBox:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
 }
 
 [sub_resource type="Animation" id="Animation_pakvq"]

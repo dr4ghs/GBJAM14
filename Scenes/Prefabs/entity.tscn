@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b2cn7dwr1s7vj"]
 
-[ext_resource type="Script" uid="uid://d4c7iw6xdus3v" path="res://Scripts/entity.gd" id="1_53wb5"]
+[ext_resource type="Script" uid="uid://d4c7iw6xdus3v" path="res://Scripts/Entities/entity.gd" id="1_53wb5"]
 [ext_resource type="Texture2D" uid="uid://ck258yie3336b" path="res://Assets/Sprites/clipping_mask.png" id="2_sorwi"]
 [ext_resource type="AnimationLibrary" uid="uid://pfu4k7ss0qye" path="res://Assets/Animations/entity_anims.tres" id="3_4c1g7"]
 
