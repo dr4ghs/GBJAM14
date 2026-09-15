@@ -1,12 +1,12 @@
-class_name Ship extends Area2D
+class_name Player extends Area2D
 
 signal damage_taken(damage: int);
 signal gold_taken(damate: int);
 signal death();
 
 @onready var collision_box: CollisionShape2D = $CollisionBox;
-@onready var graphics: Sprite2D = $Graphics;
 @onready var animation_player: AnimationPlayer = $AnimationPlayer;
+@onready var ship_gfx: Sprite2D = $Graphics/Ship;
 @onready var coin: AnimationPlayer = $Coin/AnimationPlayer
 
 var _gold: int;
@@ -14,7 +14,7 @@ var _health: int;
 var _curr_lane: int = 2;
 var damaged: bool;
 
-const MAX_INVINCIBILTY_COOLDOWN: float = 5.0;
+const MAX_INVINCIBILTY_COOLDOWN: float = 1.0;
 var invincible: bool;
 var invincibility_cooldown: float;
 
@@ -27,10 +27,10 @@ func setup() -> void:
 	_health = PlayerStats.health;
 	_curr_lane = Enums.Lane.CENTER;
 	damaged = false;
-	animation_player.play("ship_idle");
+	invincible = false;
 
 func on_damaged_anim_end() -> void:
-	animation_player.play("ship_idle");
+	animation_player.play("idle");
 	damaged = false;
 
 func on_death() -> void:
@@ -41,10 +41,6 @@ func _ready() -> void:
 	setup();
 
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("spawn"):
-		setup();
-		return;
-	
 	if Input.is_action_just_pressed("steer_left"):
 		if _curr_lane > 0: _curr_lane -= 1;
 	elif Input.is_action_just_pressed("steer_right"):
@@ -62,7 +58,8 @@ func _process(delta: float) -> void:
 		invincibility_cooldown -= delta;
 		if invincibility_cooldown <= 0:
 			invincible = false;
-			animation_player.play("ship_idle");
+			ship_gfx.region_rect.position.x = 0;
+			animation_player.play("idle");
 	
 func _on_area_entered(obstacle: Entity) -> void:
 	if z_index > obstacle.z_index: return;

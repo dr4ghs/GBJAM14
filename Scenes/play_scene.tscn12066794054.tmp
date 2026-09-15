@@ -229,7 +229,7 @@ script = ExtResource("13_io55t")
 [node name="CollisionLine" type="CollisionShape2D" parent="DespawnArea" unique_id=1177822595]
 shape = SubResource("SegmentShape2D_loj0l")
 
-[node name="Player" parent="." unique_id=630683284 instance=ExtResource("5_616no")]
+[node name="PlayerShip" parent="." unique_id=630683284 instance=ExtResource("5_616no")]
 position = Vector2(80, 136)
 collision_mask = 2
 
@@ -241,10 +241,10 @@ stream = ExtResource("16_fbpj1")
 autoplay = true
 
 [connection signal="area_entered" from="DespawnArea" to="DespawnArea" method="_on_area_entered"]
-[connection signal="damage_taken" from="Player" to="Canvas Layer/HealthBar/Layout" method="on_damage_taken"]
-[connection signal="damage_taken" from="Player" to="Camera2D" method="screen_shake"]
-[connection signal="damage_taken" from="Player" to="Player" method="_on_damage_taken"]
-[connection signal="damage_taken" from="Player" to="AudioStreamPlayer" method="on_damage_taken"]
-[connection signal="gold_taken" from="Player" to="Canvas Layer/Golds/Layout/Label" method="on_gold_taken"]
-[connection signal="gold_taken" from="Player" to="Player" method="_on_gold_taken"]
-[connection signal="gold_taken" from="Player" to="AudioStreamPlayer" method="on_gold_gained"]
+[connection signal="damage_taken" from="PlayerShip" to="Canvas Layer/HealthBar/Layout" method="on_damage_taken"]
+[connection signal="damage_taken" from="PlayerShip" to="Camera2D" method="screen_shake"]
+[connection signal="damage_taken" from="PlayerShip" to="PlayerShip" method="_on_damage_taken"]
+[connection signal="damage_taken" from="PlayerShip" to="AudioStreamPlayer" method="on_damage_taken"]
+[connection signal="gold_taken" from="PlayerShip" to="Canvas Layer/Golds/Layout/Label" method="on_gold_taken"]
+[connection signal="gold_taken" from="PlayerShip" to="PlayerShip" method="_on_gold_taken"]
+[connection signal="gold_taken" from="PlayerShip" to="AudioStreamPlayer" method="on_gold_gained"]
