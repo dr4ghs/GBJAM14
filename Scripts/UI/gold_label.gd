@@ -1,4 +1,10 @@
-class_name GoldLabel extends Label
+class_name GoldController
+extends HBoxContainer
 
-func on_gold_taken(gold: int):
-	text = str(gold);
+@export var gold_lbl: Label;
+
+func _on_start() -> void:
+	gold_lbl.text = "0";
+
+func _on_gold_gained(gold: int) -> void:
+	gold_lbl.text = str(gold);

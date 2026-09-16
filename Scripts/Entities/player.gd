@@ -9,6 +9,8 @@ signal death();
 @onready var ship_gfx: Sprite2D = $Graphics/Ship;
 @onready var coin: AnimationPlayer = $Coin/AnimationPlayer
 
+@export var enable_input: bool = false;
+
 var _gold: int;
 var _health: int;
 var _curr_lane: int = 2;
@@ -43,15 +45,16 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if _health <= 0: return;
 	
-	if Input.is_action_just_pressed("left"):
-		if _curr_lane > 0: _curr_lane -= 1;
-	elif Input.is_action_just_pressed("right"):
-		if _curr_lane < len(SpawnPoints.lanes) - 1: _curr_lane += 1;
+	if enable_input:
+		if Input.is_action_just_pressed("left"):
+			if _curr_lane > 0: _curr_lane -= 1;
+		elif Input.is_action_just_pressed("right"):
+			if _curr_lane < len(SpawnPoints.lanes) - 1: _curr_lane += 1;
 	
 	position.x = lerp(position.x, SpawnPoints.lanes[_curr_lane], 0.2);
 	animation_player.speed_scale = PlayerStats.speed;
 	
-	if not invincible and Input.is_action_just_pressed("spawn"):
+	if not invincible and false:
 		invincible = true;
 		invincibility_cooldown = MAX_INVINCIBILTY_COOLDOWN;
 		animation_player.play("invincible");

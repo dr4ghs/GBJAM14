@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://c4wnwm7jjphsf"]
+
+[ext_resource type="Script" uid="uid://btxoa2vgd54vj" path="res://Scripts/Scenes/audio_controller.gd" id="1_a74nr"]
+[ext_resource type="AudioStream" uid="uid://cgtut0umy3835" path="res://Assets/Audio/BGM/main_theme_2.wav" id="2_ox7v7"]
+
+[node name="AudioController" type="Node2D" unique_id=432057609]
+script = ExtResource("1_a74nr")
+default_bgm = ExtResource("2_ox7v7")
+
+[node name="SFX" type="AudioStreamPlayer" parent="." unique_id=866686499]
+bus = &"SFX"
+
+[node name="BGM" type="AudioStreamPlayer" parent="." unique_id=740329563]
+stream = ExtResource("2_ox7v7")
+autoplay = true
