@@ -13,7 +13,7 @@ func play_bgm(audio: AudioStream = default_bgm) -> void:
 	bgm.play();
 
 func pause_bgm() -> void:
-	bgm.stream_pause = true;
+	bgm.stream_paused = true;
 
 func resume_bgm() -> void:
 	bgm.stream_paused = false;

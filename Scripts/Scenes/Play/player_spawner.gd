@@ -22,6 +22,12 @@ func _on_start() -> void:
 	
 	scene.add_child(player);
 
+func _on_play() -> void:
+	player.enable_input = true;
+
+func _on_pause() -> void:
+	player.enable_input = false;
+
 func _on_damage_taken(_damage: int) -> void:
 	audio_ctrl.play_sfx("damage");
 

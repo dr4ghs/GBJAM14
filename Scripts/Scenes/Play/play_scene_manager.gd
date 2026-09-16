@@ -39,18 +39,17 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if state == State.GAME_OVER and Input.is_action_just_pressed("action"):
 		state = State.START;
-	
-	if state == State.PLAY:
+	elif state == State.PAUSE: 
 		if Input.is_action_just_pressed("menu"):
-			state = State.PAUSE;
-	
-	if state == State.PAUSE: 
-		if Input.is_action_just_pressed("menu"):
+			audio_ctrl.resume_bgm();
 			state = State.PLAY;
-			pass;
 		if Input.is_action_just_pressed("cancel"):
 			# TODO return to main screen
 			pass;
+	elif state == State.PLAY:
+		if Input.is_action_just_pressed("menu"):
+			audio_ctrl.pause_bgm();
+			state = State.PAUSE;
 
 func _on_death() -> void:
 	state = State.GAME_OVER;

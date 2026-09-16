@@ -9,13 +9,21 @@ var wait_time: float;
 
 var working: bool;
 
-func start() -> void:
+func _on_play() -> void:
 	working = true;
 
-func reset() -> void:
+func _on_start() -> void:
 	working = false;
 	for child in get_children():
 		child.queue_free();
+	
+	spawn();
+
+func _on_pause() -> void:
+	working = false;
+
+func _on_game_over() -> void:
+	working = false;
 
 func spawn() -> void:
 	var lane: float = 0;
@@ -38,3 +46,6 @@ func _process(delta: float) -> void:
 	if wait_time > 0:
 		wait_time -= delta * PlayerStats.speed;
 	if wait_time <= 0: spawn();
+	
+	for c in get_children():
+		if c is Entity: (c as Entity).update(delta)

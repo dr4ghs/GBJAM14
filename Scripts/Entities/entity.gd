@@ -57,7 +57,7 @@ func gold() -> int:
 	
 	return 0;
 
-func _process(delta: float) -> void:
+func update(delta: float) -> void:
 	distance -= PlaySceneConstants.BASE_SPEED * PlayerStats.curr_speed * delta;
 	
 	if is_damaging and not warned and distance <= PlaySceneConstants.MAX_DISTANCE * 0.75:

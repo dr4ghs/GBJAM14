@@ -17,12 +17,12 @@ func _on_play() -> void:
 
 func _on_pause() -> void:
 	main_lbl.text = "PAUSE"
-	hint_lbl.text = "PRESS B TO EXIT"
+	hint_lbl.text = "B TO EXIT"
 	main_lbl.visible = true;
 	hint_lbl.visible = true;
 
 func _on_game_over() -> void:
 	main_lbl.text = "GAME OVER"
-	hint_lbl.text = "PRESS A TO RESTART"
+	hint_lbl.text = "A TO RESTART"
 	main_lbl.visible = true;
 	hint_lbl.visible = true;
