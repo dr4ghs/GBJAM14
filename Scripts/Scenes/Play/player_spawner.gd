@@ -13,6 +13,7 @@ var player: Player;
 func _on_start() -> void:
 	player = prefab.instantiate();
 	player.position = position;
+	player.cannon_ball_parent = scene;
 	player.damage_taken.connect(health_ctrl._on_damage_taken);
 	player.damage_taken.connect(_on_damage_taken);
 	player.gold_taken.connect(gold_ctrl._on_gold_gained);

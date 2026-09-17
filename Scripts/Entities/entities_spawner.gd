@@ -2,6 +2,7 @@ class_name EntitiesSpawner
 extends Node
 
 @export var pattern: SpawnPattern;
+@export var audio_ctrl: AudioController;
 
 var entity_scene: PackedScene = preload("res://Scenes/Prefabs/entity.tscn");
 
@@ -33,6 +34,7 @@ func spawn() -> void:
 		var entity: Entity = entity_scene.instantiate();
 		add_child(entity);
 		entity.populate(res.entity, int(res.distance));
+		entity.hurted.connect(enemy_hurted);
 		if pattern.random_lane:
 			entity.position.x = lane;
 		else:
@@ -49,3 +51,6 @@ func _process(delta: float) -> void:
 	
 	for c in get_children():
 		if c is Entity: (c as Entity).update(delta)
+
+func enemy_hurted() -> void:
+	audio_ctrl.play_side_sfx("damage");

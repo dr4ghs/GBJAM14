@@ -29,7 +29,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("HUD/Prompts/Main:text")
+tracks/0/path = NodePath("HUD/Overlay/Main:text")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -89,7 +89,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("HUD/Prompts/Hint:visible")
+tracks/5/path = NodePath("HUD/Overlay/Hint:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -170,7 +170,7 @@ length = 3.0000000000000004
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("HUD/Prompts/Main:text")
+tracks/0/path = NodePath("HUD/Overlay/Main:text")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -339,7 +339,7 @@ line_spacing = 1.0
 font = ExtResource("2_p805a")
 font_color = Color(0.12941177, 0.15294118, 0.23921569, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_vklac"]
+[sub_resource type="LabelSettings" id="LabelSettings_1mfr0"]
 font = ExtResource("2_p805a")
 font_size = 10
 
@@ -384,6 +384,10 @@ _data = {
 a = Vector2(0, 191)
 b = Vector2(160, 191)
 
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_ipgva"]
+a = Vector2(0, -43)
+b = Vector2(160, -43)
+
 [node name="PlayScene" type="Node2D" unique_id=458439781 node_paths=PackedStringArray("player_spawn", "health_bar", "audio_ctrl", "anim", "entity_spawn")]
 script = ExtResource("1_3cjv5")
 player_spawn = NodePath("PlayerSpawner")
@@ -408,6 +412,11 @@ sound_effects = Dictionary[String, AudioStream]({
 "damage": ExtResource("17_8n5jp"),
 "gold": ExtResource("9_3wskg")
 })
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AudioController" unique_id=156176197]
+stream = ExtResource("9_fbpj1")
+autoplay = true
+playback_type = 1
 
 [node name="HUD" type="Control" parent="." unique_id=1355296688]
 z_index = 100
@@ -456,7 +465,8 @@ text = "0"
 label_settings = SubResource("LabelSettings_ipgva")
 horizontal_alignment = 1
 
-[node name="Prompts" type="Control" parent="HUD" unique_id=801283551 node_paths=PackedStringArray("anim_player", "main_lbl", "hint_lbl")]
+[node name="Overlay" type="Control" parent="HUD" unique_id=801283551 node_paths=PackedStringArray("anim_player", "main_lbl", "hint_lbl")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -468,8 +478,7 @@ anim_player = NodePath("../../AnimationPlayer")
 main_lbl = NodePath("Main")
 hint_lbl = NodePath("Hint")
 
-[node name="Main" type="Label" parent="HUD/Prompts" unique_id=1001979456]
-visible = false
+[node name="Main" type="Label" parent="HUD/Overlay" unique_id=1001979456]
 layout_mode = 0
 offset_top = 65.0
 offset_right = 160.0
@@ -479,14 +488,14 @@ label_settings = SubResource("LabelSettings_loj0l")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Hint" type="Label" parent="HUD/Prompts" unique_id=876897913]
+[node name="Hint" type="Label" parent="HUD/Overlay" unique_id=876897913]
 visible = false
 layout_mode = 0
-offset_top = 84.0
+offset_top = 133.0
 offset_right = 160.0
-offset_bottom = 95.0
+offset_bottom = 144.0
 text = "PRESS A TO CONTINUE"
-label_settings = SubResource("LabelSettings_vklac")
+label_settings = SubResource("LabelSettings_1mfr0")
 horizontal_alignment = 1
 
 [node name="Background" type="Node2D" parent="." unique_id=119347257]
@@ -507,22 +516,22 @@ region_rect = Rect2(0, 0, 160, 96)
 libraries/ = SubResource("AnimationLibrary_ivbpn")
 autoplay = &"default"
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Background" unique_id=156176197]
-stream = ExtResource("9_fbpj1")
-autoplay = true
-playback_type = 1
-
 [node name="DespawnArea" type="Area2D" parent="Background" unique_id=1608426840]
 collision_layer = 512
-collision_mask = 2
+collision_mask = 14
 script = ExtResource("13_io55t")
 
 [node name="CollisionLine" type="CollisionShape2D" parent="Background/DespawnArea" unique_id=1177822595]
 shape = SubResource("SegmentShape2D_loj0l")
 
-[node name="EntitiesSpawner" type="Node2D" parent="." unique_id=1555581684]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/DespawnArea" unique_id=303798004]
+position = Vector2(0, 69)
+shape = SubResource("SegmentShape2D_ipgva")
+
+[node name="EntitiesSpawner" type="Node2D" parent="." unique_id=1555581684 node_paths=PackedStringArray("audio_ctrl")]
 script = ExtResource("11_knw1p")
 pattern = ExtResource("12_45wvb")
+audio_ctrl = NodePath("../AudioController")
 
 [node name="PlayerSpawner" type="VisibleOnScreenNotifier2D" parent="." unique_id=48098516 node_paths=PackedStringArray("scene", "audio_ctrl", "health_ctrl", "gold_ctrl")]
 position = Vector2(80, 128)
@@ -534,18 +543,18 @@ health_ctrl = NodePath("../HUD/HealthBar")
 gold_ctrl = NodePath("../HUD/GoldLabel")
 
 [connection signal="game_over" from="." to="AnimationPlayer" method="_on_game_over"]
-[connection signal="game_over" from="." to="HUD/Prompts" method="_on_game_over"]
+[connection signal="game_over" from="." to="HUD/Overlay" method="_on_game_over"]
 [connection signal="game_over" from="." to="EntitiesSpawner" method="_on_game_over"]
-[connection signal="pause" from="." to="HUD/Prompts" method="_on_pause"]
+[connection signal="pause" from="." to="HUD/Overlay" method="_on_pause"]
 [connection signal="pause" from="." to="EntitiesSpawner" method="_on_pause"]
 [connection signal="pause" from="." to="PlayerSpawner" method="_on_pause"]
-[connection signal="play" from="." to="HUD/Prompts" method="_on_play"]
+[connection signal="play" from="." to="HUD/Overlay" method="_on_play"]
 [connection signal="play" from="." to="EntitiesSpawner" method="_on_play"]
 [connection signal="play" from="." to="PlayerSpawner" method="_on_play"]
 [connection signal="start" from="." to="AnimationPlayer" method="_on_start"]
 [connection signal="start" from="." to="HUD/HealthBar" method="_on_start"]
 [connection signal="start" from="." to="HUD/GoldLabel" method="_on_start"]
-[connection signal="start" from="." to="HUD/Prompts" method="_on_start"]
+[connection signal="start" from="." to="HUD/Overlay" method="_on_start"]
 [connection signal="start" from="." to="EntitiesSpawner" method="_on_start"]
 [connection signal="start" from="." to="PlayerSpawner" method="_on_start"]
 [connection signal="area_entered" from="Background/DespawnArea" to="Background/DespawnArea" method="_on_area_entered"]

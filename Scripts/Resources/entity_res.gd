@@ -1,6 +1,7 @@
 class_name EntityResource
 extends Resource
 
+@export var health: int;
 @export var damage: int;
 @export var gold: int;
 @export var width: int;

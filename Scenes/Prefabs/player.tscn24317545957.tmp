@@ -409,7 +409,7 @@ _data = {
 }
 
 [node name="Player" type="Area2D" unique_id=1107116930]
-collision_mask = 6
+collision_mask = 2
 script = ExtResource("1_jbf0a")
 
 [node name="Graphics" type="Node2D" parent="." unique_id=668509043]
@@ -446,7 +446,7 @@ frame_progress = 0.41375318
 libraries/ = SubResource("AnimationLibrary_24gcl")
 
 [node name="Cannon" type="Node2D" parent="." unique_id=111860636]
-position = Vector2(0, -37)
+position = Vector2(0, -27)
 script = ExtResource("5_cb7df")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Cannon" unique_id=1410409244]

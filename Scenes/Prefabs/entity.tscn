@@ -18,6 +18,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [0.0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Graphics:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v5u45"]
 _data = {
@@ -26,9 +38,8 @@ _data = {
 
 [node name="Entity" type="Area2D" unique_id=355213405]
 z_index = -1
-scale = Vector2(0.8, 0.8)
-collision_layer = 2
-collision_mask = 513
+collision_layer = 0
+collision_mask = 17
 script = ExtResource("1_53wb5")
 
 [node name="Graphics" type="Sprite2D" parent="." unique_id=1217976356]

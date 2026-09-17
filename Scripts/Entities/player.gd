@@ -3,6 +3,9 @@ class_name Player extends Area2D
 signal damage_taken(damage: int);
 signal gold_taken(damate: int);
 signal death();
+signal fire(parent: Node2D);
+
+var cannon_ball: PackedScene = preload("res://Scenes/Prefabs/cannon_ball.tscn");
 
 @onready var collision_box: CollisionShape2D = $CollisionBox;
 @onready var animation_player: AnimationPlayer = $AnimationPlayer;
@@ -10,6 +13,8 @@ signal death();
 @onready var coin: AnimationPlayer = $Coin/AnimationPlayer
 
 @export var enable_input: bool = false;
+
+var cannon_ball_parent: Node2D;
 
 var _gold: int;
 var _health: int;
@@ -50,6 +55,9 @@ func _process(delta: float) -> void:
 			if _curr_lane > 0: _curr_lane -= 1;
 		elif Input.is_action_just_pressed("right"):
 			if _curr_lane < len(SpawnPoints.lanes) - 1: _curr_lane += 1;
+		elif Input.is_action_just_pressed("action"):
+			# TODO cooldown
+			fire.emit(cannon_ball_parent);
 	
 	position.x = lerp(position.x, SpawnPoints.lanes[_curr_lane], 0.2);
 	animation_player.speed_scale = PlayerStats.speed;

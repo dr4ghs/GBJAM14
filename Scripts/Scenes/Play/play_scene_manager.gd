@@ -34,7 +34,6 @@ signal game_over();
 
 func _ready() -> void:
 	state = State.START;
-	pass;
 
 func _process(_delta: float) -> void:
 	if state == State.GAME_OVER and Input.is_action_just_pressed("action"):

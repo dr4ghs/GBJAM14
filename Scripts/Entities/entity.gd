@@ -3,6 +3,8 @@ extends Area2D
 
 const WARN_SIGN_Y: int = 32;
 
+signal hurted();
+
 var warn_sign: PackedScene = preload("res://Scenes/Prefabs/warning_sign.tscn");
 
 @onready var gfx: Sprite2D = $Graphics;
@@ -10,7 +12,8 @@ var warn_sign: PackedScene = preload("res://Scenes/Prefabs/warning_sign.tscn");
 @onready var collisions: CollisionShape2D = $CollisionBox;
 @onready var anim_player: AnimationPlayer = $AnimationPlayer;
 
-@export var distance: float;
+var is_damageable: bool;
+var _health: int;
 
 var is_damaging: bool;
 var _damage: int;
@@ -18,15 +21,24 @@ var _damage: int;
 var is_gold: bool;
 var _gold: int;
 
+var distance: float;
 var warned: bool;
 
-@export var res: EntityResource;
+#@export var res: EntityResource;
 
 func populate(resource: EntityResource, dist: int) -> void:
+	is_damageable = resource.health > 0;
+	set_collision_layer_value(3, is_damageable);
+	set_collision_mask_value(4, is_damageable)
+	_health = resource.health;
+	
 	is_damaging = resource.damage > 0;
+	set_collision_layer_value(3, is_damaging);
+	set_collision_mask_value(4, is_damageable)
 	_damage = resource.damage;
 	
 	is_gold = resource.gold > 0;
+	set_collision_layer_value(2, is_gold);
 	_gold = resource.gold;
 	
 	if resource.texture is AtlasTexture:
@@ -47,6 +59,11 @@ func populate(resource: EntityResource, dist: int) -> void:
 	
 	mask.visible = true;
 
+func health() -> int:
+	if is_damageable: return _health;
+	
+	return 0;
+
 func damage() -> int:
 	if is_damaging: return _damage;
 	
@@ -57,7 +74,15 @@ func gold() -> int:
 	
 	return 0;
 
+func hurt() -> void:
+	hurted.emit();
+	_health -= 1;
+	if _health <= 0:
+		anim_player.play("entity_anims/damaged");
+
 func update(delta: float) -> void:
+	if is_damageable and _health <= 0: return;
+	
 	distance -= PlaySceneConstants.BASE_SPEED * PlayerStats.curr_speed * delta;
 	
 	if is_damaging and not warned and distance <= PlaySceneConstants.MAX_DISTANCE * 0.75:
@@ -74,12 +99,17 @@ func update(delta: float) -> void:
 	if distance <= 0.5 and delta_d == 1: 
 		self.z_index = 0;
 		mask.visible = false;
-	if distance < 0.4: scale = Vector2(1, 1);
 	
 	position.y = get_viewport_rect().size.y - (delta_d * (get_viewport_rect().size.y - 48));
 
 func _on_area_entered(area: Area2D) -> void:
+	if is_damageable and _health <= 0: return;
 	if z_index < area.z_index: return;
 	if is_damaging: return;
+	#if area is CannonBall and not is_damaging: return;
 	
 	self.queue_free()
+
+func on_damaged_anim_end() -> void:
+	if is_damageable and _health <= 0:
+		queue_free();
