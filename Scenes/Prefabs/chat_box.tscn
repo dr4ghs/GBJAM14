@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://c0ust1tevmamf"]
+
+[ext_resource type="Script" uid="uid://cq3oi36wciye" path="res://Scripts/UI/chat_box.gd" id="1_rp3wh"]
+[ext_resource type="Texture2D" uid="uid://x2nbxsbkfrvn" path="res://Assets/Sprites/text_box.png" id="1_yr8fv"]
+[ext_resource type="FontFile" uid="uid://bf4mqyyqtkx1x" path="res://Fonts/Early GameBoy.ttf" id="2_rp3wh"]
+[ext_resource type="Texture2D" uid="uid://bhcgrdkx5bafp" path="res://Assets/Sprites/captains.png" id="3_2kem2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_vklac"]
+line_spacing = -2.0
+font = ExtResource("2_rp3wh")
+font_size = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_8l71l"]
+font = ExtResource("2_rp3wh")
+font_size = 8
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ipgva"]
+atlas = ExtResource("3_2kem2")
+region = Rect2(0, 0, 32, 32)
+
+[node name="ChatBox" type="Control" unique_id=1959443383 node_paths=PackedStringArray("text", "arrow")]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+script = ExtResource("1_rp3wh")
+text = NodePath("TextBox/Text")
+arrow = NodePath("TextBox/Continue")
+speed = 5.0
+
+[node name="TextBox" type="TextureRect" parent="." unique_id=381460412]
+layout_mode = 0
+offset_top = 8.0
+offset_right = 160.0
+offset_bottom = 40.0
+texture = ExtResource("1_yr8fv")
+
+[node name="Text" type="Label" parent="TextBox" unique_id=5752700]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -123.0
+offset_top = -29.0
+offset_right = -3.0
+offset_bottom = -1.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "SQUHE-HE-HEAK!
+Your gold will
+be mine, scum! "
+label_settings = SubResource("LabelSettings_vklac")
+
+[node name="Continue" type="Label" parent="TextBox" unique_id=1633587863]
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -10.0
+offset_right = 4.0
+grow_horizontal = 0
+grow_vertical = 0
+rotation = 1.5707964
+text = "~"
+label_settings = SubResource("LabelSettings_8l71l")
+
+[node name="Portrait" type="TextureRect" parent="." unique_id=1405931039]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -32.0
+offset_right = 32.0
+grow_vertical = 0
+texture = SubResource("AtlasTexture_ipgva")
