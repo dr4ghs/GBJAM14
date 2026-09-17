@@ -6,9 +6,10 @@ extends Area2D
 func _process(delta: float) -> void:
 	position.y -= speed * delta;
 
-func _on_area_entered(entity: Entity) -> void:
+func _on_area_entered(entity: Area2D) -> void:
 	if entity.z_index < z_index: return;
 	
-	if entity.health.enabled and entity.health.value > 0: 
-		entity.damage();
-		queue_free();
+	if entity is Entity:
+		if entity.health.enabled and entity.health.value > 0: 
+			entity.damage();
+			queue_free();

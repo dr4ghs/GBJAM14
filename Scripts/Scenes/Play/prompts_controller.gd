@@ -7,18 +7,22 @@ extends Control
 @export var hint_lbl: Label;
 
 func _on_start() -> void:
-	visible = true;
+	visible = true
+	hint_lbl.visible = false
 	anim_player.play("start")
 
 func _on_play() -> void:
-	visible = false;
+	visible = false
+	hint_lbl.visible = false
 
 func _on_pause() -> void:
 	main_lbl.text = "PAUSE"
-	hint_lbl.text = "B TO EXIT"
-	visible = true;
+	hint_lbl.text = "B - EXIT"
+	visible = true
+	hint_lbl.visible = true
 
 func _on_game_over() -> void:
 	main_lbl.text = "GAME OVER"
-	hint_lbl.text = "A TO RESTART"
+	hint_lbl.text = "A - RESTART"
 	visible = true;
+	hint_lbl.visible = true

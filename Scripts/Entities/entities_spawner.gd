@@ -20,6 +20,9 @@ func _on_start() -> void:
 	
 	spawn();
 
+func start() -> void:
+	pass
+
 func _on_pause() -> void:
 	working = false;
 
