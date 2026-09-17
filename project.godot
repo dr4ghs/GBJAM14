@@ -20,11 +20,10 @@ config/features=PackedStringArray("4.7", "GL Compatibility")
 
 [audio]
 
-buses/default_bus_layout="res://Resources/default_bus_layout.tres"
+buses/default_bus_layout="uid://d35v8hw4xf7e8"
 
 [autoload]
 
-SpawnPoints="*uid://dwyprtw12b1w"
 PlaySceneConstants="*uid://dayexy1bv0slh"
 PlayerStats="*uid://bei20so8n0jaq"
 

@@ -7,7 +7,7 @@ class_name HealthBar extends HBoxContainer
 
 func _on_start() -> void:
 	if len(hearts) == 0:
-		for i in PlayerStats.curr_health:
+		for i in PlayerStats.health:
 			var texture_rect: TextureRect = TextureRect.new();
 			texture_rect.texture = full_heart;
 			add_child(texture_rect);
@@ -16,7 +16,7 @@ func _on_start() -> void:
 		for hrt in hearts:
 			hrt.texture = full_heart;
 
-func _on_damage_taken(health: int) -> void:
+func update(health: int) -> void:
 	for i in len(hearts):
 		if i < health: hearts[len(hearts) - 1 - i].texture = full_heart;
 		else: hearts[len(hearts) - 1 - i].texture = empty_heart;

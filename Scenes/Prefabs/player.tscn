@@ -98,35 +98,59 @@ tracks/6/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath(".:damaged")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_ak25i"]
 resource_name = "damaged"
 length = 0.8
-tracks/0/type = "method"
+tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".")
+tracks/0/path = NodePath("Graphics/Ship:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.8),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"on_damaged_anim_end"
-}]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Graphics/Ship:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [true, false, true, false, true, false, true, false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:damaged")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimationPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"idle", -1, 1.0, false],
+"method": &"play"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_k7ict"]
@@ -397,9 +421,14 @@ _data = {
 &"defualt": SubResource("Animation_pik1w")
 }
 
-[node name="Player" type="Area2D" unique_id=1107116930]
+[node name="Player" type="Area2D" unique_id=1107116930 node_paths=PackedStringArray("collision_box", "animation_player", "ship_gfx", "coin", "cannon")]
 collision_mask = 6
 script = ExtResource("1_jbf0a")
+collision_box = NodePath("CollisionBox")
+animation_player = NodePath("AnimationPlayer")
+ship_gfx = NodePath("Graphics/Ship")
+coin = NodePath("Coin/AnimationPlayer")
+cannon = NodePath("Cannon")
 
 [node name="Graphics" type="Node2D" parent="." unique_id=668509043]
 
@@ -442,5 +471,3 @@ script = ExtResource("5_cb7df")
 rect = Rect2(-8, -8, 16, 16)
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="death" from="." to="." method="_on_death"]
-[connection signal="fire" from="." to="Cannon" method="_on_fire"]

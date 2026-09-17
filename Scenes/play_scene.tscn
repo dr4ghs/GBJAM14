@@ -122,10 +122,10 @@ tracks/1/path = NodePath("AudioController/SFX:stream")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [ExtResource("9_cqpud")]
+"values": [ExtResource("9_cqpud"), null]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -383,12 +383,14 @@ b = Vector2(160, -43)
 a = Vector2(0, 128)
 b = Vector2(160, 128)
 
-[node name="PlayScene" type="Node2D" unique_id=458439781 node_paths=PackedStringArray("player_spawn", "health_bar", "audio_ctrl", "anim", "entity_spawn")]
+[node name="PlayScene" type="Node2D" unique_id=458439781 node_paths=PackedStringArray("camera", "health_bar", "gold_ctrl", "audio_ctrl", "anim", "player_spawn", "entity_spawn")]
 script = ExtResource("1_3cjv5")
-player_spawn = NodePath("PlayerSpawner")
+camera = NodePath("Camera2D")
 health_bar = NodePath("HUD/HealthBar")
+gold_ctrl = NodePath("HUD/GoldLabel")
 audio_ctrl = NodePath("AudioController")
 anim = NodePath("AnimationPlayer")
+player_spawn = NodePath("PlayerSpawner")
 entity_spawn = NodePath("EntitiesSpawner")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2097316283]
@@ -561,6 +563,7 @@ audio_ctrl = NodePath("../AudioController")
 health_ctrl = NodePath("../HUD/HealthBar")
 gold_ctrl = NodePath("../HUD/GoldLabel")
 
+[connection signal="game_over" from="." to="." method="_on_game_over"]
 [connection signal="game_over" from="." to="AnimationPlayer" method="_on_game_over"]
 [connection signal="game_over" from="." to="HUD/Overlay" method="_on_game_over"]
 [connection signal="game_over" from="." to="EntitiesSpawner" method="_on_game_over"]
@@ -570,6 +573,7 @@ gold_ctrl = NodePath("../HUD/GoldLabel")
 [connection signal="play" from="." to="HUD/Overlay" method="_on_play"]
 [connection signal="play" from="." to="EntitiesSpawner" method="_on_play"]
 [connection signal="play" from="." to="PlayerSpawner" method="_on_play"]
+[connection signal="start" from="." to="." method="_on_start"]
 [connection signal="start" from="." to="AnimationPlayer" method="_on_start"]
 [connection signal="start" from="." to="HUD/HealthBar" method="_on_start"]
 [connection signal="start" from="." to="HUD/GoldLabel" method="_on_start"]
