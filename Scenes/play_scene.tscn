@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://dsojiqq6ktrwu" path="res://Assets/Sprites/hearts.png" id="6_io55t"]
 [ext_resource type="PackedScene" uid="uid://c4wnwm7jjphsf" path="res://Scenes/Prefabs/audio_controller.tscn" id="8_lneu0"]
 [ext_resource type="AudioStream" uid="uid://canw4nvmt5461" path="res://Assets/Audio/SFX/gold_gain.wav" id="9_3wskg"]
-[ext_resource type="AudioStream" uid="uid://ccntjy40nve6u" path="res://Assets/Audio/SFX/crashing_waves.wav" id="9_fbpj1"]
+[ext_resource type="AudioStream" uid="uid://dwd3jqpmvd1ey" path="res://Assets/Audio/SFX/hit_sfx.wav" id="9_cqpud"]
 [ext_resource type="Script" uid="uid://yfhna855ntn1" path="res://Scripts/Scenes/Play/play_scene_camera_controller.gd" id="9_j3qlu"]
 [ext_resource type="Script" uid="uid://bk7f8b3r31com" path="res://Scripts/Scenes/Play/prompts_controller.gd" id="10_fg1lf"]
 [ext_resource type="Texture2D" uid="uid://c4t06lg00gjy" path="res://Assets/Sprites/coin.png" id="10_knw1p"]
@@ -125,7 +125,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("17_8n5jp")]
+"values": [ExtResource("9_cqpud")]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -404,14 +404,10 @@ libraries/ = SubResource("AnimationLibrary_j3qlu")
 
 [node name="AudioController" parent="." unique_id=432057609 instance=ExtResource("8_lneu0")]
 sound_effects = Dictionary[String, AudioStream]({
-"damage": ExtResource("17_8n5jp"),
-"gold": ExtResource("9_3wskg")
+"damage": ExtResource("9_cqpud"),
+"gold": ExtResource("9_3wskg"),
+"shoot": ExtResource("17_8n5jp")
 })
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AudioController" unique_id=156176197]
-stream = ExtResource("9_fbpj1")
-autoplay = true
-playback_type = 1
 
 [node name="HUD" type="Control" parent="." unique_id=1355296688]
 z_index = 100

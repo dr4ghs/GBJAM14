@@ -11,7 +11,9 @@ default_bgm = ExtResource("2_ox7v7")
 bus = &"SFX"
 
 [node name="SideSFX" type="AudioStreamPlayer" parent="." unique_id=755692358]
+bus = &"Side SFX"
 
 [node name="BGM" type="AudioStreamPlayer" parent="." unique_id=740329563]
 stream = ExtResource("2_ox7v7")
 autoplay = true
+bus = &"BGM"

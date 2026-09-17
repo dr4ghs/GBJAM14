@@ -36,7 +36,7 @@ func spawn() -> void:
 	for res in pattern.entities:
 		var entity: Entity = entity_scene.instantiate()
 		entity.populate(res.entity, int(res.distance), enemy_hurted)
-		entity.lane = int(res.lane + lane) % len(Lanes.Values)
+		entity.lane = int(res.lane + lane) % len(Lanes.Values) as Lanes.Values
 		add_child(entity)
 		
 	wait_time = pattern.wait_time

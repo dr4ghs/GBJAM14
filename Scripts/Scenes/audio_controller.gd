@@ -30,6 +30,6 @@ func play_sfx(sfx_name: String) -> void:
 
 func play_side_sfx(sfx_name: String) -> void:
 	if not sound_effects.has(sfx_name): return
-
-	side_sfx.stream = sound_effects[sfx_name];
-	side_sfx.play();
+	
+	side_sfx.stream = sound_effects[sfx_name]
+	side_sfx.play()
