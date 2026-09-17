@@ -22,6 +22,8 @@
 [ext_resource type="AudioStream" uid="uid://cgtut0umy3835" path="res://Assets/Audio/BGM/main_theme_2.wav" id="16_fbpj1"]
 [ext_resource type="AudioStream" uid="uid://d1qmw447q3d57" path="res://Assets/Audio/SFX/damage_taken.wav" id="17_8n5jp"]
 [ext_resource type="Script" uid="uid://bhhsvxw0a532n" path="res://Scripts/Scenes/Play/animation_player_controller.gd" id="21_lneu0"]
+[ext_resource type="PackedScene" uid="uid://cqpjkry3jvpc" path="res://Scenes/Prefabs/warning_sign.tscn" id="23_1mfr0"]
+[ext_resource type="Script" uid="uid://bmdigctt2283x" path="res://Scripts/Scenes/Play/warns_orchestrator.gd" id="23_cqpud"]
 [ext_resource type="Script" uid="uid://brc5fcqrpvll7" path="res://Scripts/Scenes/Play/player_spawner.gd" id="23_s0476"]
 
 [sub_resource type="Animation" id="Animation_3cjv5"]
@@ -377,6 +379,10 @@ b = Vector2(160, 191)
 a = Vector2(0, -43)
 b = Vector2(160, -43)
 
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_bqlsl"]
+a = Vector2(0, 128)
+b = Vector2(160, 128)
+
 [node name="PlayScene" type="Node2D" unique_id=458439781 node_paths=PackedStringArray("player_spawn", "health_bar", "audio_ctrl", "anim", "entity_spawn")]
 script = ExtResource("1_3cjv5")
 player_spawn = NodePath("PlayerSpawner")
@@ -515,10 +521,40 @@ shape = SubResource("SegmentShape2D_loj0l")
 position = Vector2(0, 69)
 shape = SubResource("SegmentShape2D_ipgva")
 
-[node name="EntitiesSpawner" type="Node2D" parent="." unique_id=1555581684 node_paths=PackedStringArray("audio_ctrl")]
+[node name="EntitiesSpawner" type="Node2D" parent="." unique_id=1555581684 node_paths=PackedStringArray("warns_orchestrator", "audio_ctrl")]
 script = ExtResource("11_knw1p")
 pattern = ExtResource("12_45wvb")
+warns_orchestrator = NodePath("../WarnsOrchestrator")
 audio_ctrl = NodePath("../AudioController")
+
+[node name="WarnsOrchestrator" type="Area2D" parent="." unique_id=256354019 node_paths=PackedStringArray("warns")]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("23_cqpud")
+warns = {
+0: NodePath("Left"),
+1: NodePath("CenterLeft"),
+2: NodePath("Center"),
+3: NodePath("CenterRight"),
+4: NodePath("Right")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WarnsOrchestrator" unique_id=514751520]
+shape = SubResource("SegmentShape2D_bqlsl")
+
+[node name="Left" parent="WarnsOrchestrator" unique_id=1277391230 instance=ExtResource("23_1mfr0")]
+
+[node name="CenterLeft" parent="WarnsOrchestrator" unique_id=888931125 instance=ExtResource("23_1mfr0")]
+lane = 1
+
+[node name="Center" parent="WarnsOrchestrator" unique_id=1506688980 instance=ExtResource("23_1mfr0")]
+lane = 2
+
+[node name="CenterRight" parent="WarnsOrchestrator" unique_id=1516154782 instance=ExtResource("23_1mfr0")]
+lane = 3
+
+[node name="Right" parent="WarnsOrchestrator" unique_id=40259737 instance=ExtResource("23_1mfr0")]
+lane = 4
 
 [node name="PlayerSpawner" type="VisibleOnScreenNotifier2D" parent="." unique_id=48098516 node_paths=PackedStringArray("scene", "audio_ctrl", "health_ctrl", "gold_ctrl")]
 position = Vector2(80, 128)
@@ -545,3 +581,4 @@ gold_ctrl = NodePath("../HUD/GoldLabel")
 [connection signal="start" from="." to="EntitiesSpawner" method="_on_start"]
 [connection signal="start" from="." to="PlayerSpawner" method="_on_start"]
 [connection signal="area_entered" from="DespawnArea" to="DespawnArea" method="_on_area_entered"]
+[connection signal="area_exited" from="WarnsOrchestrator" to="WarnsOrchestrator" method="_on_area_exited"]

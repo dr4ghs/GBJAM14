@@ -1,11 +1,9 @@
 class_name Entity
 extends Area2D
 
-const WARN_SIGN_Y: int = 32;
-
 signal hit();
 
-var warn_sign: PackedScene = preload("res://Scenes/Prefabs/warning_sign.tscn");
+const START_ALTITUDE = 72.0;
 
 @export var gfx: AnimatedSprite2D;
 @export var mask: Sprite2D;
@@ -16,8 +14,12 @@ var warn_sign: PackedScene = preload("res://Scenes/Prefabs/warning_sign.tscn");
 @export var attack: AttackComponent
 @export var gold: GoldComponent
 
-var distance: float;
-var warned: bool;
+var lane: Lanes.Values:
+	set(value):
+		lane = value
+		position.x = Lanes.coordinates(value)
+
+var distance: float
 
 func populate(resource: EntityResource, dist: int, on_hit: Callable) -> void:
 	health.enabled = resource.health > 0
@@ -41,7 +43,7 @@ func populate(resource: EntityResource, dist: int, on_hit: Callable) -> void:
 	(collisions.shape as RectangleShape2D).size = Vector2(16 * resource.width, 16);
 	
 	distance = PlaySceneConstants.MAX_DISTANCE + (float(dist) / 10);
-	position.y = SpawnPoints.obstacle_altitude;
+	position.y = START_ALTITUDE;
 	
 	hit.connect(on_hit)
 
@@ -55,13 +57,6 @@ func update(delta: float) -> void:
 	if health.enabled and health.value <= 0: return;
 	
 	distance -= PlaySceneConstants.BASE_SPEED * PlayerStats.curr_speed * delta;
-	
-	if attack.enabled and not warned and distance <= PlaySceneConstants.MAX_DISTANCE * 0.75:
-		var warn: Node = warn_sign.instantiate();
-		$"..".add_child(warn);
-		warn.position.y = WARN_SIGN_Y;
-		warn.position.x = position.x;
-		warned = true;
 	
 	if distance > PlaySceneConstants.MAX_DISTANCE: return;
 	

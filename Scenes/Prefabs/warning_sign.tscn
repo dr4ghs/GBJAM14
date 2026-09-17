@@ -26,7 +26,7 @@ animations = [{
 }]
 
 [node name="WarningSign" type="AnimatedSprite2D" unique_id=1277391230]
+visible = false
 sprite_frames = SubResource("SpriteFrames_ipgva")
 frame_progress = 0.44125393
 script = ExtResource("2_so5n3")
-duration = 1.0

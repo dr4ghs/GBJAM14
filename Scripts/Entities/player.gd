@@ -32,7 +32,7 @@ func setup() -> void:
 	PlayerStats.reset();
 	_gold = 0;
 	_health = PlayerStats.health;
-	_curr_lane = Enums.Lane.CENTER;
+	_curr_lane = Lanes.Values.CENTER;
 	damaged = false;
 	invincible = false;
 
@@ -54,12 +54,12 @@ func _process(delta: float) -> void:
 		if Input.is_action_just_pressed("left"):
 			if _curr_lane > 0: _curr_lane -= 1;
 		elif Input.is_action_just_pressed("right"):
-			if _curr_lane < len(SpawnPoints.lanes) - 1: _curr_lane += 1;
+			if _curr_lane < len(Lanes.Values) - 1: _curr_lane += 1;
 		elif Input.is_action_just_pressed("action"):
 			# TODO cooldown
 			fire.emit(cannon_ball_parent);
 	
-	position.x = lerp(position.x, SpawnPoints.lanes[_curr_lane], 0.2);
+	position.x = lerp(position.x, Lanes.coordinates(_curr_lane), 0.2);
 	animation_player.speed_scale = PlayerStats.speed;
 	
 	if not invincible and false:
