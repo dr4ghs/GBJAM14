@@ -466,6 +466,7 @@ label_settings = SubResource("LabelSettings_ipgva")
 horizontal_alignment = 1
 
 [node name="Overlay" type="Control" parent="HUD" unique_id=801283551 node_paths=PackedStringArray("anim_player", "main_lbl", "hint_lbl")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -515,15 +516,15 @@ region_rect = Rect2(0, 0, 160, 96)
 libraries/ = SubResource("AnimationLibrary_ivbpn")
 autoplay = &"default"
 
-[node name="DespawnArea" type="Area2D" parent="." unique_id=1608426840]
-collision_layer = 16
+[node name="DespawnArea" type="Area2D" parent="Background" unique_id=1608426840]
+collision_layer = 512
 collision_mask = 14
 script = ExtResource("13_io55t")
 
-[node name="CollisionLine" type="CollisionShape2D" parent="DespawnArea" unique_id=1177822595]
+[node name="CollisionLine" type="CollisionShape2D" parent="Background/DespawnArea" unique_id=1177822595]
 shape = SubResource("SegmentShape2D_loj0l")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DespawnArea" unique_id=303798004]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/DespawnArea" unique_id=303798004]
 position = Vector2(0, 69)
 shape = SubResource("SegmentShape2D_ipgva")
 
@@ -556,4 +557,4 @@ gold_ctrl = NodePath("../HUD/GoldLabel")
 [connection signal="start" from="." to="HUD/Overlay" method="_on_start"]
 [connection signal="start" from="." to="EntitiesSpawner" method="_on_start"]
 [connection signal="start" from="." to="PlayerSpawner" method="_on_start"]
-[connection signal="area_entered" from="DespawnArea" to="DespawnArea" method="_on_area_entered"]
+[connection signal="area_entered" from="Background/DespawnArea" to="Background/DespawnArea" method="_on_area_entered"]

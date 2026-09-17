@@ -1,12 +1,10 @@
 [gd_resource type="Resource" script_class="EntityResource" format=3 uid="uid://qulyym73n8fl"]
 
 [ext_resource type="Script" uid="uid://bbjwpf1qcdh7b" path="res://Scripts/Resources/entity_res.gd" id="1_2fkun"]
-[ext_resource type="Texture2D" uid="uid://c0ikslcwnet3r" path="res://Assets/Sprites/shark.png" id="2_viwrt"]
 
 [resource]
 script = ExtResource("1_2fkun")
+entity_name = &"shark"
 health = 1
-damage = 1
-width = 1
-texture = ExtResource("2_viwrt")
+attack = 1
 metadata/_custom_type_script = "uid://bbjwpf1qcdh7b"

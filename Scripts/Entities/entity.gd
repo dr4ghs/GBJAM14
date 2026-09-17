@@ -3,89 +3,60 @@ extends Area2D
 
 const WARN_SIGN_Y: int = 32;
 
-signal hurted();
+signal hit();
 
 var warn_sign: PackedScene = preload("res://Scenes/Prefabs/warning_sign.tscn");
 
-@onready var gfx: Sprite2D = $Graphics;
-@onready var mask: Sprite2D = $Graphics/Mask;
-@onready var collisions: CollisionShape2D = $CollisionBox;
-@onready var anim_player: AnimationPlayer = $AnimationPlayer;
+@export var gfx: AnimatedSprite2D;
+@export var mask: Sprite2D;
+@export var collisions: CollisionShape2D;
+@export var anim_player: AnimationPlayer;
 
-var is_damageable: bool;
-var _health: int;
-
-var is_damaging: bool;
-var _damage: int;
-
-var is_gold: bool;
-var _gold: int;
+@export var health: HealthComponent
+@export var attack: AttackComponent
+@export var gold: GoldComponent
 
 var distance: float;
 var warned: bool;
 
-#@export var res: EntityResource;
-
-func populate(resource: EntityResource, dist: int) -> void:
-	is_damageable = resource.health > 0;
-	set_collision_layer_value(3, is_damageable);
-	set_collision_mask_value(4, is_damageable)
-	_health = resource.health;
+func populate(resource: EntityResource, dist: int, on_hit: Callable) -> void:
+	health.enabled = resource.health > 0
+	if health.enabled: 
+		health.value = resource.health
+		set_collision_mask_value(4, true)
 	
-	is_damaging = resource.damage > 0;
-	set_collision_layer_value(3, is_damaging);
-	set_collision_mask_value(4, is_damageable)
-	_damage = resource.damage;
+	attack.enabled = resource.attack > 0
+	if attack.enabled: 
+		attack.value = resource.attack
+		set_collision_layer_value(3, true)
 	
-	is_gold = resource.gold > 0;
-	set_collision_layer_value(2, is_gold);
-	_gold = resource.gold;
+	gold.enabled = resource.gold > 0
+	if gold.enabled:
+		gold.value = resource.gold
+		set_collision_layer_value(2, true)
 	
-	if resource.texture is AtlasTexture:
-		var atlas: AtlasTexture = resource.texture as AtlasTexture;
-		gfx.texture = atlas.atlas
-		gfx.region_enabled = true;
-		gfx.region_rect = atlas.region;
-	else:
-		gfx.texture = resource.texture;
+	gfx.play(resource.entity_name)
 	
 	collisions.shape = RectangleShape2D.new();
 	(collisions.shape as RectangleShape2D).size = Vector2(16 * resource.width, 16);
 	
-	anim_player.current_animation = resource.anim_name;
-	
 	distance = PlaySceneConstants.MAX_DISTANCE + (float(dist) / 10);
 	position.y = SpawnPoints.obstacle_altitude;
 	
-	mask.visible = true;
+	hit.connect(on_hit)
 
-func health() -> int:
-	if is_damageable: return _health;
+func damage() -> void:
+	if not health.enabled: return;
 	
-	return 0;
-
-func damage() -> int:
-	if is_damaging: return _damage;
-	
-	return 0;
-
-func gold() -> int:
-	if is_gold: return _gold;
-	
-	return 0;
-
-func hurt() -> void:
-	hurted.emit();
-	_health -= 1;
-	if _health <= 0:
-		anim_player.play("entity_anims/damaged");
+	health.value -= 1;
+	hit.emit();
 
 func update(delta: float) -> void:
-	if is_damageable and _health <= 0: return;
+	if health.enabled and health.value <= 0: return;
 	
 	distance -= PlaySceneConstants.BASE_SPEED * PlayerStats.curr_speed * delta;
 	
-	if is_damaging and not warned and distance <= PlaySceneConstants.MAX_DISTANCE * 0.75:
+	if attack.enabled and not warned and distance <= PlaySceneConstants.MAX_DISTANCE * 0.75:
 		var warn: Node = warn_sign.instantiate();
 		$"..".add_child(warn);
 		warn.position.y = WARN_SIGN_Y;
@@ -103,13 +74,13 @@ func update(delta: float) -> void:
 	position.y = get_viewport_rect().size.y - (delta_d * (get_viewport_rect().size.y - 48));
 
 func _on_area_entered(area: Area2D) -> void:
-	if is_damageable and _health <= 0: return;
+	if health.enabled and health.value <= 0: return;
 	if z_index < area.z_index: return;
-	if is_damaging: return;
-	#if area is CannonBall and not is_damaging: return;
+	if attack.enabled: return;
+	if area is CannonBall and not health.enabled: return;
 	
 	self.queue_free()
 
 func on_damaged_anim_end() -> void:
-	if is_damageable and _health <= 0:
+	if health.enabled and health.value <= 0:
 		queue_free();

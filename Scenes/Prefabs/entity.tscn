@@ -1,52 +1,178 @@
 [gd_scene format=3 uid="uid://b2cn7dwr1s7vj"]
 
 [ext_resource type="Script" uid="uid://d4c7iw6xdus3v" path="res://Scripts/Entities/entity.gd" id="1_53wb5"]
+[ext_resource type="Texture2D" uid="uid://c0ikslcwnet3r" path="res://Assets/Sprites/shark.png" id="2_b1v8y"]
+[ext_resource type="Texture2D" uid="uid://bqcm1ycuyepa" path="res://Assets/Sprites/chest.png" id="2_rggit"]
 [ext_resource type="Texture2D" uid="uid://ck258yie3336b" path="res://Assets/Sprites/clipping_mask.png" id="2_sorwi"]
-[ext_resource type="AnimationLibrary" uid="uid://pfu4k7ss0qye" path="res://Assets/Animations/entity_anims.tres" id="3_4c1g7"]
+[ext_resource type="Texture2D" uid="uid://c4t06lg00gjy" path="res://Assets/Sprites/coin.png" id="3_epjcc"]
+[ext_resource type="Texture2D" uid="uid://d1ucmwkm6y4b5" path="res://Assets/Sprites/kraken.png" id="4_kkkno"]
+[ext_resource type="Script" uid="uid://dxog6kjcml6jo" path="res://Scripts/Entities/Components/health_component.gd" id="8_epjcc"]
+[ext_resource type="Script" uid="uid://cufqc7uphjeqk" path="res://Scripts/Entities/Components/attack_component.gd" id="9_iamhd"]
+[ext_resource type="Script" uid="uid://du71nvsnl50jr" path="res://Scripts/Entities/Components/gold_component.gd" id="10_8eqxr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iamhd"]
+atlas = ExtResource("2_rggit")
+region = Rect2(0, 0, 34, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8eqxr"]
+atlas = ExtResource("2_rggit")
+region = Rect2(34, 0, 34, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bt3ky"]
+atlas = ExtResource("3_epjcc")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gxtm0"]
+atlas = ExtResource("3_epjcc")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gf8p4"]
+atlas = ExtResource("3_epjcc")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tefrf"]
+atlas = ExtResource("3_epjcc")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dsqdn"]
+atlas = ExtResource("4_kkkno")
+region = Rect2(0, 0, 70, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l7etu"]
+atlas = ExtResource("4_kkkno")
+region = Rect2(70, 0, 70, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cspxs"]
+atlas = ExtResource("2_b1v8y")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8wi0v"]
+atlas = ExtResource("2_b1v8y")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ipgva"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iamhd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8eqxr")
+}],
+"loop": 1,
+"name": &"chest",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bt3ky")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gxtm0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gf8p4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tefrf")
+}],
+"loop": 1,
+"name": &"coin",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dsqdn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l7etu")
+}],
+"loop": 1,
+"name": &"kraken",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cspxs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8wi0v")
+}],
+"loop": 1,
+"name": &"shark",
+"speed": 5.0
+}]
 
 [sub_resource type="Animation" id="Animation_b1v8y"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Graphics:region_rect:position:x")
+tracks/0/path = NodePath("AnimatedSprite2D:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0.0]
+"values": [true]
 }
-tracks/1/type = "value"
+
+[sub_resource type="Animation" id="Animation_kkkno"]
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false, true, false, true]
+}
+tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Graphics:visible")
+tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
+"times": PackedFloat32Array(0.8),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"values": [{
+"args": [],
+"method": &"on_damaged_anim_end"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v5u45"]
 _data = {
-&"RESET": SubResource("Animation_b1v8y")
+&"RESET": SubResource("Animation_b1v8y"),
+&"damaged": SubResource("Animation_kkkno")
 }
 
-[node name="Entity" type="Area2D" unique_id=355213405]
+[node name="Entity" type="Area2D" unique_id=355213405 node_paths=PackedStringArray("gfx", "mask", "collisions", "anim_player", "health", "attack", "gold")]
 z_index = -1
 collision_layer = 0
-collision_mask = 17
+collision_mask = 25
 script = ExtResource("1_53wb5")
+gfx = NodePath("AnimatedSprite2D")
+mask = NodePath("AnimatedSprite2D/Mask")
+collisions = NodePath("CollisionBox")
+anim_player = NodePath("AnimationPlayer")
+health = NodePath("HealthComponent")
+attack = NodePath("AttackComponent")
+gold = NodePath("GoldComponent")
 
-[node name="Graphics" type="Sprite2D" parent="." unique_id=1217976356]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1312803242]
 clip_children = 2
+sprite_frames = SubResource("SpriteFrames_ipgva")
+animation = &"chest"
+frame_progress = 0.6430684
 
-[node name="Mask" type="Sprite2D" parent="Graphics" unique_id=1205552088]
-visible = false
+[node name="Mask" type="Sprite2D" parent="AnimatedSprite2D" unique_id=1205552088]
 scale = Vector2(5, 5)
 texture = ExtResource("2_sorwi")
 
@@ -54,7 +180,19 @@ texture = ExtResource("2_sorwi")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1070795933]
 libraries/ = SubResource("AnimationLibrary_v5u45")
-libraries/entity_anims = ExtResource("3_4c1g7")
 autoplay = &"entity_anims/coin"
+
+[node name="HealthComponent" type="Node" parent="." unique_id=319812802 node_paths=PackedStringArray("anim_player")]
+script = ExtResource("8_epjcc")
+anim_player = NodePath("../AnimationPlayer")
+metadata/_custom_type_script = "uid://dxog6kjcml6jo"
+
+[node name="AttackComponent" type="Node" parent="." unique_id=832913711]
+script = ExtResource("9_iamhd")
+metadata/_custom_type_script = "uid://cufqc7uphjeqk"
+
+[node name="GoldComponent" type="Node" parent="." unique_id=20373748]
+script = ExtResource("10_8eqxr")
+metadata/_custom_type_script = "uid://du71nvsnl50jr"
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

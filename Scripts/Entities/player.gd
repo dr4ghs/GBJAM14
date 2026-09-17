@@ -78,17 +78,17 @@ func _on_area_entered(entity: Entity) -> void:
 	if z_index > entity.z_index: return;
 	if _health <= 0: return;
 	
-	if entity.is_damaging and not damaged:
+	if entity.attack.enabled and not damaged:
 		if invincible: return;
 		
-		_health -= entity.damage()
+		_health -= entity.attack.value
 		damaged = true;
 		animation_player.play("damaged"); 
 		damage_taken.emit(_health);
 		if (_health <= 0): death.emit();
 	
-	if entity.is_gold:
-		_gold += entity.gold()
+	if entity.gold.enabled:
+		_gold += entity.gold.value
 		coin.stop();
 		coin.play("defualt");
 		gold_taken.emit(_gold);

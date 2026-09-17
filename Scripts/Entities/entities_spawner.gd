@@ -33,8 +33,7 @@ func spawn() -> void:
 	for res in pattern.entities:
 		var entity: Entity = entity_scene.instantiate();
 		add_child(entity);
-		entity.populate(res.entity, int(res.distance));
-		entity.hurted.connect(enemy_hurted);
+		entity.populate(res.entity, int(res.distance), enemy_hurted);
 		if pattern.random_lane:
 			entity.position.x = lane;
 		else:

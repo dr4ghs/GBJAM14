@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://74lvw6dq7prk"
-path="res://.godot/imported/overlay.png-b7c6aece47992ab607eb07579d31ba1c.ctex"
+uid="uid://bhcgrdkx5bafp"
+path="res://.godot/imported/captains.png-84bd0f0da89138a7e59adeb8195865f8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/overlay.png"
-dest_files=["res://.godot/imported/overlay.png-b7c6aece47992ab607eb07579d31ba1c.ctex"]
+source_file="res://Assets/Sprites/captains.png"
+dest_files=["res://.godot/imported/captains.png-84bd0f0da89138a7e59adeb8195865f8.ctex"]
 
 [params]
 

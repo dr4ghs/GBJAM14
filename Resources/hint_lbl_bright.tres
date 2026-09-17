@@ -1,7 +1,0 @@
-[gd_resource type="LabelSettings" format=3 uid="uid://bi2ypwa67ulv1"]
-
-[ext_resource type="FontFile" uid="uid://dx73sdghq4d41" path="res://Fonts/game-boy-startup-font.otf" id="1_7oc2l"]
-
-[resource]
-font = ExtResource("1_7oc2l")
-font_size = 10

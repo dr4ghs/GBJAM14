@@ -1,9 +1,8 @@
 class_name EntityResource
 extends Resource
 
-@export var health: int;
-@export var damage: int;
-@export var gold: int;
-@export var width: int;
-@export var texture: Texture2D;
-@export var anim_name: StringName;
+@export var entity_name: StringName
+@export var width: int = 1
+@export var health: int
+@export var attack: int
+@export var gold: int

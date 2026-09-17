@@ -9,6 +9,6 @@ func _process(delta: float) -> void:
 func _on_area_entered(entity: Entity) -> void:
 	if entity.z_index < z_index: return;
 	
-	if entity.is_damageable: entity.hurt();
-	
-	queue_free();
+	if entity.health.enabled and entity.health.value > 0: 
+		entity.damage();
+		queue_free();
