@@ -1,0 +1,676 @@
+[gd_scene format=3 uid="uid://bu5ncxt7fouma"]
+
+[ext_resource type="Script" uid="uid://bfw6peni3payy" path="res://Scripts/Scenes/Title/animation_player.gd" id="1_6vd4x"]
+[ext_resource type="Texture2D" uid="uid://brtn7wnvrm0cf" path="res://Assets/Sprites/character_selection.png" id="1_klylv"]
+[ext_resource type="FontFile" uid="uid://bf4mqyyqtkx1x" path="res://Fonts/Early GameBoy.ttf" id="3_4gxqj"]
+[ext_resource type="Script" uid="uid://c3hls04dx5arj" path="res://Scripts/Scenes/Title/portraits_controller.gd" id="3_6vd4x"]
+[ext_resource type="Texture2D" uid="uid://b2kfh5kcaq110" path="res://Assets/Sprites/ui_frame.png" id="3_twnyg"]
+[ext_resource type="Script" uid="uid://coqtndbmeeuk8" path="res://Scripts/Scenes/Play/selections_input.gd" id="4_12m1t"]
+[ext_resource type="Script" uid="uid://cedw8pqlgurj1" path="res://Scripts/Scenes/Title/creds_inputs.gd" id="5_55kwv"]
+[ext_resource type="Script" uid="uid://b1je52r07iau" path="res://Scripts/Scenes/Title/shop_entry.gd" id="7_n82rj"]
+[ext_resource type="Texture2D" uid="uid://c4t06lg00gjy" path="res://Assets/Sprites/coin.png" id="8_8mikk"]
+[ext_resource type="Script" uid="uid://dufe84kvgnngj" path="res://Scripts/Scenes/Title/shop_item.gd" id="9_sqelc"]
+
+[sub_resource type="Animation" id="Animation_4gxqj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Creds/Control/RichTextLabel:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_6vd4x"]
+resource_name = "back"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:y")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -144.0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"_on_back_anim_start"
+}, {
+"args": [],
+"method": &"_on_back_anim_end"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_twnyg"]
+resource_name = "enter"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Portraits")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"refresh"
+}]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"_on_enter_anim_start"
+}, {
+"args": [],
+"method": &"_on_enter_anim_end"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:position:y")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-144.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_55kwv"]
+resource_name = "exit"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:y")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, -144.0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"_on_exit_anim_start"
+}, {
+"args": [],
+"method": &"_on_exit_anim_end"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_12m1t"]
+_data = {
+&"RESET": SubResource("Animation_4gxqj"),
+&"back": SubResource("Animation_6vd4x"),
+&"enter": SubResource("Animation_twnyg"),
+&"exit": SubResource("Animation_55kwv")
+}
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_p3fck"]
+load_path = "res://.godot/imported/captains.png-84bd0f0da89138a7e59adeb8195865f8.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ipgva"]
+atlas = SubResource("CompressedTexture2D_p3fck")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4gxqj"]
+load_path = "res://.godot/imported/captains.png-84bd0f0da89138a7e59adeb8195865f8.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_twnyg"]
+atlas = SubResource("CompressedTexture2D_4gxqj")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_55kwv"]
+load_path = "res://.godot/imported/captains.png-84bd0f0da89138a7e59adeb8195865f8.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_12m1t"]
+atlas = SubResource("CompressedTexture2D_55kwv")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6vd4x"]
+load_path = "res://.godot/imported/captains.png-84bd0f0da89138a7e59adeb8195865f8.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n82rj"]
+atlas = SubResource("CompressedTexture2D_6vd4x")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ipgva"]
+line_spacing = 1.0
+font = ExtResource("3_4gxqj")
+font_size = 8
+font_color = Color(0.12941177, 0.15294118, 0.23921569, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_loj0l"]
+line_spacing = 1.0
+font = ExtResource("3_4gxqj")
+font_size = 8
+font_color = Color(0.12941177, 0.15294118, 0.23921569, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_vklac"]
+font = ExtResource("3_4gxqj")
+font_size = 8
+font_color = Color(0.12941177, 0.15294118, 0.23921569, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8l71l"]
+atlas = ExtResource("8_8mikk")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_w5sh6"]
+load_path = "res://.godot/imported/stats_icons.png-c7fdce060268b95c97760f12378e2e81.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vklac"]
+atlas = SubResource("CompressedTexture2D_w5sh6")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_o1e67"]
+load_path = "res://.godot/imported/stats_icons.png-c7fdce060268b95c97760f12378e2e81.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ycay6"]
+atlas = SubResource("CompressedTexture2D_o1e67")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8mikk"]
+load_path = "res://.godot/imported/level-bar.png-66ab2bb524d649f47857060323f70704.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sqelc"]
+atlas = SubResource("CompressedTexture2D_8mikk")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="LabelSettings" id="LabelSettings_bqlsl"]
+font = ExtResource("3_4gxqj")
+font_size = 8
+font_color = Color(0.12941177, 0.15294118, 0.23921569, 1)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bsy20"]
+load_path = "res://.godot/imported/stats_icons.png-c7fdce060268b95c97760f12378e2e81.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_loj0l"]
+atlas = SubResource("CompressedTexture2D_bsy20")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ycay6"]
+load_path = "res://.godot/imported/level-bar.png-66ab2bb524d649f47857060323f70704.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bsy20"]
+atlas = SubResource("CompressedTexture2D_ycay6")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_07cxn"]
+load_path = "res://.godot/imported/stats_icons.png-c7fdce060268b95c97760f12378e2e81.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x2pfe"]
+atlas = SubResource("CompressedTexture2D_07cxn")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_x2pfe"]
+load_path = "res://.godot/imported/level-bar.png-66ab2bb524d649f47857060323f70704.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k1y01"]
+atlas = SubResource("CompressedTexture2D_x2pfe")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="Animation" id="Animation_n82rj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/RichTextLabel:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [120.0]
+}
+
+[sub_resource type="Animation" id="Animation_0061g"]
+resource_name = "scroll"
+length = 20.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/RichTextLabel:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 20),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [100.0, -290.0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(20),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_on_scroll_anim_end"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8mikk"]
+_data = {
+&"RESET": SubResource("Animation_n82rj"),
+&"scroll": SubResource("Animation_0061g")
+}
+
+[node name="TitleScreen" type="Control" unique_id=1673590567]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=393230509 node_paths=PackedStringArray("root", "main", "shop", "creds")]
+libraries/ = SubResource("AnimationLibrary_12m1t")
+script = ExtResource("1_6vd4x")
+root = NodePath("..")
+main = NodePath("../Main")
+shop = NodePath("../Shop")
+creds = NodePath("../Creds")
+
+[node name="Background" type="TextureRect" parent="." unique_id=660050587]
+layout_mode = 1
+offset_right = 160.0
+offset_bottom = 144.0
+texture = ExtResource("1_klylv")
+
+[node name="Portraits" type="Control" parent="." unique_id=808797389 node_paths=PackedStringArray("capt_fish", "capt_rat", "capt_cat", "capt_king")]
+anchors_preset = 0
+offset_top = -144.0
+offset_right = 40.0
+offset_bottom = -104.0
+script = ExtResource("3_6vd4x")
+capt_fish = NodePath("CaptFish")
+capt_rat = NodePath("CaptRat")
+capt_cat = NodePath("CaptCat")
+capt_king = NodePath("CaptKing")
+
+[node name="CaptFish" type="TextureRect" parent="Portraits" unique_id=788589154]
+visible = false
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 38.0
+offset_bottom = 38.0
+texture = SubResource("AtlasTexture_ipgva")
+
+[node name="CaptRat" type="TextureRect" parent="Portraits" unique_id=926270069]
+visible = false
+layout_mode = 0
+offset_left = 122.0
+offset_top = 6.0
+offset_right = 154.0
+offset_bottom = 38.0
+texture = SubResource("AtlasTexture_twnyg")
+
+[node name="CaptCat" type="TextureRect" parent="Portraits" unique_id=1823526308]
+visible = false
+layout_mode = 0
+offset_left = 6.0
+offset_top = 106.0
+offset_right = 38.0
+offset_bottom = 138.0
+texture = SubResource("AtlasTexture_12m1t")
+
+[node name="CaptKing" type="TextureRect" parent="Portraits" unique_id=877297836]
+visible = false
+layout_mode = 0
+offset_left = 122.0
+offset_top = 106.0
+offset_right = 154.0
+offset_bottom = 138.0
+texture = SubResource("AtlasTexture_n82rj")
+
+[node name="Main" type="NinePatchRect" parent="." unique_id=1531353195 node_paths=PackedStringArray("cursor", "manager")]
+visible = false
+layout_mode = 0
+offset_left = 47.0
+offset_top = 84.0
+offset_right = 113.0
+offset_bottom = 119.0
+texture = ExtResource("3_twnyg")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+script = ExtResource("4_12m1t")
+cursor = NodePath("Cursor")
+manager = NodePath("../AnimationPlayer")
+
+[node name="Options" type="Label" parent="Main" unique_id=1277463517]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 1.0
+offset_right = 53.0
+offset_bottom = 33.0
+text = "play
+shop
+creds"
+label_settings = SubResource("LabelSettings_ipgva")
+
+[node name="Cursor" type="Label" parent="Main" unique_id=513612203]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 1.0
+offset_right = 17.0
+offset_bottom = 11.0
+text = "~ "
+label_settings = SubResource("LabelSettings_loj0l")
+
+[node name="Shop" type="NinePatchRect" parent="." unique_id=1293368872 node_paths=PackedStringArray("items", "golds_lbl", "manager")]
+visible = false
+layout_mode = 0
+offset_left = 29.0
+offset_top = 32.0
+offset_right = 132.0
+offset_bottom = 113.0
+texture = ExtResource("3_twnyg")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+script = ExtResource("7_n82rj")
+items = [NodePath("Health"), NodePath("Speed"), NodePath("Countdown")]
+golds_lbl = NodePath("Golds/Amount")
+manager = NodePath("../AnimationPlayer")
+
+[node name="Golds" type="HBoxContainer" parent="Shop" unique_id=1402110293]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 3.0
+offset_right = 100.0
+offset_bottom = 19.0
+alignment = 2
+
+[node name="Amount" type="Label" parent="Shop/Golds" unique_id=1529228058]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_vklac")
+
+[node name="Icon" type="TextureRect" parent="Shop/Golds" unique_id=236631630]
+layout_mode = 2
+texture = SubResource("AtlasTexture_8l71l")
+
+[node name="Health" type="Control" parent="Shop" unique_id=1354274839 node_paths=PackedStringArray("selector", "level", "cost_lbl")]
+anchors_preset = 0
+offset_left = 4.0
+offset_top = 21.0
+offset_right = 107.0
+offset_bottom = 37.0
+script = ExtResource("9_sqelc")
+selector = NodePath("Selector")
+level = NodePath("Level")
+cost_lbl = NodePath("Cost")
+
+[node name="Selector" type="TextureRect" parent="Shop/Health" unique_id=789768771]
+visible = false
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+texture = SubResource("AtlasTexture_vklac")
+
+[node name="Icon" type="TextureRect" parent="Shop/Health" unique_id=1868048811]
+layout_mode = 0
+offset_left = 16.0
+offset_right = 32.0
+offset_bottom = 16.0
+texture = SubResource("AtlasTexture_ycay6")
+
+[node name="Level" type="TextureRect" parent="Shop/Health" unique_id=1502385285]
+layout_mode = 0
+offset_left = 32.0
+offset_right = 64.0
+offset_bottom = 16.0
+texture = SubResource("AtlasTexture_sqelc")
+
+[node name="Cost" type="Label" parent="Shop/Health" unique_id=2023513841]
+layout_mode = 0
+offset_left = 65.0
+offset_top = 3.0
+offset_right = 97.0
+offset_bottom = 13.0
+text = "0"
+label_settings = SubResource("LabelSettings_bqlsl")
+horizontal_alignment = 2
+
+[node name="Speed" type="Control" parent="Shop" unique_id=1178890386 node_paths=PackedStringArray("selector", "level", "cost_lbl")]
+anchors_preset = 0
+offset_left = 4.0
+offset_top = 39.0
+offset_right = 107.0
+offset_bottom = 55.0
+size_flags_vertical = 3
+script = ExtResource("9_sqelc")
+stat = 1
+selector = NodePath("Selector")
+level = NodePath("Level")
+cost_lbl = NodePath("Cost")
+
+[node name="Selector" type="TextureRect" parent="Shop/Speed" unique_id=1558608533]
+visible = false
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+texture = SubResource("AtlasTexture_vklac")
+
+[node name="Icon" type="TextureRect" parent="Shop/Speed" unique_id=1259621770]
+layout_mode = 0
+offset_left = 16.0
+offset_right = 32.0
+offset_bottom = 16.0
+texture = SubResource("AtlasTexture_loj0l")
+
+[node name="Level" type="TextureRect" parent="Shop/Speed" unique_id=1990962840]
+layout_mode = 0
+offset_left = 32.0
+offset_right = 64.0
+offset_bottom = 16.0
+texture = SubResource("AtlasTexture_bsy20")
+
+[node name="Cost" type="Label" parent="Shop/Speed" unique_id=1746208271]
+layout_mode = 0
+offset_left = 65.0
+offset_top = 3.0
+offset_right = 97.0
+offset_bottom = 13.0
+text = "0"
+label_settings = SubResource("LabelSettings_bqlsl")
+horizontal_alignment = 2
+
+[node name="Countdown" type="Control" parent="Shop" unique_id=1073937624 node_paths=PackedStringArray("selector", "level", "cost_lbl")]
+anchors_preset = 0
+offset_left = 4.0
+offset_top = 57.0
+offset_right = 107.0
+offset_bottom = 73.0
+script = ExtResource("9_sqelc")
+stat = 2
+selector = NodePath("Selector")
+level = NodePath("Level")
+cost_lbl = NodePath("Cost")
+
+[node name="Selector" type="TextureRect" parent="Shop/Countdown" unique_id=1010022836]
+visible = false
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+texture = SubResource("AtlasTexture_vklac")
+
+[node name="Icon" type="TextureRect" parent="Shop/Countdown" unique_id=1386738548]
+layout_mode = 0
+offset_left = 16.0
+offset_right = 32.0
+offset_bottom = 16.0
+texture = SubResource("AtlasTexture_x2pfe")
+
+[node name="Level" type="TextureRect" parent="Shop/Countdown" unique_id=148889574]
+layout_mode = 0
+offset_left = 32.0
+offset_right = 64.0
+offset_bottom = 16.0
+texture = SubResource("AtlasTexture_k1y01")
+
+[node name="Cost" type="Label" parent="Shop/Countdown" unique_id=1364210164]
+layout_mode = 0
+offset_left = 65.0
+offset_top = 3.0
+offset_right = 97.0
+offset_bottom = 13.0
+text = "0"
+label_settings = SubResource("LabelSettings_bqlsl")
+horizontal_alignment = 2
+
+[node name="Creds" type="NinePatchRect" parent="." unique_id=203485555 node_paths=PackedStringArray("anim_player", "manager")]
+visible = false
+layout_mode = 0
+offset_left = 47.0
+offset_top = 23.0
+offset_right = 113.0
+offset_bottom = 121.0
+texture = ExtResource("3_twnyg")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+script = ExtResource("5_55kwv")
+anim_player = NodePath("AnimationPlayer")
+manager = NodePath("../AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Creds" unique_id=826222243]
+libraries/ = SubResource("AnimationLibrary_8mikk")
+
+[node name="Control" type="Control" parent="Creds" unique_id=347142075]
+clip_contents = true
+anchors_preset = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 64.0
+offset_bottom = 95.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Creds/Control" unique_id=410758454]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -32.0
+offset_top = 120.0
+offset_right = 32.0
+offset_bottom = 400.0
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0.12941177, 0.15294118, 0.23921569, 1)
+theme_override_constants/line_separation = 0
+theme_override_constants/paragraph_separation = -2
+theme_override_fonts/normal_font = ExtResource("3_4gxqj")
+theme_override_font_sizes/normal_font_size = 5
+text = "gold rush
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+a game made
+for gbjam 14
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+made by
+
+
+
+
+
+dr4ghs
+
+Pikachu
+mazzinga
+
+Joevannee
+
+Ziocricco
+
+pipino
+mortale"
+fit_content = true
+horizontal_alignment = 1

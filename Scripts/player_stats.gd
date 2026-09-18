@@ -1,12 +1,21 @@
 extends Node
 
-var golds: int
+enum {
+	HEALTH,
+	SPEED,
+	COOLDOWN,
+}
+
+var golds: int = 9999
 
 const BASE_SPEED: float = 1.0
 var _speed_lvl: int = 1
 var speed_lvl: int:
 	get: return _speed_lvl
-	set(value): if value < 4: _speed_lvl = value
+	set(value): 
+		_speed_lvl = value
+		if _speed_lvl > 4: _speed_lvl = 4
+	
 var speed: float:
 	get: return BASE_SPEED + float(speed_lvl) / 4
 
@@ -14,7 +23,9 @@ const BASE_COOLDOWN: float = 4.0
 var _cooldown_lvl: int = 1
 var cooldown_lvl: int:
 	get: return _cooldown_lvl
-	set(value): if value < 4: _cooldown_lvl = value
+	set(value): 
+		_cooldown_lvl = value
+		if _cooldown_lvl > 4: _cooldown_lvl = 4
 
 var cooldown: float:
 	get: return 1 + BASE_COOLDOWN - cooldown_lvl
@@ -22,11 +33,25 @@ var cooldown: float:
 var _health: int = 1
 var health: int:
 	get: return _health
-	set(value): if value < 4: _health = value
+	set(value): 
+		_health = value
+		if _health > 5: _health = 4
 
 var progress: Dictionary[Captains.Values, bool] = {
-	Captains.Values.FISH: false,
-	Captains.Values.RAT: false,
+	Captains.Values.FISH: true,
+	Captains.Values.RAT: true,
 	Captains.Values.CAT: false,
 	Captains.Values.BOSS: false,
 }
+
+func get_level(stat: int) -> int:
+	if stat == HEALTH: return health
+	if stat == SPEED: return speed_lvl
+	if stat == COOLDOWN: return cooldown_lvl
+	
+	return 0
+
+func level_up(stat: int) -> void:
+	if stat == HEALTH: health += 1
+	if stat == SPEED: speed_lvl += 1
+	if stat == COOLDOWN: cooldown_lvl += 1

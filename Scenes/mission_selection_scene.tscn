@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://dgcr811rt1otd"]
+
+[ext_resource type="Script" uid="uid://cj3n18iyy0anv" path="res://Scripts/Scenes/Title/mission_selection_scene_manager.gd" id="1_b7207"]
+[ext_resource type="Texture2D" uid="uid://brtn7wnvrm0cf" path="res://Assets/Sprites/character_selection.png" id="3_sscmk"]
+
+[node name="TitleScene" type="Node2D" unique_id=373232067]
+script = ExtResource("1_b7207")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=960377234]
+offset_right = 160.0
+offset_bottom = 144.0
+texture = ExtResource("3_sscmk")
