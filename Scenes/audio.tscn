@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://d2nk5ufnudd0f"]
+
+[ext_resource type="Script" uid="uid://btxoa2vgd54vj" path="res://Scripts/Scenes/audio_controller.gd" id="1_l04ps"]
+[ext_resource type="AudioStream" uid="uid://ccntjy40nve6u" path="res://Assets/Audio/BGM/crashing_waves.wav" id="2_38mwv"]
+[ext_resource type="AudioStream" uid="uid://cgtut0umy3835" path="res://Assets/Audio/BGM/main_theme.wav" id="3_7stf1"]
+[ext_resource type="AudioStream" uid="uid://cno1jtfjbgmrs" path="res://Assets/Audio/SFX/capt_cat_sfx.wav" id="4_6ioja"]
+[ext_resource type="AudioStream" uid="uid://bdv8mhujk0md" path="res://Assets/Audio/SFX/capt_fish_sfx.wav" id="5_qfbpw"]
+[ext_resource type="AudioStream" uid="uid://15v2typx061s" path="res://Assets/Audio/SFX/capt_king_sfx.wav" id="6_r8i6a"]
+[ext_resource type="AudioStream" uid="uid://cv05glj5olk6d" path="res://Assets/Audio/SFX/capt_rat_sfx.wav" id="7_tf0nv"]
+[ext_resource type="AudioStream" uid="uid://d1qmw447q3d57" path="res://Assets/Audio/SFX/damage_taken.wav" id="8_n35fw"]
+[ext_resource type="AudioStream" uid="uid://canw4nvmt5461" path="res://Assets/Audio/SFX/gold_gain.wav" id="9_o1fue"]
+[ext_resource type="AudioStream" uid="uid://dwd3jqpmvd1ey" path="res://Assets/Audio/SFX/hit_sfx.wav" id="10_aan0r"]
+[ext_resource type="AudioStream" uid="uid://c0dtlakpxduhg" path="res://Assets/Audio/SFX/play_scene_plunder.wav" id="11_k6wgq"]
+[ext_resource type="AudioStream" uid="uid://jdi2k8wtpbl2" path="res://Assets/Audio/SFX/play_scene_ready.wav" id="12_q2wiq"]
+
+[node name="Audio" type="Node" unique_id=50456058 node_paths=PackedStringArray("bgm", "side_bgm", "sfx", "side_sfx")]
+script = ExtResource("1_l04ps")
+bgm = NodePath("BGM")
+side_bgm = NodePath("Side BGM")
+sfx = NodePath("SFX")
+side_sfx = NodePath("Side SFX")
+background_music = Dictionary[String, AudioStream]({
+"main_theme": ExtResource("3_7stf1"),
+"waves": ExtResource("2_38mwv")
+})
+sound_effects = Dictionary[String, AudioStream]({
+"capt_cat_chat": ExtResource("4_6ioja"),
+"capt_fish_chat": ExtResource("5_qfbpw"),
+"capt_king_chat": ExtResource("6_r8i6a"),
+"capt_rat_chat": ExtResource("7_tf0nv"),
+"damage": ExtResource("8_n35fw"),
+"gold": ExtResource("9_o1fue"),
+"hit": ExtResource("10_aan0r"),
+"plunder": ExtResource("11_k6wgq"),
+"ready": ExtResource("12_q2wiq")
+})
+metadata/_custom_type_script = "uid://btxoa2vgd54vj"
+
+[node name="BGM" type="AudioStreamPlayer" parent="." unique_id=2033681810]
+bus = &"BGM"
+
+[node name="Side BGM" type="AudioStreamPlayer" parent="." unique_id=16057304]
+bus = &"Side BGM"
+
+[node name="SFX" type="AudioStreamPlayer" parent="." unique_id=1798299991]
+bus = &"SFX"
+
+[node name="Side SFX" type="AudioStreamPlayer" parent="." unique_id=826654519]
+bus = &"Side SFX"

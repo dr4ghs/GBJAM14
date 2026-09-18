@@ -52,4 +52,4 @@ func _process(delta: float) -> void:
 		if c is Entity: (c as Entity).update(delta)
 
 func enemy_hurted() -> void:
-	audio_ctrl.play_side_sfx("damage")
+	Audio.get_controller().play_side_sfx("damage")

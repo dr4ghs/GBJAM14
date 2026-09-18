@@ -7,7 +7,6 @@ signal death()
 var prefab: PackedScene = preload("res://Scenes/Prefabs/player.tscn")
 
 @export var scene: PlaySceneManager
-@export var audio_ctrl: AudioController
 @export var health_ctrl: HealthBar
 @export var gold_ctrl: GoldController
 
@@ -31,7 +30,7 @@ func process_input() -> void:
 	
 	if scene.cooldown <= 0 and Input.is_action_just_pressed("action"):
 		fire.emit(scene)
-		audio_ctrl.play_side_sfx("shoot")
+		Audio.get_controller().play_side_sfx("shoot")
 		scene.cooldown = PlayerStats.cooldown
 	
 	if Input.is_action_just_pressed("left") and player.lane > 0:
@@ -61,7 +60,7 @@ func _on_pause() -> void:
 	enable_input = false
 
 func _on_damage_taken(_damage: int) -> void:
-	audio_ctrl.play_sfx("damage")
+	Audio.get_controller().play_sfx("damage")
 
 func _on_gold_gained(_gold: int) -> void:
-	audio_ctrl.play_sfx("gold")
+	Audio.get_controller().play_sfx("gold")

@@ -1,35 +1,57 @@
 class_name AudioController
-extends Node2D
+extends Node
 
-@onready var bgm: AudioStreamPlayer = $BGM;
-@onready var sfx: AudioStreamPlayer = $SFX;
-@onready var side_sfx: AudioStreamPlayer = $SideSFX;
+@export var bgm: AudioStreamPlayer
+@export var side_bgm: AudioStreamPlayer
+@export var sfx: AudioStreamPlayer
+@export var side_sfx: AudioStreamPlayer
 
-@export var default_bgm: AudioStream;
-
+@export var background_music: Dictionary[String, AudioStream];
 @export var sound_effects: Dictionary[String, AudioStream];
 
-func play_bgm(audio: AudioStream = default_bgm) -> void:
-	bgm.stream = audio;
-	bgm.play();
+func get_controller() -> AudioController:
+	return $"." as AudioController
+
+func play_bgm(bgm_name: String) -> void:
+	if not background_music.has(bgm_name): return
+	
+	bgm.stream = background_music[bgm_name]
+	bgm.play()
 
 func pause_bgm() -> void:
-	bgm.stream_paused = true;
+	bgm.stream_paused = true
 
 func resume_bgm() -> void:
-	bgm.stream_paused = false;
+	bgm.stream_paused = false
 
 func stop_bgm() -> void:
-	bgm.stop();
+	bgm.stop()
 
-func play_sfx(sfx_name: String) -> void:
-	if not sound_effects.has(sfx_name): return;
+func play_side_bgm(bgm_name: String) -> void:
+	if not background_music.has(bgm_name): return
 	
-	sfx.stream = sound_effects[sfx_name];
-	sfx.play();
+	side_bgm.stream = background_music[bgm_name]
+	side_bgm.play()
 
-func play_side_sfx(sfx_name: String) -> void:
+func pause_side_bgm() -> void:
+	side_bgm.stream_paused = true
+
+func resume_side_bgm() -> void:
+	side_bgm.stream_paused = false
+
+func stop_side_bgm() -> void:
+	side_bgm.stop()
+
+func play_sfx(sfx_name: String, volume: float = 1.0) -> void:
 	if not sound_effects.has(sfx_name): return
 	
+	sfx.volume_db = volume
+	sfx.stream = sound_effects[sfx_name]
+	sfx.play()
+
+func play_side_sfx(sfx_name: String, volume: float = 0.0) -> void:
+	if not sound_effects.has(sfx_name): return
+	
+	side_sfx.volume_db = volume
 	side_sfx.stream = sound_effects[sfx_name]
 	side_sfx.play()

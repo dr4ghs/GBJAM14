@@ -29,7 +29,6 @@ func handle_input() -> void:
 
 func purchase(item: ShopItem) -> void:
 	var lvl: int = PlayerStats.get_level(item.stat)
-	print(lvl)
 	
 	if lvl == 4: return
 	if PlayerStats.golds < item.cost: return

@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://ccntjy40nve6u"
-path="res://.godot/imported/crashing_waves.wav-1e2dff4fca5b1c5e7fd8e0161c84f53e.sample"
+path="res://.godot/imported/crashing_waves.wav-ee542487fcf5a8aef46d88d28729c938.sample"
 
 [deps]
 
-source_file="res://Assets/Audio/SFX/crashing_waves.wav"
-dest_files=["res://.godot/imported/crashing_waves.wav-1e2dff4fca5b1c5e7fd8e0161c84f53e.sample"]
+source_file="res://Assets/Audio/BGM/crashing_waves.wav"
+dest_files=["res://.godot/imported/crashing_waves.wav-ee542487fcf5a8aef46d88d28729c938.sample"]
 
 [params]
 

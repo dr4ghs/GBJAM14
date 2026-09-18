@@ -16,7 +16,6 @@ signal game_over();
 @export var camera: PlaySceneCamera
 @export var health_bar: HealthBar
 @export var gold_ctrl: GoldController
-@export var audio_ctrl: AudioController
 @export var anim: AnimationPlayer
 @export var player_spawn: PlayerSpawner
 @export var entity_spawn: EntitiesSpawner
@@ -27,6 +26,7 @@ signal game_over();
 	set(value):
 		state = value;
 		if state == State.START:
+			Audio.get_controller().play_bgm("main_theme")
 			anim.play("start");
 			start.emit()
 		elif  state == State.PLAY:
@@ -41,6 +41,7 @@ var health: int
 var cooldown: float
 
 func _ready() -> void:
+	Audio.get_controller().play_side_bgm("waves")
 	state = State.START;
 
 func _process(delta: float) -> void:
@@ -51,7 +52,7 @@ func _process(delta: float) -> void:
 	
 	elif state == State.PAUSE: 
 		if Input.is_action_just_pressed("menu"):
-			audio_ctrl.resume_bgm()
+			Audio.get_controller().resume_bgm()
 			state = State.PLAY
 		
 		if Input.is_action_just_pressed("cancel"):
@@ -60,7 +61,7 @@ func _process(delta: float) -> void:
 	
 	elif state == State.PLAY:
 		if Input.is_action_just_pressed("menu"):
-			audio_ctrl.pause_bgm()
+			Audio.get_controller().pause_bgm()
 			state = State.PAUSE
 
 func _on_death() -> void:
@@ -81,4 +82,8 @@ func _on_start() -> void:
 	cooldown = PlayerStats.cooldown
 
 func _on_game_over() -> void:
+	Audio.get_controller().stop_bgm()
 	PlayerStats.golds += golds;
+
+func play_sfx(sfx_name: String, volume: float) -> void:
+	Audio.get_controller().play_sfx(sfx_name, volume)

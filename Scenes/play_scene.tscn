@@ -4,23 +4,16 @@
 [ext_resource type="Script" uid="uid://do1y72rfs57e" path="res://Scripts/Scenes/Play/background.gd" id="2_5lpdq"]
 [ext_resource type="FontFile" uid="uid://dx73sdghq4d41" path="res://Fonts/game-boy-startup-font.otf" id="2_p805a"]
 [ext_resource type="Texture2D" uid="uid://nde2ijd35xup" path="res://Assets/Sprites/background.png" id="2_s0nau"]
-[ext_resource type="AudioStream" uid="uid://jdi2k8wtpbl2" path="res://Assets/Audio/SFX/play_scene_ready.wav" id="4_3cjv5"]
 [ext_resource type="Script" uid="uid://we1tsccsmi1m" path="res://Scripts/UI/gold_label.gd" id="4_5lpdq"]
 [ext_resource type="Texture2D" uid="uid://wg1o865y3xtj" path="res://Assets/Sprites/water.png" id="4_j1m55"]
-[ext_resource type="AudioStream" uid="uid://c0dtlakpxduhg" path="res://Assets/Audio/SFX/play_scene_plunder.wav" id="5_2kn3l"]
 [ext_resource type="Script" uid="uid://i7xq76g5pvbb" path="res://Scripts/UI/health_bar.gd" id="5_ivbpn"]
 [ext_resource type="Texture2D" uid="uid://dsojiqq6ktrwu" path="res://Assets/Sprites/hearts.png" id="6_io55t"]
-[ext_resource type="PackedScene" uid="uid://c4wnwm7jjphsf" path="res://Scenes/Prefabs/audio_controller.tscn" id="8_lneu0"]
-[ext_resource type="AudioStream" uid="uid://canw4nvmt5461" path="res://Assets/Audio/SFX/gold_gain.wav" id="9_3wskg"]
-[ext_resource type="AudioStream" uid="uid://dwd3jqpmvd1ey" path="res://Assets/Audio/SFX/hit_sfx.wav" id="9_cqpud"]
 [ext_resource type="Script" uid="uid://yfhna855ntn1" path="res://Scripts/Scenes/Play/play_scene_camera_controller.gd" id="9_j3qlu"]
 [ext_resource type="Script" uid="uid://bk7f8b3r31com" path="res://Scripts/Scenes/Play/prompts_controller.gd" id="10_fg1lf"]
 [ext_resource type="Texture2D" uid="uid://c4t06lg00gjy" path="res://Assets/Sprites/coin.png" id="10_knw1p"]
 [ext_resource type="Script" uid="uid://cgsv7pym7c47w" path="res://Scripts/Entities/entities_spawner.gd" id="11_knw1p"]
 [ext_resource type="Resource" uid="uid://uqh55qaj8jw" path="res://Resources/Patterns/three_coin_col.tres" id="12_45wvb"]
 [ext_resource type="Script" uid="uid://dlc0aw4h320c2" path="res://Scripts/Scenes/Play/despawn_area.gd" id="13_io55t"]
-[ext_resource type="AudioStream" uid="uid://cgtut0umy3835" path="res://Assets/Audio/BGM/main_theme_2.wav" id="16_fbpj1"]
-[ext_resource type="AudioStream" uid="uid://d1qmw447q3d57" path="res://Assets/Audio/SFX/damage_taken.wav" id="17_8n5jp"]
 [ext_resource type="PackedScene" uid="uid://bu5ncxt7fouma" path="res://Scenes/title_screen.tscn" id="18_wn8tk"]
 [ext_resource type="Script" uid="uid://bhhsvxw0a532n" path="res://Scripts/Scenes/Play/animation_player_controller.gd" id="21_lneu0"]
 [ext_resource type="PackedScene" uid="uid://cqpjkry3jvpc" path="res://Scenes/Prefabs/warning_sign.tscn" id="23_1mfr0"]
@@ -44,46 +37,10 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AudioController/SFX:stream")
+tracks/1/path = NodePath(".:state")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [null]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("AudioController/SFX:volume_db")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("AudioController/BGM:stream")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("16_fbpj1")]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath(".:state")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -96,62 +53,24 @@ length = 1.5
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AudioController/SFX")
+tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5, 1, 1.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "values": [{
-"args": [0.0],
-"method": &"play"
+"args": ["damage", 0.0],
+"method": &"play_sfx"
 }, {
-"args": [0.0],
-"method": &"play"
+"args": ["damage", -2.0],
+"method": &"play_sfx"
 }, {
-"args": [0.0],
-"method": &"play"
+"args": ["damage", -6.0],
+"method": &"play_sfx"
 }, {
-"args": [0.0],
-"method": &"play"
-}]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AudioController/SFX:stream")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [ExtResource("9_cqpud"), null]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("AudioController/SFX:volume_db")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5, 1, 1.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [0.0, -8.0, -16.0, -32.0]
-}
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("AudioController/BGM")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"stop"
+"args": ["damage", -6.0],
+"method": &"play_sfx"
 }]
 }
 
@@ -170,42 +89,13 @@ tracks/0/keys = {
 "update": 1,
 "values": ["READY", "PLUNDER"]
 }
-tracks/1/type = "value"
+tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AudioController/SFX:stream")
+tracks/1/path = NodePath("EntitiesSpawner")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [ExtResource("4_3cjv5"), ExtResource("5_2kn3l")]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("AudioController/SFX")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 1.5),
-"transitions": PackedFloat32Array(1, 1),
-"values": [{
-"args": [0.0],
-"method": &"play"
-}, {
-"args": [0.0],
-"method": &"play"
-}]
-}
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("EntitiesSpawner")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(1.5),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -213,55 +103,34 @@ tracks/3/keys = {
 "method": &"start"
 }]
 }
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("AudioController/BGM:stream")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("16_fbpj1")]
-}
-tracks/5/type = "method"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("AudioController/BGM")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [0.0],
-"method": &"play"
-}]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("AudioController/SFX:volume_db")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath(".:state")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:state")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(3),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [1]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": ["ready", 1.0],
+"method": &"play_sfx"
+}, {
+"args": ["plunder", 1.0],
+"method": &"play_sfx"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8n5jp"]
@@ -384,12 +253,11 @@ b = Vector2(160, -43)
 a = Vector2(0, 128)
 b = Vector2(160, 128)
 
-[node name="PlayScene" type="Node2D" unique_id=458439781 node_paths=PackedStringArray("camera", "health_bar", "gold_ctrl", "audio_ctrl", "anim", "player_spawn", "entity_spawn")]
+[node name="PlayScene" type="Node2D" unique_id=458439781 node_paths=PackedStringArray("camera", "health_bar", "gold_ctrl", "anim", "player_spawn", "entity_spawn")]
 script = ExtResource("1_3cjv5")
 camera = NodePath("Camera2D")
 health_bar = NodePath("HUD/HealthBar")
 gold_ctrl = NodePath("HUD/GoldLabel")
-audio_ctrl = NodePath("AudioController")
 anim = NodePath("AnimationPlayer")
 player_spawn = NodePath("PlayerSpawner")
 entity_spawn = NodePath("EntitiesSpawner")
@@ -404,13 +272,6 @@ script = ExtResource("9_j3qlu")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Camera2D" unique_id=602952602]
 libraries/ = SubResource("AnimationLibrary_j3qlu")
-
-[node name="AudioController" parent="." unique_id=432057609 instance=ExtResource("8_lneu0")]
-sound_effects = Dictionary[String, AudioStream]({
-"damage": ExtResource("9_cqpud"),
-"gold": ExtResource("9_3wskg"),
-"shoot": ExtResource("17_8n5jp")
-})
 
 [node name="HUD" type="Control" parent="." unique_id=1355296688]
 z_index = 100
@@ -524,11 +385,10 @@ shape = SubResource("SegmentShape2D_loj0l")
 position = Vector2(0, 69)
 shape = SubResource("SegmentShape2D_ipgva")
 
-[node name="EntitiesSpawner" type="Node2D" parent="." unique_id=1555581684 node_paths=PackedStringArray("warns_orchestrator", "audio_ctrl")]
+[node name="EntitiesSpawner" type="Node2D" parent="." unique_id=1555581684 node_paths=PackedStringArray("warns_orchestrator")]
 script = ExtResource("11_knw1p")
 pattern = ExtResource("12_45wvb")
 warns_orchestrator = NodePath("../WarnsOrchestrator")
-audio_ctrl = NodePath("../AudioController")
 
 [node name="WarnsOrchestrator" type="Area2D" parent="." unique_id=256354019 node_paths=PackedStringArray("warns")]
 collision_layer = 0
@@ -559,12 +419,11 @@ lane = 3
 [node name="Right" parent="WarnsOrchestrator" unique_id=40259737 instance=ExtResource("23_1mfr0")]
 lane = 4
 
-[node name="PlayerSpawner" type="VisibleOnScreenNotifier2D" parent="." unique_id=48098516 node_paths=PackedStringArray("scene", "audio_ctrl", "health_ctrl", "gold_ctrl")]
+[node name="PlayerSpawner" type="VisibleOnScreenNotifier2D" parent="." unique_id=48098516 node_paths=PackedStringArray("scene", "health_ctrl", "gold_ctrl")]
 position = Vector2(80, 128)
 rect = Rect2(-8, -8, 16, 16)
 script = ExtResource("23_s0476")
 scene = NodePath("..")
-audio_ctrl = NodePath("../AudioController")
 health_ctrl = NodePath("../HUD/HealthBar")
 gold_ctrl = NodePath("../HUD/GoldLabel")
 
