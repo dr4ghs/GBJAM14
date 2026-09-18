@@ -20,15 +20,12 @@
 [ext_resource type="Resource" uid="uid://uqh55qaj8jw" path="res://Resources/Patterns/three_coin_col.tres" id="12_45wvb"]
 [ext_resource type="Script" uid="uid://dlc0aw4h320c2" path="res://Scripts/Scenes/Play/despawn_area.gd" id="13_io55t"]
 [ext_resource type="AudioStream" uid="uid://cgtut0umy3835" path="res://Assets/Audio/BGM/main_theme_2.wav" id="16_fbpj1"]
-[ext_resource type="PackedScene" uid="uid://c0ust1tevmamf" path="res://Scenes/Prefabs/chat_box.tscn" id="17_0jq4l"]
 [ext_resource type="AudioStream" uid="uid://d1qmw447q3d57" path="res://Assets/Audio/SFX/damage_taken.wav" id="17_8n5jp"]
 [ext_resource type="PackedScene" uid="uid://bu5ncxt7fouma" path="res://Scenes/title_screen.tscn" id="18_wn8tk"]
 [ext_resource type="Script" uid="uid://bhhsvxw0a532n" path="res://Scripts/Scenes/Play/animation_player_controller.gd" id="21_lneu0"]
 [ext_resource type="PackedScene" uid="uid://cqpjkry3jvpc" path="res://Scenes/Prefabs/warning_sign.tscn" id="23_1mfr0"]
 [ext_resource type="Script" uid="uid://bmdigctt2283x" path="res://Scripts/Scenes/Play/warns_orchestrator.gd" id="23_cqpud"]
 [ext_resource type="Script" uid="uid://brc5fcqrpvll7" path="res://Scripts/Scenes/Play/player_spawner.gd" id="23_s0476"]
-[ext_resource type="Texture2D" uid="uid://dpxu7ssuhnp1e" path="res://Assets/Sprites/trail.png" id="29_wuoun"]
-[ext_resource type="Texture2D" uid="uid://isotmmuukf6g" path="res://Assets/Sprites/ship.png" id="30_ipi3v"]
 
 [sub_resource type="Animation" id="Animation_3cjv5"]
 length = 0.001
@@ -387,21 +384,6 @@ b = Vector2(160, -43)
 a = Vector2(0, 128)
 b = Vector2(160, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ge4dx"]
-atlas = ExtResource("30_ipi3v")
-region = Rect2(0, 0, 32, 38)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_ipgva"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ge4dx")
-}],
-"loop": 1,
-"name": &"default",
-"speed": 5.0
-}]
-
 [node name="PlayScene" type="Node2D" unique_id=458439781 node_paths=PackedStringArray("camera", "health_bar", "gold_ctrl", "audio_ctrl", "anim", "player_spawn", "entity_spawn")]
 script = ExtResource("1_3cjv5")
 camera = NodePath("Camera2D")
@@ -508,12 +490,8 @@ text = "B - BACK"
 label_settings = SubResource("LabelSettings_bqlsl")
 horizontal_alignment = 1
 
-[node name="ChatBox" parent="HUD" unique_id=1959443383 instance=ExtResource("17_0jq4l")]
-visible = false
-layout_mode = 1
-speed = 10.0
-
 [node name="TitleScreen" parent="HUD" unique_id=1673590567 instance=ExtResource("18_wn8tk")]
+visible = false
 layout_mode = 0
 
 [node name="Background" type="Node2D" parent="." unique_id=119347257]
@@ -589,15 +567,6 @@ scene = NodePath("..")
 audio_ctrl = NodePath("../AudioController")
 health_ctrl = NodePath("../HUD/HealthBar")
 gold_ctrl = NodePath("../HUD/GoldLabel")
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=146328313]
-y_sort_enabled = true
-position = Vector2(80, 61)
-texture = ExtResource("29_wuoun")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1835129010]
-position = Vector2(80, 38)
-sprite_frames = SubResource("SpriteFrames_ipgva")
 
 [connection signal="game_over" from="." to="." method="_on_game_over"]
 [connection signal="game_over" from="." to="AnimationPlayer" method="_on_game_over"]

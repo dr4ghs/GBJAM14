@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="CaptainResource" format=3 uid="uid://d0emu0p85hq3m"]
+
+[ext_resource type="Script" uid="uid://d3i55q5pmihry" path="res://Scripts/Resources/Captains/dialogue_data.gd" id="1_kgnp0"]
+[ext_resource type="Script" uid="uid://dgsaksghw60xt" path="res://Scripts/Resources/Captains/captain_res.gd" id="1_yq8s0"]
+[ext_resource type="AudioStream" uid="uid://15v2typx061s" path="res://Assets/Audio/SFX/capt_king_sfx.wav" id="2_05iml"]
+
+[sub_resource type="Resource" id="Resource_bv4t0"]
+script = ExtResource("1_kgnp0")
+speak_sfx = ExtResource("2_05iml")
+speed = 8.0
+entry = "Brace thysself.
+your gold will
+be mine!"
+win = "Impressive..."
+lose = "No mere mortal
+can sink the
+king."
+metadata/_custom_type_script = "uid://d3i55q5pmihry"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bv4t0"]
+load_path = "res://.godot/imported/captains.png-84bd0f0da89138a7e59adeb8195865f8.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ttwxj"]
+atlas = SubResource("CompressedTexture2D_bv4t0")
+region = Rect2(32, 0, 32, 32)
+
+[resource]
+script = ExtResource("1_yq8s0")
+id = 3
+mugshot = SubResource("AtlasTexture_ttwxj")
+dialogues = SubResource("Resource_bv4t0")
+metadata/_custom_type_script = "uid://dgsaksghw60xt"

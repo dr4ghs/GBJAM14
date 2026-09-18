@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="CaptainResource" format=3 uid="uid://dm21t83mku0e0"]
+
+[ext_resource type="Script" uid="uid://dgsaksghw60xt" path="res://Scripts/Resources/Captains/captain_res.gd" id="1_hr7y5"]
+[ext_resource type="Script" uid="uid://d3i55q5pmihry" path="res://Scripts/Resources/Captains/dialogue_data.gd" id="1_uo76h"]
+[ext_resource type="AudioStream" uid="uid://cv05glj5olk6d" path="res://Assets/Audio/SFX/capt_rat_sfx.wav" id="2_i0orb"]
+
+[sub_resource type="Resource" id="Resource_ranbn"]
+script = ExtResource("1_uo76h")
+speak_sfx = ExtResource("2_i0orb")
+speed = 12.0
+entry = "SQUHE-HE-HEAK!
+What do we 
+have here?"
+win = "SQUEEEAK!
+The king ain't
+be happy..."
+lose = "you think could
+sink me?
+what a scum."
+metadata/_custom_type_script = "uid://d3i55q5pmihry"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ranbn"]
+load_path = "res://.godot/imported/captains.png-84bd0f0da89138a7e59adeb8195865f8.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_whxwc"]
+atlas = SubResource("CompressedTexture2D_ranbn")
+region = Rect2(0, 0, 32, 32)
+
+[resource]
+script = ExtResource("1_hr7y5")
+id = 1
+mugshot = SubResource("AtlasTexture_whxwc")
+dialogues = SubResource("Resource_ranbn")
+metadata/_custom_type_script = "uid://dgsaksghw60xt"
