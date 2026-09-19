@@ -1,7 +1,7 @@
 class_name Entity
 extends Area2D
 
-signal hit();
+signal hit(entity: Entity);
 
 const START_ALTITUDE = 72.0;
 
@@ -53,7 +53,7 @@ func damage() -> void:
 	if not health.enabled: return;
 	
 	health.value -= 1;
-	hit.emit();
+	hit.emit(self);
 
 func update(delta: float) -> void:
 	if health.enabled and health.value <= 0: return;
@@ -85,7 +85,7 @@ func on_damaged_anim_end() -> void:
 		queue_free();
 
 
-func _on_hit() -> void:
+func _on_hit(_entity: Entity) -> void:
 	if not gold.enabled: 
 		Audio.get_controller().play_sfx("quack")
 		return

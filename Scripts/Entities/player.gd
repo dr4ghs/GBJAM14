@@ -32,13 +32,17 @@ func _on_area_entered(entity: Entity) -> void:
 	if z_index > entity.z_index: return;
 	
 	if entity.attack.enabled and not damaged:
-		animation_player.play("damaged"); 
+		animation_player.play("damaged");
 		damage_taken.emit(entity.attack.value);
 	
 	if entity.gold.enabled:
-		coin.stop();
-		coin.play("defualt");
-		gold_taken.emit(entity.gold.value);
+		if entity.health.enabled:
+			animation_player.play("damaged")
+			damage_taken.emit(1)
+		else:
+			coin.stop();
+			coin.play("defualt");
+			gold_taken.emit(entity.gold.value);
 
 func _on_fire(parent: Node2D) -> void:
 	cannon.spawn(parent)

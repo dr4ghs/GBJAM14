@@ -96,6 +96,7 @@ func _on_start() -> void:
 func _on_game_over() -> void:
 	Audio.get_controller().stop_bgm()
 	PlayerStats.golds += golds;
+	golds = 0
 
 func play_sfx(sfx_name: String, volume: float) -> void:
 	Audio.get_controller().play_sfx(sfx_name, volume)

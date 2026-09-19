@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1_hbksd")
 entity_name = &"chest"
-health = 2
+health = 1
 gold = 5
 metadata/_custom_type_script = "uid://bbjwpf1qcdh7b"

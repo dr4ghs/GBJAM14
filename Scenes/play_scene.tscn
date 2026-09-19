@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://c4t06lg00gjy" path="res://Assets/Sprites/coin.png" id="10_knw1p"]
 [ext_resource type="Script" uid="uid://cgsv7pym7c47w" path="res://Scripts/Entities/entities_spawner.gd" id="11_knw1p"]
 [ext_resource type="Script" uid="uid://dlc0aw4h320c2" path="res://Scripts/Scenes/Play/despawn_area.gd" id="13_io55t"]
-[ext_resource type="Resource" uid="uid://dqwrlvnu60rqv" path="res://Resources/Patterns/duck_patter.tres" id="15_2kn3l"]
+[ext_resource type="Resource" uid="uid://btnx61hvp1sb0" path="res://Resources/Patterns/chest.tres" id="15_2kn3l"]
 [ext_resource type="Script" uid="uid://bhhsvxw0a532n" path="res://Scripts/Scenes/Play/animation_player_controller.gd" id="21_lneu0"]
 [ext_resource type="PackedScene" uid="uid://cqpjkry3jvpc" path="res://Scenes/Prefabs/warning_sign.tscn" id="23_1mfr0"]
 [ext_resource type="Script" uid="uid://bmdigctt2283x" path="res://Scripts/Scenes/Play/warns_orchestrator.gd" id="23_cqpud"]
@@ -385,10 +385,11 @@ shape = SubResource("SegmentShape2D_loj0l")
 position = Vector2(0, 69)
 shape = SubResource("SegmentShape2D_ipgva")
 
-[node name="EntitiesSpawner" type="Node2D" parent="." unique_id=1555581684 node_paths=PackedStringArray("warns_orchestrator")]
+[node name="EntitiesSpawner" type="Node2D" parent="." unique_id=1555581684 node_paths=PackedStringArray("warns_orchestrator", "player_spawner")]
 script = ExtResource("11_knw1p")
 pattern = ExtResource("15_2kn3l")
 warns_orchestrator = NodePath("../WarnsOrchestrator")
+player_spawner = NodePath("../PlayerSpawner")
 
 [node name="WarnsOrchestrator" type="Area2D" parent="." unique_id=256354019 node_paths=PackedStringArray("warns")]
 collision_layer = 0
