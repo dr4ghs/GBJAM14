@@ -4,7 +4,7 @@ extends Area2D
 signal hit(entity: Entity);
 
 @export var duck_spawn_rate: float = 1
-@export var chest_spawn_rate: float = 8
+@export var chest_spawn_rate: float = 5
 @export var kraken_spawn_rate: float = 3
 
 var duck: EntityResource = preload("res://Resources/Entities/duck_entity.tres")
@@ -88,7 +88,7 @@ func entity_mods(resource: EntityResource, ducks_count: float) -> EntityResource
 	elif resource.attack > 0 and prob < kraken_spawn_rate + ducks_count:
 		resource = kraken
 	elif resource.gold > 0 and prob < chest_spawn_rate:
-		if randf() < chest_spawn_rate:
+		if randf() * 100 < chest_spawn_rate:
 			resource = rare_chest
 		else: resource = common_chest
 	
@@ -101,6 +101,7 @@ func _on_area_entered(area: Area2D) -> void:
 	if area is CannonBall and not health.enabled: return;
 	if health.enabled and health.value > 0 and not gold.enabled:
 		if area is Player:
+			(area as Player).malus = true
 			Audio.get_controller().play_sfx("quack")
 	
 	self.queue_free()

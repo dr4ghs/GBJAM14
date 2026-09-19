@@ -26,6 +26,9 @@ func _process(delta: float) -> void:
 	player.process(delta)
 
 func process_input() -> void:
+	if player.malus:
+		scene.cooldown = PlayerStats.cooldown + 4
+	
 	if not enable_input: return
 	
 	if scene.cooldown <= 0 and Input.is_action_just_pressed("action"):

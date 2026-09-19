@@ -13,6 +13,7 @@ var cannon_ball: PackedScene = preload("res://Scenes/Prefabs/cannon_ball.tscn");
 
 @export var damaged: bool
 
+var malus: bool
 var lane: Lanes.Values
 
 func setup() -> void:

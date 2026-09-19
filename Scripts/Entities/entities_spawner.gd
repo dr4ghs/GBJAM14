@@ -59,4 +59,3 @@ func _on_hit(entity: Entity) -> void:
 	
 	if entity.health.enabled and not entity.attack.enabled and not entity.gold.enabled:
 		ducks_count += 1
-		print("DUCKS COUNT: %" % ducks_count)
