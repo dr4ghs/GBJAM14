@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cq3oi36wciye" path="res://Scripts/UI/chat_box.gd" id="1_rp3wh"]
 [ext_resource type="Texture2D" uid="uid://x2nbxsbkfrvn" path="res://Assets/Sprites/text_box.png" id="1_yr8fv"]
+[ext_resource type="Resource" uid="uid://d0emu0p85hq3m" path="res://Resources/Captains/capt_king.tres" id="2_2kem2"]
 [ext_resource type="FontFile" uid="uid://bf4mqyyqtkx1x" path="res://Fonts/Early GameBoy.ttf" id="2_rp3wh"]
 
 [sub_resource type="Animation" id="Animation_yr8fv"]
@@ -82,6 +83,7 @@ audio = NodePath("AudioStreamPlayer")
 text = NodePath("TextBox/Text")
 arrow = NodePath("TextBox/Continue")
 mugshot = NodePath("Mugshot")
+test = ExtResource("2_2kem2")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=933268381]
 libraries/ = SubResource("AnimationLibrary_kkl0p")

@@ -28,7 +28,6 @@ region = Rect2(0, 0, 32, 32)
 
 [resource]
 script = ExtResource("1_hr7y5")
-id = 1
 mugshot = SubResource("AtlasTexture_whxwc")
 dialogues = SubResource("Resource_ranbn")
 metadata/_custom_type_script = "uid://dgsaksghw60xt"

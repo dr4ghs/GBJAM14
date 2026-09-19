@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="EntityResource" format=3 uid="uid://qpej540ofqxo"]
+
+[ext_resource type="Script" uid="uid://bbjwpf1qcdh7b" path="res://Scripts/Resources/entity_res.gd" id="1_7q58p"]
+
+[resource]
+script = ExtResource("1_7q58p")
+entity_name = &"duck"
+health = 1
+metadata/_custom_type_script = "uid://bbjwpf1qcdh7b"

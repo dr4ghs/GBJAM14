@@ -12,9 +12,8 @@
 [ext_resource type="Script" uid="uid://bk7f8b3r31com" path="res://Scripts/Scenes/Play/prompts_controller.gd" id="10_fg1lf"]
 [ext_resource type="Texture2D" uid="uid://c4t06lg00gjy" path="res://Assets/Sprites/coin.png" id="10_knw1p"]
 [ext_resource type="Script" uid="uid://cgsv7pym7c47w" path="res://Scripts/Entities/entities_spawner.gd" id="11_knw1p"]
-[ext_resource type="Resource" uid="uid://uqh55qaj8jw" path="res://Resources/Patterns/three_coin_col.tres" id="12_45wvb"]
 [ext_resource type="Script" uid="uid://dlc0aw4h320c2" path="res://Scripts/Scenes/Play/despawn_area.gd" id="13_io55t"]
-[ext_resource type="PackedScene" uid="uid://bu5ncxt7fouma" path="res://Scenes/title_screen.tscn" id="18_wn8tk"]
+[ext_resource type="Resource" uid="uid://dqwrlvnu60rqv" path="res://Resources/Patterns/duck_patter.tres" id="15_2kn3l"]
 [ext_resource type="Script" uid="uid://bhhsvxw0a532n" path="res://Scripts/Scenes/Play/animation_player_controller.gd" id="21_lneu0"]
 [ext_resource type="PackedScene" uid="uid://cqpjkry3jvpc" path="res://Scenes/Prefabs/warning_sign.tscn" id="23_1mfr0"]
 [ext_resource type="Script" uid="uid://bmdigctt2283x" path="res://Scripts/Scenes/Play/warns_orchestrator.gd" id="23_cqpud"]
@@ -253,11 +252,13 @@ b = Vector2(160, -43)
 a = Vector2(0, 128)
 b = Vector2(160, 128)
 
-[node name="PlayScene" type="Node2D" unique_id=458439781 node_paths=PackedStringArray("camera", "health_bar", "gold_ctrl", "anim", "player_spawn", "entity_spawn")]
+[node name="PlayScene" type="Node2D" unique_id=458439781 node_paths=PackedStringArray("hud", "camera", "health_bar", "gold_ctrl", "overlay", "anim", "player_spawn", "entity_spawn")]
 script = ExtResource("1_3cjv5")
+hud = NodePath("HUD")
 camera = NodePath("Camera2D")
 health_bar = NodePath("HUD/HealthBar")
 gold_ctrl = NodePath("HUD/GoldLabel")
+overlay = NodePath("HUD/Overlay")
 anim = NodePath("AnimationPlayer")
 player_spawn = NodePath("PlayerSpawner")
 entity_spawn = NodePath("EntitiesSpawner")
@@ -287,6 +288,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="HealthBar" type="HBoxContainer" parent="HUD" unique_id=807463794]
+visible = false
 propagate_maximum_size = false
 layout_mode = 1
 anchors_preset = 1
@@ -301,6 +303,7 @@ full_heart = SubResource("AtlasTexture_ivbpn")
 empty_heart = SubResource("AtlasTexture_io55t")
 
 [node name="GoldLabel" type="HBoxContainer" parent="HUD" unique_id=2121739606 node_paths=PackedStringArray("gold_lbl")]
+visible = false
 propagate_maximum_size = false
 layout_mode = 0
 offset_right = 42.0
@@ -321,6 +324,7 @@ label_settings = SubResource("LabelSettings_ipgva")
 horizontal_alignment = 1
 
 [node name="Overlay" type="Control" parent="HUD" unique_id=801283551 node_paths=PackedStringArray("anim_player", "main_lbl", "hint_lbl")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -350,10 +354,6 @@ offset_bottom = 90.0
 text = "B - BACK"
 label_settings = SubResource("LabelSettings_bqlsl")
 horizontal_alignment = 1
-
-[node name="TitleScreen" parent="HUD" unique_id=1673590567 instance=ExtResource("18_wn8tk")]
-visible = false
-layout_mode = 0
 
 [node name="Background" type="Node2D" parent="." unique_id=119347257]
 script = ExtResource("2_5lpdq")
@@ -387,7 +387,7 @@ shape = SubResource("SegmentShape2D_ipgva")
 
 [node name="EntitiesSpawner" type="Node2D" parent="." unique_id=1555581684 node_paths=PackedStringArray("warns_orchestrator")]
 script = ExtResource("11_knw1p")
-pattern = ExtResource("12_45wvb")
+pattern = ExtResource("15_2kn3l")
 warns_orchestrator = NodePath("../WarnsOrchestrator")
 
 [node name="WarnsOrchestrator" type="Area2D" parent="." unique_id=256354019 node_paths=PackedStringArray("warns")]

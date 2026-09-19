@@ -21,7 +21,7 @@ var lane: Lanes.Values:
 
 var distance: float
 
-func populate(resource: EntityResource, dist: int, on_hit: Callable) -> void:
+func populate(resource: EntityResource, dist: int) -> void:
 	health.enabled = resource.health > 0
 	if health.enabled: 
 		health.value = resource.health
@@ -37,6 +37,10 @@ func populate(resource: EntityResource, dist: int, on_hit: Callable) -> void:
 		gold.value = resource.gold
 		set_collision_layer_value(2, true)
 	
+	if health.enabled and not attack.enabled:
+		if not gold.enabled: set_collision_layer_value(8, true)
+		else: set_collision_layer_value(7, true)
+	
 	gfx.play(resource.entity_name)
 	
 	collisions.shape = RectangleShape2D.new();
@@ -45,8 +49,6 @@ func populate(resource: EntityResource, dist: int, on_hit: Callable) -> void:
 	distance = PlaySceneConstants.MAX_DISTANCE + (float(dist) / 10);
 	position.y = START_ALTITUDE;
 	
-	hit.connect(on_hit)
-
 func damage() -> void:
 	if not health.enabled: return;
 	
@@ -73,9 +75,19 @@ func _on_area_entered(area: Area2D) -> void:
 	if z_index < area.z_index: return;
 	if attack.enabled: return;
 	if area is CannonBall and not health.enabled: return;
+	if health.enabled and not gold.enabled:
+		Audio.get_controller().play_sfx("quack")
 	
 	self.queue_free()
 
 func on_damaged_anim_end() -> void:
 	if health.enabled and health.value <= 0:
 		queue_free();
+
+
+func _on_hit() -> void:
+	if not gold.enabled: 
+		Audio.get_controller().play_sfx("quack")
+		return
+	
+	Audio.get_controller().play_sfx("hit")

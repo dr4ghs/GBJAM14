@@ -43,5 +43,5 @@ func _on_exit_anim_start() -> void:
 	to_screen.enabled = false
 
 func _on_exit_anim_end() -> void:
-	play_scene.state = PlaySceneManager.State.START
+	ScreenStateMachine.state = ScreenStateMachine.States.PLAY
 	queue_free()

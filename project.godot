@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Gold Rush"
-run/main_scene="uid://kmm7668m6b7c"
+run/main_scene="uid://cdxw6s5nglq3a"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 
 [audio]
@@ -27,6 +27,7 @@ buses/default_bus_layout="uid://d35v8hw4xf7e8"
 PlaySceneConstants="*uid://dayexy1bv0slh"
 PlayerStats="*uid://bei20so8n0jaq"
 Audio="*uid://d2nk5ufnudd0f"
+ScreenStateMachine="*uid://bpqykrpixrj2t"
 
 [display]
 
@@ -102,6 +103,8 @@ select={
 2d_physics/layer_4="projectiles"
 2d_physics/layer_5="despawn"
 2d_physics/layer_6="notifier"
+2d_physics/layer_7="chest"
+2d_physics/layer_8="ducks"
 
 [rendering]
 

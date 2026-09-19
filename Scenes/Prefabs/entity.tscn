@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bqcm1ycuyepa" path="res://Assets/Sprites/chest.png" id="2_rggit"]
 [ext_resource type="Texture2D" uid="uid://ck258yie3336b" path="res://Assets/Sprites/clipping_mask.png" id="2_sorwi"]
 [ext_resource type="Texture2D" uid="uid://c4t06lg00gjy" path="res://Assets/Sprites/coin.png" id="3_epjcc"]
+[ext_resource type="Texture2D" uid="uid://c13ua2yxk50pu" path="res://Assets/Sprites/duck.png" id="4_iamhd"]
 [ext_resource type="Texture2D" uid="uid://d1ucmwkm6y4b5" path="res://Assets/Sprites/kraken.png" id="4_kkkno"]
 [ext_resource type="Script" uid="uid://dxog6kjcml6jo" path="res://Scripts/Entities/Components/health_component.gd" id="8_epjcc"]
 [ext_resource type="Script" uid="uid://cufqc7uphjeqk" path="res://Scripts/Entities/Components/attack_component.gd" id="9_iamhd"]
@@ -33,6 +34,14 @@ region = Rect2(32, 0, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_tefrf"]
 atlas = ExtResource("3_epjcc")
 region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iqw3x"]
+atlas = ExtResource("4_iamhd")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_of241"]
+atlas = ExtResource("4_iamhd")
+region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dsqdn"]
 atlas = ExtResource("4_kkkno")
@@ -79,6 +88,17 @@ animations = [{
 "loop": 1,
 "name": &"coin",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iqw3x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_of241")
+}],
+"loop": 1,
+"name": &"duck",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -169,8 +189,8 @@ gold = NodePath("GoldComponent")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1312803242]
 clip_children = 2
 sprite_frames = SubResource("SpriteFrames_ipgva")
-animation = &"chest"
-frame_progress = 0.6430684
+animation = &"duck"
+frame_progress = 0.99974716
 
 [node name="Mask" type="Sprite2D" parent="AnimatedSprite2D" unique_id=1205552088]
 scale = Vector2(5, 5)
@@ -196,3 +216,4 @@ script = ExtResource("10_8eqxr")
 metadata/_custom_type_script = "uid://du71nvsnl50jr"
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="hit" from="." to="." method="_on_hit"]

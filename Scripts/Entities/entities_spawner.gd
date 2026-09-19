@@ -3,7 +3,6 @@ extends Node2D
 
 @export var pattern: SpawnPattern
 @export var warns_orchestrator: WarnsOrchestrator
-@export var audio_ctrl: AudioController
 
 var entity_scene: PackedScene = preload("res://Scenes/Prefabs/entity.tscn")
 
@@ -35,7 +34,7 @@ func spawn() -> void:
 		lane = randi() % len(Lanes.Values)
 	for res in pattern.entities:
 		var entity: Entity = entity_scene.instantiate()
-		entity.populate(res.entity, int(res.distance), enemy_hurted)
+		entity.populate(res.entity, int(res.distance))
 		entity.lane = int(res.lane + lane) % len(Lanes.Values) as Lanes.Values
 		add_child(entity)
 		
@@ -50,6 +49,3 @@ func _process(delta: float) -> void:
 	
 	for c in get_children():
 		if c is Entity: (c as Entity).update(delta)
-
-func enemy_hurted() -> void:
-	Audio.get_controller().play_side_sfx("damage")

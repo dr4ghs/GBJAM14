@@ -8,7 +8,7 @@
 script = ExtResource("1_kgnp0")
 speak_sfx = ExtResource("2_05iml")
 speed = 8.0
-entry = "Brace thysself.
+entry = "Brace thyself.
 your gold will
 be mine!"
 win = "Impressive..."
@@ -26,7 +26,6 @@ region = Rect2(32, 0, 32, 32)
 
 [resource]
 script = ExtResource("1_yq8s0")
-id = 3
 mugshot = SubResource("AtlasTexture_ttwxj")
 dialogues = SubResource("Resource_bv4t0")
 metadata/_custom_type_script = "uid://dgsaksghw60xt"

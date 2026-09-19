@@ -21,8 +21,12 @@ func _ready() -> void:
 	selected = 0
 
 func handle_input() -> void:
-	if Input.is_action_just_pressed("up"): selected = (selected + 2) % 3
-	if Input.is_action_just_pressed("down"): selected = (selected + 1) % 3
+	if Input.is_action_just_pressed("up"): 
+		selected = (selected + 2) % 3
+		Audio.get_controller().play_sfx("select")
+	if Input.is_action_just_pressed("down"): 
+		selected = (selected + 1) % 3
+		Audio.get_controller().play_sfx("select")
 	
 	if Input.is_action_just_pressed("action"): purchase(items[selected])
 	if Input.is_action_just_pressed("cancel"): manager.transit(self, manager.main)
@@ -30,13 +34,13 @@ func handle_input() -> void:
 func purchase(item: ShopItem) -> void:
 	var lvl: int = PlayerStats.get_level(item.stat)
 	
-	if lvl == 4: return
-	if PlayerStats.golds < item.cost: return
+	if lvl == 4 or PlayerStats.golds < item.cost:
+		Audio.get_controller().play_sfx("wrong")
+		return
 	
 	PlayerStats.golds -= item.cost
 	golds_lbl.text = str(PlayerStats.golds)
 	
 	PlayerStats.level_up(selected)
 	item.update()
-	
-	var prev = lvl - 1
+	Audio.get_controller().play_sfx("gold")

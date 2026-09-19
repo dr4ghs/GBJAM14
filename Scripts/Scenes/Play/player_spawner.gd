@@ -64,3 +64,7 @@ func _on_damage_taken(_damage: int) -> void:
 
 func _on_gold_gained(_gold: int) -> void:
 	Audio.get_controller().play_sfx("gold")
+
+func remove_player() -> void:
+	if player != null:
+		player.queue_free()

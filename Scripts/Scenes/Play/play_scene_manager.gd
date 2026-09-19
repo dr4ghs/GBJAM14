@@ -13,9 +13,14 @@ signal play();
 signal pause();
 signal game_over();
 
+@onready var title_screen: PackedScene = preload("res://Scenes/title_screen.tscn")
+
+@export var hud: Control
+
 @export var camera: PlaySceneCamera
 @export var health_bar: HealthBar
 @export var gold_ctrl: GoldController
+@export var overlay: PromptsController
 @export var anim: AnimationPlayer
 @export var player_spawn: PlayerSpawner
 @export var entity_spawn: EntitiesSpawner
@@ -41,10 +46,18 @@ var health: int
 var cooldown: float
 
 func _ready() -> void:
+	ScreenStateMachine.state = ScreenStateMachine.States.TITLE
+	ScreenStateMachine.connect_signal(_on_title_screen_state)
+	
+	ScreenStateMachine.state = ScreenStateMachine.States.PLAY
+	ScreenStateMachine.connect_signal(_on_play_screen_state)
+	
 	Audio.get_controller().play_side_bgm("waves")
-	state = State.START;
+	ScreenStateMachine.state = ScreenStateMachine.States.TITLE
 
 func _process(delta: float) -> void:
+	if ScreenStateMachine.state != ScreenStateMachine.States.PLAY: return
+	
 	if cooldown > 0: cooldown -= delta;
 	
 	if state == State.GAME_OVER and Input.is_action_just_pressed("action"):
@@ -56,8 +69,7 @@ func _process(delta: float) -> void:
 			state = State.PLAY
 		
 		if Input.is_action_just_pressed("cancel"):
-			# TODO return to main screen
-			pass;
+			ScreenStateMachine.state = ScreenStateMachine.States.TITLE
 	
 	elif state == State.PLAY:
 		if Input.is_action_just_pressed("menu"):
@@ -87,3 +99,16 @@ func _on_game_over() -> void:
 
 func play_sfx(sfx_name: String, volume: float) -> void:
 	Audio.get_controller().play_sfx(sfx_name, volume)
+
+func _on_play_screen_state() -> void:
+	state = State.START
+	health_bar.visible = true
+	gold_ctrl.visible = true
+	overlay.visible = true
+
+func _on_title_screen_state() -> void:
+	hud.add_child(title_screen.instantiate())
+	player_spawn.remove_player()
+	health_bar.visible = false
+	gold_ctrl.visible = false
+	overlay.visible = false

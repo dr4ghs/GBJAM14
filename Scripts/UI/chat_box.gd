@@ -7,6 +7,8 @@ extends Control
 @export var arrow: Label
 @export var mugshot: TextureRect
 
+@export var test: CaptainResource
+
 var _captain: CaptainResource
 var captain: CaptainResource:
 	get: return _captain
@@ -37,6 +39,7 @@ var cursor_buff: int
 var speed: float
 
 func _ready() -> void:
+	if test != null: captain = test
 	state = DialogueResource.States.ENTRY
 
 func _process(delta: float) -> void:

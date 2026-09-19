@@ -13,7 +13,7 @@ script = ExtResource("1_fjspl")
 speak_sfx = SubResource("AudioStreamWAV_fjspl")
 speed = 5.0
 entry = "- BLUB BLUB ? -
-- BLUUUUB!!! -"
+- BLUUUB!!! -"
 win = "- BLUB. -
 - BL... -"
 lose = "- BLHU-HU-HUB -"

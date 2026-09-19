@@ -12,6 +12,9 @@
 [ext_resource type="AudioStream" uid="uid://dwd3jqpmvd1ey" path="res://Assets/Audio/SFX/hit_sfx.wav" id="10_aan0r"]
 [ext_resource type="AudioStream" uid="uid://c0dtlakpxduhg" path="res://Assets/Audio/SFX/play_scene_plunder.wav" id="11_k6wgq"]
 [ext_resource type="AudioStream" uid="uid://jdi2k8wtpbl2" path="res://Assets/Audio/SFX/play_scene_ready.wav" id="12_q2wiq"]
+[ext_resource type="AudioStream" uid="uid://bcihekli232m0" path="res://Assets/Audio/SFX/quack.wav" id="13_7stf1"]
+[ext_resource type="AudioStream" uid="uid://lyj0ayftjn58" path="res://Assets/Audio/SFX/wrong.wav" id="14_6ioja"]
+[ext_resource type="AudioStream" uid="uid://cv2b7g1b8deho" path="res://Assets/Audio/SFX/select.wav" id="15_qfbpw"]
 
 [node name="Audio" type="Node" unique_id=50456058 node_paths=PackedStringArray("bgm", "side_bgm", "sfx", "side_sfx")]
 script = ExtResource("1_l04ps")
@@ -32,7 +35,10 @@ sound_effects = Dictionary[String, AudioStream]({
 "gold": ExtResource("9_o1fue"),
 "hit": ExtResource("10_aan0r"),
 "plunder": ExtResource("11_k6wgq"),
-"ready": ExtResource("12_q2wiq")
+"quack": ExtResource("13_7stf1"),
+"ready": ExtResource("12_q2wiq"),
+"select": ExtResource("15_qfbpw"),
+"wrong": ExtResource("14_6ioja")
 })
 metadata/_custom_type_script = "uid://btxoa2vgd54vj"
 
