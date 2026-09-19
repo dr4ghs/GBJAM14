@@ -8,7 +8,7 @@ enum {
 
 var golds: int
 
-const BASE_SPEED: float = 1.0
+const BASE_SPEED: float = 0.2
 var _speed_lvl: int = 1
 var speed_lvl: int:
 	get: return _speed_lvl
@@ -17,7 +17,7 @@ var speed_lvl: int:
 		if _speed_lvl > 4: _speed_lvl = 4
 	
 var speed: float:
-	get: return BASE_SPEED + float(speed_lvl) / 4
+	get: return BASE_SPEED * speed_lvl
 
 const BASE_COOLDOWN: float = 4.0
 var _cooldown_lvl: int = 1

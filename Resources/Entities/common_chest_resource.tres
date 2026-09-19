@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EntityResource" format=3 uid="uid://68qw88evja4g"]
+
+[ext_resource type="Script" uid="uid://bbjwpf1qcdh7b" path="res://Scripts/Resources/entity_res.gd" id="1_ucrs4"]
+
+[resource]
+script = ExtResource("1_ucrs4")
+entity_name = &"common_chest"
+health = 1
+gold = 15
+metadata/_custom_type_script = "uid://bbjwpf1qcdh7b"

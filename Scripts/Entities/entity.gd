@@ -3,6 +3,15 @@ extends Area2D
 
 signal hit(entity: Entity);
 
+@export var duck_spawn_rate: float = 1
+@export var chest_spawn_rate: float = 8
+@export var kraken_spawn_rate: float = 3
+
+var duck: EntityResource = preload("res://Resources/Entities/duck_entity.tres")
+var common_chest: EntityResource = preload("res://Resources/Entities/common_chest_resource.tres")
+var rare_chest: EntityResource = preload("res://Resources/Entities/rare_chest.tres")
+var kraken: EntityResource = preload("res://Resources/Entities/kraken_entity.tres")
+
 const START_ALTITUDE = 72.0;
 
 @export var gfx: AnimatedSprite2D;
@@ -21,7 +30,9 @@ var lane: Lanes.Values:
 
 var distance: float
 
-func populate(resource: EntityResource, dist: int) -> void:
+func populate(resource: EntityResource, dist: int, ducks_count: float) -> void:
+	resource = entity_mods(resource, ducks_count)
+	
 	health.enabled = resource.health > 0
 	if health.enabled: 
 		health.value = resource.health
@@ -44,7 +55,7 @@ func populate(resource: EntityResource, dist: int) -> void:
 	gfx.play(resource.entity_name)
 	
 	collisions.shape = RectangleShape2D.new();
-	(collisions.shape as RectangleShape2D).size = Vector2(16 * resource.width, 16);
+	(collisions.shape as RectangleShape2D).size = Vector2(20 * resource.width, 16);
 	
 	distance = PlaySceneConstants.MAX_DISTANCE + (float(dist) / 10);
 	position.y = START_ALTITUDE;
@@ -58,7 +69,7 @@ func damage() -> void:
 func update(delta: float) -> void:
 	if health.enabled and health.value <= 0: return;
 	
-	distance -= PlaySceneConstants.BASE_SPEED * PlayerStats.speed * delta;
+	distance -= PlayerStats.speed * delta;
 	
 	if distance > PlaySceneConstants.MAX_DISTANCE: return;
 	
@@ -70,13 +81,27 @@ func update(delta: float) -> void:
 	
 	position.y = get_viewport_rect().size.y - (delta_d * (get_viewport_rect().size.y - 48));
 
+func entity_mods(resource: EntityResource, ducks_count: float) -> EntityResource:
+	var prob: float = randf() * 100
+	if prob < duck_spawn_rate:
+		resource = duck
+	elif resource.attack > 0 and prob < kraken_spawn_rate + ducks_count:
+		resource = kraken
+	elif resource.gold > 0 and prob < chest_spawn_rate:
+		if randf() < chest_spawn_rate:
+			resource = rare_chest
+		else: resource = common_chest
+	
+	return resource
+
 func _on_area_entered(area: Area2D) -> void:
 	if health.enabled and health.value <= 0: return;
 	if z_index < area.z_index: return;
 	if attack.enabled: return;
 	if area is CannonBall and not health.enabled: return;
-	if health.enabled and not gold.enabled:
-		Audio.get_controller().play_sfx("quack")
+	if health.enabled and health.value > 0 and not gold.enabled:
+		if area is Player:
+			Audio.get_controller().play_sfx("quack")
 	
 	self.queue_free()
 
@@ -84,9 +109,8 @@ func on_damaged_anim_end() -> void:
 	if health.enabled and health.value <= 0:
 		queue_free();
 
-
 func _on_hit(_entity: Entity) -> void:
-	if not gold.enabled: 
+	if health.enabled and not attack.enabled and not gold.enabled: 
 		Audio.get_controller().play_sfx("quack")
 		return
 	

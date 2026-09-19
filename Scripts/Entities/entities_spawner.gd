@@ -8,8 +8,8 @@ extends Node2D
 var entity_scene: PackedScene = preload("res://Scenes/Prefabs/entity.tscn")
 
 var wait_time: float
-
 var working: bool
+var ducks_count: int
 
 func _on_play() -> void:
 	working = true
@@ -35,7 +35,7 @@ func spawn() -> void:
 		lane = randi() % len(Lanes.Values)
 	for res in pattern.entities:
 		var entity: Entity = entity_scene.instantiate()
-		entity.populate(res.entity, int(res.distance))
+		entity.populate(res.entity, int(res.distance), float(ducks_count) / 10)
 		entity.hit.connect(_on_hit)
 		entity.lane = int(res.lane + lane) % len(Lanes.Values) as Lanes.Values
 		add_child(entity)
@@ -45,8 +45,7 @@ func spawn() -> void:
 func _process(delta: float) -> void:
 	if not working: return
 	
-	if wait_time > 0:
-		wait_time -= delta * PlayerStats.speed
+	if wait_time > 0: wait_time -= delta
 	if wait_time <= 0: spawn()
 	
 	for c in get_children():
@@ -57,3 +56,7 @@ func _on_hit(entity: Entity) -> void:
 		player_spawner.player.coin.stop();
 		player_spawner.player.coin.play("defualt");
 		player_spawner.player.gold_taken.emit(entity.gold.value);
+	
+	if entity.health.enabled and not entity.attack.enabled and not entity.gold.enabled:
+		ducks_count += 1
+		print("DUCKS COUNT: %" % ducks_count)

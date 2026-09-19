@@ -25,8 +25,7 @@ func _ready() -> void:
 	setup();
 
 func process(_delta: float) -> void:
-	position.x = lerp(position.x, Lanes.coordinates(lane), 0.2);
-	animation_player.speed_scale = PlayerStats.speed;
+	position.x = lerp(position.x, Lanes.coordinates(lane), 0.2 * (PlayerStats.speed));
 
 func _on_area_entered(entity: Entity) -> void:
 	if z_index > entity.z_index: return;

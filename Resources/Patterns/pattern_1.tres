@@ -52,4 +52,5 @@ metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
 [resource]
 script = ExtResource("4_2kwq8")
 entities = Array[ExtResource("1_0pqe3")]([SubResource("Resource_45wvb"), SubResource("Resource_cp8yn"), SubResource("Resource_j3qlu"), SubResource("Resource_fbpj1"), SubResource("Resource_3cjv5"), SubResource("Resource_2kn3l"), SubResource("Resource_8n5jp")])
+wait_time = 5.0
 metadata/_custom_type_script = "uid://dxrsmg2rofqnv"
