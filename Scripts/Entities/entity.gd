@@ -38,7 +38,7 @@ func populate(resource: EntityResource, dist: int, ducks_count: float) -> void:
 		health.value = resource.health
 		set_collision_mask_value(4, true)
 	
-	attack.enabled = resource.attack > 0
+	attack.enabled = resource.attack > 0 or resource.attack == -1
 	if attack.enabled: 
 		attack.value = resource.attack
 		set_collision_layer_value(3, true)
@@ -69,7 +69,7 @@ func damage() -> void:
 func update(delta: float) -> void:
 	if health.enabled and health.value <= 0: return;
 	
-	distance -= PlayerStats.speed * delta;
+	distance -= 0.75 * PlayerStats.speed * delta;
 	
 	if distance > PlaySceneConstants.MAX_DISTANCE: return;
 	
@@ -97,7 +97,7 @@ func entity_mods(resource: EntityResource, ducks_count: float) -> EntityResource
 func _on_area_entered(area: Area2D) -> void:
 	if health.enabled and health.value <= 0: return;
 	if z_index < area.z_index: return;
-	if attack.enabled: return;
+	if attack.enabled and attack.value > -1: return;
 	if area is CannonBall and not health.enabled: return;
 	if health.enabled and health.value > 0 and not gold.enabled:
 		if area is Player:

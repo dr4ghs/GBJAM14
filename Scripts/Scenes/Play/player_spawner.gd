@@ -33,7 +33,7 @@ func process_input() -> void:
 	
 	if scene.cooldown <= 0 and Input.is_action_just_pressed("action"):
 		fire.emit(scene)
-		Audio.get_controller().play_side_sfx("shoot")
+		Audio.get_controller().play_side_sfx("damage")
 		scene.cooldown = PlayerStats.cooldown
 	
 	if Input.is_action_just_pressed("left") and player.lane > 0:
@@ -62,8 +62,11 @@ func _on_play() -> void:
 func _on_pause() -> void:
 	enable_input = false
 
-func _on_damage_taken(_damage: int) -> void:
-	Audio.get_controller().play_sfx("damage")
+func _on_damage_taken(dmg: int) -> void:
+	var sfx_name: String = "damage"
+	if dmg == -1: sfx_name = "heals"
+	
+	Audio.get_controller().play_sfx(sfx_name)
 
 func _on_gold_gained(_gold: int) -> void:
 	Audio.get_controller().play_sfx("gold")

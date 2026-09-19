@@ -15,6 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://bcihekli232m0" path="res://Assets/Audio/SFX/quack.wav" id="13_7stf1"]
 [ext_resource type="AudioStream" uid="uid://lyj0ayftjn58" path="res://Assets/Audio/SFX/wrong.wav" id="14_6ioja"]
 [ext_resource type="AudioStream" uid="uid://cv2b7g1b8deho" path="res://Assets/Audio/SFX/select.wav" id="15_qfbpw"]
+[ext_resource type="AudioStream" uid="uid://b3hjas7w3uxib" path="res://Assets/Audio/SFX/heals.wav" id="16_r8i6a"]
 
 [node name="Audio" type="Node" unique_id=50456058 node_paths=PackedStringArray("bgm", "side_bgm", "sfx", "side_sfx")]
 script = ExtResource("1_l04ps")
@@ -33,6 +34,7 @@ sound_effects = Dictionary[String, AudioStream]({
 "capt_rat_chat": ExtResource("7_tf0nv"),
 "damage": ExtResource("8_n35fw"),
 "gold": ExtResource("9_o1fue"),
+"heals": ExtResource("16_r8i6a"),
 "hit": ExtResource("10_aan0r"),
 "plunder": ExtResource("11_k6wgq"),
 "quack": ExtResource("13_7stf1"),

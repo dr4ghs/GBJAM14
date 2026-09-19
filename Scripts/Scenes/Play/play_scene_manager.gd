@@ -80,10 +80,14 @@ func _on_death() -> void:
 	state = State.GAME_OVER;
 
 func _on_damage_taken(dmg: int) -> void:
-	health -= dmg
-	camera.screen_shake()
-	health_bar.update(health)
-	if health <= 0: player_spawn.death.emit()
+	if dmg > 0:
+		health -= dmg
+		camera.screen_shake()
+		health_bar.update(health)
+		if health <= 0: player_spawn.death.emit()
+	elif health < PlayerStats.health:
+		health -= dmg
+		health_bar.update(health)
 
 func _on_gold_gained(amount: int) -> void:
 	golds += amount

@@ -32,7 +32,8 @@ func _on_area_entered(entity: Entity) -> void:
 	if z_index > entity.z_index: return;
 	
 	if entity.attack.enabled and not damaged:
-		animation_player.play("damaged");
+		if entity.attack.value > 0:
+			animation_player.play("damaged");
 		damage_taken.emit(entity.attack.value);
 	
 	if entity.gold.enabled:

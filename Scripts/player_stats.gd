@@ -30,7 +30,7 @@ var cooldown_lvl: int:
 var cooldown: float:
 	get: return 1 + BASE_COOLDOWN - cooldown_lvl
 
-var _health: int = 1
+var _health: int = 4
 var health: int:
 	get: return _health
 	set(value): 

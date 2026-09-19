@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="EntityResource" format=3 uid="uid://ci4rb55qw3m7s"]
+
+[ext_resource type="Script" uid="uid://bbjwpf1qcdh7b" path="res://Scripts/Resources/entity_res.gd" id="1_y4o88"]
+
+[resource]
+script = ExtResource("1_y4o88")
+entity_name = &"health"
+attack = -1
+metadata/_custom_type_script = "uid://bbjwpf1qcdh7b"

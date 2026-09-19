@@ -4,8 +4,5 @@ class_name HeartContainer extends Node2D
 
 var full: bool:
 	set(value):
-		if value:
-			gfx.region_rect.position.x = 0;
-		else:
-			gfx.region_rect.position.x = 16;
-		
+		if value: gfx.region_rect.position.x = 0;
+		else: gfx.region_rect.position.x = 16;

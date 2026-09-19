@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dprjey58jwei2"]
 
-[ext_resource type="Script" uid="uid://bixueu2qainmr" path="res://Scripts/UI/heart_container.gd" id="1_yd20d"]
+[ext_resource type="Script" uid="uid://di7oji8alsk4p" path="res://Scripts/UI/heart_container.gd" id="1_yd20d"]
 [ext_resource type="Texture2D" uid="uid://dsojiqq6ktrwu" path="res://Assets/Sprites/hearts.png" id="2_fbixy"]
 
 [node name="HeartContainer" type="Node2D" unique_id=1283147935]

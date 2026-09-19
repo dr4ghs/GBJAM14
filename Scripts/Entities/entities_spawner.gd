@@ -1,9 +1,12 @@
 class_name EntitiesSpawner
 extends Node2D
 
+@export var scene: PlaySceneManager
 @export var pattern: SpawnPattern
 @export var warns_orchestrator: WarnsOrchestrator
 @export var player_spawner: PlayerSpawner
+
+var health_entity: EntityResource = preload("res://Resources/Entities/health_entity.tres")
 
 var entity_scene: PackedScene = preload("res://Scenes/Prefabs/entity.tscn")
 
@@ -40,6 +43,13 @@ func spawn() -> void:
 		entity.lane = int(res.lane + lane) % len(Lanes.Values) as Lanes.Values
 		add_child(entity)
 		
+		var heals: float = PlayerStats.health - scene.health
+		if heals > 0 and randf() < (heals * 0.8) / 100:
+			var heart: Entity = entity_scene.instantiate()
+			heart.populate(health_entity, int(res.distance), 0)
+			heart.lane = ((len(Lanes.Values) + res.lane - 2) % len(Lanes.Values)) as Lanes.Values
+			add_child(heart)
+	
 	wait_time = pattern.wait_time
 
 func _process(delta: float) -> void:
