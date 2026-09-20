@@ -8,6 +8,7 @@ enum Values {
 }
 
 enum Stages {
+	NONE,
 	ENTER,
 	FIGHT,
 	WIN,

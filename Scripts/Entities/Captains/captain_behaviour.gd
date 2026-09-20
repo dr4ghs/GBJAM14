@@ -1,7 +1,12 @@
 class_name CaptainBehaviour
 extends Area2D
 
+signal fire_projectile(res: EntityResource, dist: float, lane: Lanes.Values)
 signal speak(capt: CaptainResource, state: DialogueResource.States)
+
+var duck_proj: EntityResource = preload("res://Resources/Entities/duck_entity.tres")
+var shark_proj: EntityResource = preload("res://Resources/Entities/shark_entity.tres")
+var keg_proj: EntityResource = preload("res://Resources/Entities/keg_entity.tres")
 
 @export var capt_fish_max_cooldown: float = 3.5
 
@@ -15,6 +20,10 @@ var lane: Lanes.Values = Lanes.Values.CENTER
 var cooldown: float
 var acting: bool = true
 
+func _init() -> void:
+	ScreenStateMachine.captain_defeated.connect(_on_captain_defeated)
+	ScreenStateMachine.captain_won.connect(_on_captain_won)
+
 func _process(delta: float) -> void:
 	if ScreenStateMachine.capt_stage != Captains.Stages.FIGHT: return
 	
@@ -23,8 +32,9 @@ func _process(delta: float) -> void:
 	
 	if not acting:
 		if cooldown <= 0:
+			var choice: float = randf()
 			if res.captain == Captains.Values.FISH:
-				capt_fish_behaviour()
+				capt_fish_behaviour(choice)
 			if res.captain == Captains.Values.CAT:
 				pass
 			if res.captain == Captains.Values.CAT:
@@ -32,7 +42,6 @@ func _process(delta: float) -> void:
 			if res.captain == Captains.Values.BOSS:
 				pass
 	else:
-		cooldown = capt_fish_max_cooldown
 		acting = false
 	
 	position.x = lerp(position.x, Lanes.coordinates(lane), 0.4);
@@ -40,11 +49,22 @@ func _process(delta: float) -> void:
 func damage() -> void:
 	health -= 1
 	anim_player.play("damaged")
+	Audio.get_controller().play_sfx("hit")
 	
-	if health <= 0: speak.emit(res, DialogueResource.States.WIN)
+	if health <= 0: 
+		ScreenStateMachine.capt_stage = Captains.Stages.WIN
+		Audio.get_controller().stop_bgm()
+		speak.emit(res, DialogueResource.States.WIN)
 
-func capt_fish_behaviour() -> void:
+func capt_fish_behaviour(choice: float) -> void:
+	var proj: EntityResource = duck_proj
+	if choice <= 0.3: proj = shark_proj
+	
+	fire_projectile.emit(proj, 0.5, lane)
+	
 	anim_player.play(&"capt_fish/submerge")
+	
+	cooldown = capt_fish_max_cooldown
 	acting = true
 
 func capt_fish_change_lane() -> void:
@@ -65,3 +85,15 @@ func show_dialogue(state: int) -> void:
 
 func _on_enter_anim_start() -> void:
 	Audio.get_controller().pause_bgm()
+
+func _on_death_anim_end() -> void:
+	Audio.get_controller().play_bgm("main_theme")
+
+func play_damage_sfx() -> void:
+	Audio.get_controller().play_sfx("damage")
+
+func _on_captain_defeated(_capt: Captains.Values) -> void:
+	anim_player.play("death")
+
+func _on_captain_won() -> void:
+	speak.emit(res, DialogueResource.States.LOSE)

@@ -30,7 +30,7 @@ var lane: Lanes.Values:
 
 var distance: float
 
-func populate(resource: EntityResource, dist: int, ducks_count: float) -> void:
+func populate(resource: EntityResource, dist: float, ducks_count: float, instant: bool = false) -> void:
 	resource = entity_mods(resource, ducks_count)
 	
 	health.enabled = resource.health > 0
@@ -57,7 +57,9 @@ func populate(resource: EntityResource, dist: int, ducks_count: float) -> void:
 	collisions.shape = RectangleShape2D.new();
 	(collisions.shape as RectangleShape2D).size = Vector2(20 * resource.width, 16);
 	
-	distance = PlaySceneConstants.MAX_DISTANCE + (float(dist) / 10);
+	if instant: distance = dist
+	else: distance = PlaySceneConstants.MAX_DISTANCE + dist / 10;
+	
 	position.y = START_ALTITUDE;
 	
 func damage() -> void:

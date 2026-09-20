@@ -81,7 +81,10 @@ func _process(delta: float) -> void:
 			state = State.PAUSE
 
 func _on_death() -> void:
-	state = State.GAME_OVER;
+	if ScreenStateMachine.capt_stage == Captains.Stages.FIGHT:
+		ScreenStateMachine.capt_stage = Captains.Stages.LOSE
+	else:
+		state = State.GAME_OVER;
 
 func _on_damage_taken(dmg: int) -> void:
 	if dmg > 0:

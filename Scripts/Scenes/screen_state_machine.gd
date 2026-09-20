@@ -24,6 +24,7 @@ var state: States:
 		if _state == States.END: end.emit()
 
 signal captain_defeated(capt: Captains.Values)
+signal captain_won()
 signal spawn_captain(res: CaptainResource)
 
 const capt_dict: Dictionary[Captains.Values, CaptainResource] = {
@@ -40,6 +41,9 @@ var capt_stage: Captains.Stages:
 		_capt_stage = value
 		if _capt_stage == Captains.Stages.FIGHT:
 			Audio.get_controller().resume_bgm()
+		if _capt_stage == Captains.Stages.LOSE:
+			Audio.get_controller().stop_bgm()
+			captain_won.emit()
 
 var next_captain: Captains.Values
 var next_capt_goal: int
@@ -49,6 +53,8 @@ func _init() -> void:
 	
 	play.connect(_on_play)
 	captain_defeated.connect(_on_captain_defeated)
+	
+	capt_stage = Captains.Stages.NONE
 
 func connect_signal(on_state: States, callable: Callable) -> void:
 	var sig: Signal
@@ -70,6 +76,8 @@ func _on_captain_defeated(capt: Captains.Values) -> void:
 	else: 
 		next_captain = (capt + 1) as Captains.Values
 		next_capt_goal = 50 + 50 * next_captain
+	
+	capt_stage = Captains.Stages.NONE
 
 func _on_pattern_spawned(count: int) -> void:
 	if count == next_capt_goal:
@@ -79,3 +87,9 @@ func _on_pattern_spawned(count: int) -> void:
 func _on_speak_end() -> void:
 	if capt_stage == Captains.Stages.ENTER:
 		capt_stage = Captains.Stages.FIGHT
+	
+	if capt_stage == Captains.Stages.WIN:
+		captain_defeated.emit(next_captain)
+	
+	if capt_stage == Captains.Stages.LOSE:
+		capt_stage = Captains.Stages.NONE

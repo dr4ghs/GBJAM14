@@ -23,6 +23,7 @@ var curr_capt: CaptainBehaviour
 
 func _on_play() -> void:
 	working = true
+	pattern_count = 0
 	spawn()
 
 func _on_start() -> void:
@@ -67,11 +68,11 @@ func _init() -> void:
 	ScreenStateMachine.captain_defeated.connect(_on_captain_defeated)
 
 func _process(delta: float) -> void:
-	if not working: return
+	if working:
+		if wait_time > 0: wait_time -= delta
+		if wait_time <= 0: spawn()
 	
-	if wait_time > 0: wait_time -= delta
-	if wait_time <= 0: spawn()
-	
+	#if working or working and ScreenStateMachine.capt_stage == Captains.Stages.FIGHT:
 	for c in get_children():
 		if c is Entity: (c as Entity).update(delta)
 
@@ -90,6 +91,7 @@ func _on_spawn_captain(capt_res: CaptainResource) -> void:
 	
 	curr_capt = capt_scene.instantiate()
 	curr_capt.res = capt_res
+	curr_capt.fire_projectile.connect(_on_captain_fire_projectile)
 	curr_capt.speak.connect(scene._on_speak)
 	curr_capt.position.x = Lanes.coordinates(Lanes.Values.CENTER)
 	curr_capt.position.y = 57
@@ -99,3 +101,10 @@ func _on_spawn_captain(capt_res: CaptainResource) -> void:
 
 func _on_captain_defeated() -> void:
 	working = true
+
+func _on_captain_fire_projectile(res: EntityResource, dist: float, lane: Lanes.Values) -> void:
+	var entity: Entity = entity_scene.instantiate()
+	entity.populate(res, dist, float(ducks_count) / 10, true)
+	entity.hit.connect(_on_hit)
+	entity.lane = lane
+	add_child(entity)

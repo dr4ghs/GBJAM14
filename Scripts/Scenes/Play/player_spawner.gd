@@ -29,6 +29,7 @@ func process_input() -> void:
 	if player.malus:
 		scene.cooldown = PlayerStats.cooldown + 4
 	
+	if ScreenStateMachine.capt_stage != Captains.Stages.NONE and ScreenStateMachine.capt_stage != Captains.Stages.FIGHT: return
 	if not enable_input: return
 	
 	if scene.cooldown <= 0 and Input.is_action_just_pressed("action"):
