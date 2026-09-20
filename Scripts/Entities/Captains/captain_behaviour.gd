@@ -9,6 +9,7 @@ var shark_proj: EntityResource = preload("res://Resources/Entities/shark_entity.
 var keg_proj: EntityResource = preload("res://Resources/Entities/keg_entity.tres")
 
 @export var capt_fish_max_cooldown: float = 3.5
+@export var capt_rat_max_cooldown: float = 4
 
 @export var res: CaptainResource
 
@@ -37,12 +38,12 @@ func _process(delta: float) -> void:
 			var choice: float = randf()
 			if res.captain == Captains.Values.FISH:
 				capt_fish_behaviour(choice)
+			if res.captain == Captains.Values.RAT:
+				capt_rat_behaviour(choice)
 			if res.captain == Captains.Values.CAT:
-				pass
-			if res.captain == Captains.Values.CAT:
-				pass
+				capt_cat_behaviour(choice)
 			if res.captain == Captains.Values.BOSS:
-				pass
+				capt_king_behaviour(choice)
 	else:
 		acting = false
 	
@@ -73,13 +74,30 @@ func capt_fish_change_lane() -> void:
 	lane = (lane + (randi() % len(Lanes.Values)) + 3) % len(Lanes.Values) as Lanes.Values
 	anim_player.play(&"capt_fish/emerge")
 
-func capt_rat_behaviour() -> void:
+func capt_rat_behaviour(choice: float) -> void:
+	lane = (randi() + lane + 2) % len(Lanes.Values) as Lanes.Values
+
+	if choice <= 0.3:
+		fire_projectile.emit(keg_proj, 0.8, lane)
+		if lane < len(Lanes.Values) - 1:
+			fire_projectile.emit(keg_proj, 0.8, lane + 1)
+		if lane > 0:
+			fire_projectile.emit(keg_proj, 0.8, lane - 1)
+	elif choice <= 0.5:
+		if lane < len(Lanes.Values) - 1:
+			fire_projectile.emit(keg_proj, 0.8, lane + 1)
+		if lane > 0:
+			fire_projectile.emit(keg_proj, 0.8, lane - 1)
+	else:
+		fire_projectile.emit(keg_proj, 0.8, lane)
+	
+	cooldown = capt_rat_max_cooldown
+	acting = true
+
+func capt_cat_behaviour(choide: float) -> void:
 	pass
 
-func capt_cat_behaviour() -> void:
-	pass
-
-func capt_king_behaviour() -> void:
+func capt_king_behaviour(choice: float) -> void:
 	pass
 
 func show_dialogue(state: int) -> void:
