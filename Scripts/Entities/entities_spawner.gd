@@ -92,6 +92,7 @@ func _on_spawn_captain(capt_res: CaptainResource) -> void:
 	curr_capt.res = capt_res
 	curr_capt.fire_projectile.connect(_on_captain_fire_projectile)
 	curr_capt.speak.connect(scene._on_speak)
+	curr_capt.warn_rush.connect(warns_orchestrator.notify)
 	curr_capt.position.x = Lanes.coordinates(Lanes.Values.CENTER)
 	curr_capt.position.y = 57
 	curr_capt.health = capt_res.health

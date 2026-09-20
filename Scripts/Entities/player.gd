@@ -28,22 +28,28 @@ func _ready() -> void:
 func process(_delta: float) -> void:
 	position.x = lerp(position.x, Lanes.coordinates(lane), 0.2 * (PlayerStats.speed));
 
-func _on_area_entered(entity: Entity) -> void:
-	if z_index > entity.z_index: return;
+func _on_area_entered(area: Area2D) -> void:
+	if z_index > area.z_index: return;
 	
-	if entity.attack.enabled and not damaged:
-		if entity.attack.value > 0:
-			animation_player.play("damaged");
-		damage_taken.emit(entity.attack.value);
+	if area is Entity:
+		var entity = area as Entity
+		if entity.attack.enabled and not damaged:
+			if entity.attack.value > 0:
+				animation_player.play("damaged");
+			damage_taken.emit(entity.attack.value);
+		
+		if entity.gold.enabled:
+			if entity.health.enabled:
+				animation_player.play("damaged")
+				damage_taken.emit(1)
+			else:
+				coin.stop();
+				coin.play("defualt");
+				gold_taken.emit(entity.gold.value);
 	
-	if entity.gold.enabled:
-		if entity.health.enabled:
-			animation_player.play("damaged")
-			damage_taken.emit(1)
-		else:
-			coin.stop();
-			coin.play("defualt");
-			gold_taken.emit(entity.gold.value);
+	if area is CaptainBehaviour:
+		damage_taken.emit(1)
+		gold_taken.emit(-10)
 
 func _on_fire(parent: Node2D) -> void:
 	cannon.spawn(parent)

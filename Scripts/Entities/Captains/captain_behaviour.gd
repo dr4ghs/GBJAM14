@@ -2,6 +2,7 @@ class_name CaptainBehaviour
 extends Area2D
 
 signal fire_projectile(res: EntityResource, dist: float, lane: Lanes.Values)
+signal warn_rush(lane: Lanes.Values)
 signal speak(capt: CaptainResource, state: DialogueResource.States)
 
 var duck_proj: EntityResource = preload("res://Resources/Entities/duck_entity.tres")
@@ -10,6 +11,7 @@ var keg_proj: EntityResource = preload("res://Resources/Entities/keg_entity.tres
 
 @export var capt_fish_max_cooldown: float = 3.5
 @export var capt_rat_max_cooldown: float = 4
+@export var capt_cat_max_cooldown: float = 2
 
 @export var res: CaptainResource
 
@@ -20,7 +22,10 @@ var keg_proj: EntityResource = preload("res://Resources/Entities/keg_entity.tres
 var health: int
 var lane: Lanes.Values = Lanes.Values.CENTER
 var cooldown: float
-var acting: bool = true
+
+@export var acting: bool = true
+
+var cat_state: int = 0
 
 func _init() -> void:
 	ScreenStateMachine.captain_defeated.connect(_on_captain_defeated)
@@ -71,11 +76,11 @@ func capt_fish_behaviour(choice: float) -> void:
 	acting = true
 
 func capt_fish_change_lane() -> void:
-	lane = (lane + (randi() % len(Lanes.Values)) + 3) % len(Lanes.Values) as Lanes.Values
+	lane = (lane + 1 + randi() % (len(Lanes.Values) - 1)) % len(Lanes.Values) as Lanes.Values
 	anim_player.play(&"capt_fish/emerge")
 
 func capt_rat_behaviour(choice: float) -> void:
-	lane = (randi() + lane + 2) % len(Lanes.Values) as Lanes.Values
+	lane = (lane + 1 + randi() % (len(Lanes.Values) - 1)) % len(Lanes.Values) as Lanes.Values
 
 	if choice <= 0.3:
 		fire_projectile.emit(keg_proj, 0.8, lane)
@@ -94,11 +99,32 @@ func capt_rat_behaviour(choice: float) -> void:
 	cooldown = capt_rat_max_cooldown
 	acting = true
 
-func capt_cat_behaviour(choide: float) -> void:
-	pass
+func capt_cat_behaviour(_choice: float) -> void:
+	if cat_state == 1:
+		anim_player.play(&"capt_cat/attack")
+		cooldown = capt_cat_max_cooldown / 2
+	else:
+		lane = (lane + 1 + randi() % (len(Lanes.Values) - 1)) % len(Lanes.Values) as Lanes.Values
+		cooldown = capt_cat_max_cooldown
+	cat_state = (cat_state + 1) % 2
+	
+	acting = true
+
+func capt_cat_rush() -> void:
+	anim_player.play(&"capt_cat/rush")
+
+func capt_cat_warn() -> void:
+	warn_rush.emit(lane)
 
 func capt_king_behaviour(choice: float) -> void:
-	pass
+	if choice <= 1.0 / 3:
+		capt_fish_behaviour(choice)
+	elif choice <= 2.0 / 3:
+		cat_state = 1
+		capt_rat_behaviour(choice)
+	else:
+		capt_cat_behaviour(choice)
+	cooldown *= 2.0 / 3
 
 func show_dialogue(state: int) -> void:
 	ScreenStateMachine.halt_input = true

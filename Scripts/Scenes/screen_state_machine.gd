@@ -12,6 +12,8 @@ signal title()
 signal play()
 signal end()
 
+const MIN_SPAWN_RATE = 20
+
 var _state: States
 var state: States:
 	get: return _state
@@ -67,8 +69,8 @@ func connect_signal(on_state: States, callable: Callable) -> void:
 	sig.connect(callable)
 
 func _on_play() -> void:
-	next_captain = Captains.Values.CAT
-	next_capt_goal = 3 # 5 + 5 * next_captain
+	next_captain = Captains.Values.FISH
+	next_capt_goal = MIN_SPAWN_RATE + MIN_SPAWN_RATE * next_captain
 
 func _on_captain_defeated(capt: Captains.Values) -> void:
 	PlayerStats.progress[capt] = true
@@ -76,7 +78,7 @@ func _on_captain_defeated(capt: Captains.Values) -> void:
 	if capt == Captains.Values.BOSS: state = States.END
 	else: 
 		next_captain = (capt + 1) as Captains.Values
-		next_capt_goal = 3 # 5 + 5 * next_captain
+		next_capt_goal = MIN_SPAWN_RATE + MIN_SPAWN_RATE * next_captain
 
 func _on_pattern_spawned(count: int) -> void:
 	if count == next_capt_goal:

@@ -8,4 +8,5 @@ func _on_area_entered(area: Area2D) -> void:
 		if entity.health.enabled and not entity.attack.enabled and not entity.gold.enabled:
 			entity_spawner.ducks_count = 0
 	
-	area.queue_free();
+	if area is not CaptainBehaviour:
+		area.queue_free();

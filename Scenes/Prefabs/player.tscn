@@ -410,7 +410,7 @@ _data = {
 }
 
 [node name="Player" type="Area2D" unique_id=1107116930 node_paths=PackedStringArray("collision_box", "animation_player", "ship_gfx", "coin", "cannon")]
-collision_mask = 6
+collision_mask = 262
 script = ExtResource("1_jbf0a")
 collision_box = NodePath("CollisionBox")
 animation_player = NodePath("AnimationPlayer")

@@ -105,6 +105,7 @@ select={
 2d_physics/layer_6="notifier"
 2d_physics/layer_7="chest"
 2d_physics/layer_8="ducks"
+2d_physics/layer_9="steal"
 
 [rendering]
 

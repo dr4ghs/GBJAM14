@@ -138,7 +138,7 @@ func _on_title_screen_state() -> void:
 	gold_ctrl.visible = false
 	overlay.visible = false
 
-func _on_captain_defea	ted(_capt: Captains.Values) -> void:
+func _on_captain_defeated(_capt: Captains.Values) -> void:
 	chat_box.queue_free()
 
 func _on_speak(capt: CaptainResource, dialogue_state: DialogueResource.States) -> void:
