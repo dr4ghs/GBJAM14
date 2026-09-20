@@ -373,10 +373,11 @@ region_rect = Rect2(0, 0, 160, 96)
 libraries/ = SubResource("AnimationLibrary_ivbpn")
 autoplay = &"default"
 
-[node name="DespawnArea" type="Area2D" parent="." unique_id=1608426840]
+[node name="DespawnArea" type="Area2D" parent="." unique_id=1608426840 node_paths=PackedStringArray("entity_spawner")]
 collision_layer = 16
 collision_mask = 14
 script = ExtResource("13_io55t")
+entity_spawner = NodePath("../EntitiesSpawner")
 
 [node name="CollisionLine" type="CollisionShape2D" parent="DespawnArea" unique_id=1177822595]
 shape = SubResource("SegmentShape2D_loj0l")

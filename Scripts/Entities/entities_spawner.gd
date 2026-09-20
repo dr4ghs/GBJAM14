@@ -68,11 +68,10 @@ func _init() -> void:
 	ScreenStateMachine.captain_defeated.connect(_on_captain_defeated)
 
 func _process(delta: float) -> void:
-	if working:
-		if wait_time > 0: wait_time -= delta
-		if wait_time <= 0: spawn()
+	if scene.state != PlaySceneManager.State.PLAY: return
+	if ScreenStateMachine.halt_input: return
+	if working and len(get_children()) == 0: spawn()
 	
-	#if working or working and ScreenStateMachine.capt_stage == Captains.Stages.FIGHT:
 	for c in get_children():
 		if c is Entity: (c as Entity).update(delta)
 
