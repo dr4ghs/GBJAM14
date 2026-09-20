@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://c4t06lg00gjy" path="res://Assets/Sprites/coin.png" id="10_knw1p"]
 [ext_resource type="Script" uid="uid://cgsv7pym7c47w" path="res://Scripts/Entities/entities_spawner.gd" id="11_knw1p"]
 [ext_resource type="Script" uid="uid://dlc0aw4h320c2" path="res://Scripts/Scenes/Play/despawn_area.gd" id="13_io55t"]
-[ext_resource type="Resource" uid="uid://cygdykjq4iyla" path="res://Resources/Patterns/keg.tres" id="15_2kn3l"]
+[ext_resource type="Resource" uid="uid://uqh55qaj8jw" path="res://Resources/Patterns/three_coin_col.tres" id="15_2kn3l"]
 [ext_resource type="Script" uid="uid://bhhsvxw0a532n" path="res://Scripts/Scenes/Play/animation_player_controller.gd" id="21_lneu0"]
 [ext_resource type="PackedScene" uid="uid://cqpjkry3jvpc" path="res://Scenes/Prefabs/warning_sign.tscn" id="23_1mfr0"]
 [ext_resource type="Script" uid="uid://bmdigctt2283x" path="res://Scripts/Scenes/Play/warns_orchestrator.gd" id="23_cqpud"]

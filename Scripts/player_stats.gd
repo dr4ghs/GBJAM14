@@ -20,7 +20,7 @@ var speed: float:
 	get: return BASE_SPEED * speed_lvl
 
 const BASE_COOLDOWN: float = 4.0
-var _cooldown_lvl: int = 1
+var _cooldown_lvl: int = 4
 var cooldown_lvl: int:
 	get: return _cooldown_lvl
 	set(value): 
@@ -30,7 +30,7 @@ var cooldown_lvl: int:
 var cooldown: float:
 	get: return 1 + BASE_COOLDOWN - cooldown_lvl
 
-var _health: int = 1
+var _health: int = 4
 var health: int:
 	get: return _health
 	set(value): 

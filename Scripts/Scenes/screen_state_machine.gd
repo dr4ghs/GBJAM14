@@ -47,6 +47,8 @@ var capt_stage: Captains.Stages:
 var next_captain: Captains.Values
 var next_capt_goal: int
 
+var halt_input: bool
+
 func _init() -> void:
 	state = States.START
 	
@@ -66,7 +68,7 @@ func connect_signal(on_state: States, callable: Callable) -> void:
 
 func _on_play() -> void:
 	next_captain = Captains.Values.FISH
-	next_capt_goal = 1 # 50 + 50 * next_captain
+	next_capt_goal = 20 + 20 * next_captain
 
 func _on_captain_defeated(capt: Captains.Values) -> void:
 	PlayerStats.progress[capt] = true
@@ -74,14 +76,16 @@ func _on_captain_defeated(capt: Captains.Values) -> void:
 	if capt == Captains.Values.BOSS: state = States.END
 	else: 
 		next_captain = (capt + 1) as Captains.Values
-		next_capt_goal = 50 + 50 * next_captain
+		next_capt_goal = 20 + 20 * next_captain
 
 func _on_pattern_spawned(count: int) -> void:
+	print("%d/%d" % [count, next_capt_goal])
 	if count == next_capt_goal:
 		capt_stage = Captains.Stages.ENTER
 		spawn_captain.emit(capt_dict[next_captain])
 
 func _on_speak_end(dialogue_state: DialogueResource.States) -> void:
+	halt_input = false
 	if capt_stage == Captains.Stages.ENTER:
 		capt_stage = Captains.Stages.FIGHT
 	

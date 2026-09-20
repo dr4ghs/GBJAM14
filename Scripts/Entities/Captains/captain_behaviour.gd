@@ -54,6 +54,7 @@ func damage() -> void:
 	
 	if health <= 0: 
 		Audio.get_controller().stop_bgm()
+		ScreenStateMachine.halt_input = true
 		speak.emit(res, DialogueResource.States.WIN)
 
 func capt_fish_behaviour(choice: float) -> void:
@@ -81,6 +82,7 @@ func capt_king_behaviour() -> void:
 	pass
 
 func show_dialogue(state: int) -> void:
+	ScreenStateMachine.halt_input = true
 	speak.emit(res, state as DialogueResource.States)
 
 func _on_enter_anim_start() -> void:
@@ -88,6 +90,7 @@ func _on_enter_anim_start() -> void:
 
 func _on_death_anim_end() -> void:
 	Audio.get_controller().play_bgm("main_theme")
+	queue_free()
 
 func play_damage_sfx() -> void:
 	Audio.get_controller().play_sfx("damage")
@@ -96,5 +99,6 @@ func _on_captain_defeated(_capt: Captains.Values) -> void:
 	anim_player.play("death")
 
 func _on_captain_won() -> void:
+	ScreenStateMachine.halt_input = true
 	speak.emit(res, DialogueResource.States.LOSE)
 	damaged = true

@@ -71,7 +71,7 @@ func damage() -> void:
 func update(delta: float) -> void:
 	if health.enabled and health.value <= 0: return;
 	
-	distance -= 0.75 * PlayerStats.speed * delta;
+	distance -= (0.2 + ScreenStateMachine.next_captain * 0.05) * delta;
 	
 	if distance > PlaySceneConstants.MAX_DISTANCE: return;
 	

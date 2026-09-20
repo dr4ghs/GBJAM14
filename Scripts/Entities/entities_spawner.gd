@@ -99,8 +99,9 @@ func _on_spawn_captain(capt_res: CaptainResource) -> void:
 	add_child(curr_capt)
 	working = false
 
-func _on_captain_defeated() -> void:
+func _on_captain_defeated(_capt: Captains.Stages) -> void:
 	working = true
+	spawn()
 
 func _on_captain_fire_projectile(res: EntityResource, dist: float, lane: Lanes.Values) -> void:
 	var entity: Entity = entity_scene.instantiate()
