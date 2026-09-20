@@ -1,6 +1,8 @@
 class_name ChatBox
 extends Control
 
+signal speak_end()
+
 @export var anim_player: AnimationPlayer
 @export var audio: AudioStreamPlayer
 @export var text: Label
@@ -31,16 +33,13 @@ var state: DialogueResource.States:
 	set(value):
 		_state = value
 		cursor = 0
+		speak_end.connect(ScreenStateMachine._on_speak_end)
 		text.text = DialogueResource.get_line(dialogue, _state)
 		anim_player.play(&"show")
 
 var cursor: float
 var cursor_buff: int
 var speed: float
-
-func _ready() -> void:
-	if test != null: captain = test
-	state = DialogueResource.States.ENTRY
 
 func _process(delta: float) -> void:
 	if arrow.visible and (Input.is_action_just_pressed("action") or Input.is_action_just_pressed("cancel")):
@@ -65,7 +64,8 @@ func _process(delta: float) -> void:
 	elif text.text[int(cursor)] == " " or text.text[int(cursor)] == "\n":
 		cursor += 1
 
+func _on_hide_anim_start() -> void:
+	speak_end.emit()
+
 func _on_hide_anim_end() -> void:
-	if state == DialogueResource.States.ENTRY: return
-	
 	queue_free()

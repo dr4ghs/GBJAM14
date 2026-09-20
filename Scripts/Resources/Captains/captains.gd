@@ -6,3 +6,10 @@ enum Values {
 	CAT,
 	BOSS,
 }
+
+enum Stages {
+	ENTER,
+	FIGHT,
+	WIN,
+	LOSE
+}

@@ -42,9 +42,14 @@ signal game_over();
 		elif state == State.GAME_OVER:
 			game_over.emit()
 
+var chat_box: ChatBox
+
 var golds: int
 var health: int
 var cooldown: float
+
+func _init() -> void:
+	ScreenStateMachine.captain_defeated.connect(_on_captain_defeated)
 
 func _ready() -> void:
 	ScreenStateMachine.connect_signal(ScreenStateMachine.States.TITLE, _on_title_screen_state)
@@ -116,3 +121,12 @@ func _on_title_screen_state() -> void:
 	health_bar.visible = false
 	gold_ctrl.visible = false
 	overlay.visible = false
+
+func _on_captain_defeated(_capt: Captains.Values) -> void:
+	chat_box.queue_free()
+
+func _on_speak(capt: CaptainResource, dialogue_state: DialogueResource.States) -> void:
+	chat_box = dialogue_box.instantiate()
+	hud.add_child(chat_box)
+	chat_box.captain = capt
+	chat_box.state = dialogue_state

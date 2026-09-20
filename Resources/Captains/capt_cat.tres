@@ -30,6 +30,7 @@ region = Rect2(0, 32, 32, 32)
 
 [resource]
 script = ExtResource("1_51upa")
+captain = 2
 mugshot = SubResource("AtlasTexture_4d7j0")
 dialogues = SubResource("Resource_vg5tw")
 health = 5

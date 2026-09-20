@@ -19,6 +19,8 @@ var ducks_count: int
 
 var pattern_count: int
 
+var curr_capt: CaptainBehaviour
+
 func _on_play() -> void:
 	working = true
 	spawn()
@@ -83,11 +85,16 @@ func _on_hit(entity: Entity) -> void:
 		ducks_count += 1
 
 func _on_spawn_captain(capt_res: CaptainResource) -> void:
-	var capt: CaptainBehaviour = capt_scene.instantiate()
-	capt.res = capt_res
-	capt.position.x = Lanes.coordinates(Lanes.Values.CENTER)
-	capt.position.y = 57
-	add_child(capt)
+	for child in get_children():
+		child.queue_free()
+	
+	curr_capt = capt_scene.instantiate()
+	curr_capt.res = capt_res
+	curr_capt.speak.connect(scene._on_speak)
+	curr_capt.position.x = Lanes.coordinates(Lanes.Values.CENTER)
+	curr_capt.position.y = 57
+	curr_capt.health = capt_res.health
+	add_child(curr_capt)
 	working = false
 
 func _on_captain_defeated() -> void:

@@ -10,6 +10,10 @@ func _on_area_entered(entity: Area2D) -> void:
 	if entity.z_index < z_index: return;
 	
 	if entity is Entity:
-		if entity.health.enabled and entity.health.value > 0: 
+		if entity.health.enabled and entity.health.value > 0:
 			entity.damage();
 			queue_free();
+	
+	if entity is CaptainBehaviour:
+		entity.damage()
+		queue_free()

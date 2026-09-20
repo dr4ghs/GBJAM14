@@ -37,10 +37,10 @@ func process_input() -> void:
 		scene.cooldown = PlayerStats.cooldown
 	
 	if Input.is_action_just_pressed("left") and player.lane > 0:
-		player.lane -= 1
+		player.lane = (player.lane - 1) as Lanes.Values
 	
 	if Input.is_action_just_pressed("right") and player.lane + 1 < len(Lanes.Values):
-		player.lane += 1
+		player.lane = (player.lane + 1) as Lanes.Values
 
 func _on_start() -> void:
 	player = prefab.instantiate()
