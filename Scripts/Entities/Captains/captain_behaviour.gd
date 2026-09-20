@@ -13,6 +13,7 @@ var keg_proj: EntityResource = preload("res://Resources/Entities/keg_entity.tres
 @export var res: CaptainResource
 
 @export var anim_player: AnimationPlayer
+@export var ship_sprite: Sprite2D
 @export var damaged: bool
 
 var health: int

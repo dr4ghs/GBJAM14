@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dgsaksghw60xt" path="res://Scripts/Resources/Captains/captain_res.gd" id="1_hr7y5"]
 [ext_resource type="Script" uid="uid://d3i55q5pmihry" path="res://Scripts/Resources/Captains/dialogue_data.gd" id="1_uo76h"]
 [ext_resource type="AudioStream" uid="uid://cv05glj5olk6d" path="res://Assets/Audio/SFX/capt_rat_sfx.wav" id="2_i0orb"]
+[ext_resource type="Texture2D" uid="uid://isotmmuukf6g" path="res://Assets/Sprites/ship.png" id="4_ranbn"]
 
 [sub_resource type="Resource" id="Resource_ranbn"]
 script = ExtResource("1_uo76h")
@@ -26,10 +27,15 @@ load_path = "res://.godot/imported/captains.png-84bd0f0da89138a7e59adeb8195865f8
 atlas = SubResource("CompressedTexture2D_ranbn")
 region = Rect2(0, 0, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_htrns"]
+atlas = ExtResource("4_ranbn")
+region = Rect2(64, 0, 32, 38)
+
 [resource]
 script = ExtResource("1_hr7y5")
 captain = 1
 mugshot = SubResource("AtlasTexture_whxwc")
+ship = SubResource("AtlasTexture_htrns")
 dialogues = SubResource("Resource_ranbn")
 health = 4
 metadata/_custom_type_script = "uid://dgsaksghw60xt"

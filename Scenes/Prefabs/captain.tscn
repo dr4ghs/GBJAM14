@@ -550,13 +550,14 @@ region = Rect2(0, 0, 32, 38)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ipgva"]
 size = Vector2(22, 20)
 
-[node name="Captain" type="Area2D" unique_id=1401805331 node_paths=PackedStringArray("anim_player")]
+[node name="Captain" type="Area2D" unique_id=1401805331 node_paths=PackedStringArray("anim_player", "ship_sprite")]
 z_index = -1
 collision_layer = 4
 collision_mask = 8
 script = ExtResource("1_uo4ax")
 res = ExtResource("2_60wke")
 anim_player = NodePath("AnimationPlayer")
+ship_sprite = NodePath("Graphics/Ship")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1046661053]
 libraries/ = SubResource("AnimationLibrary_ntfkg")

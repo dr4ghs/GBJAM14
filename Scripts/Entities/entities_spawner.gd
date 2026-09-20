@@ -95,6 +95,7 @@ func _on_spawn_captain(capt_res: CaptainResource) -> void:
 	curr_capt.position.x = Lanes.coordinates(Lanes.Values.CENTER)
 	curr_capt.position.y = 57
 	curr_capt.health = capt_res.health
+	curr_capt.ship_sprite.texture = capt_res.ship
 	add_child(curr_capt)
 	working = false
 
