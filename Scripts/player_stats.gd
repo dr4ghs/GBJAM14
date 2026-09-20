@@ -38,8 +38,8 @@ var health: int:
 		if _health > 5: _health = 4
 
 var progress: Dictionary[Captains.Values, bool] = {
-	Captains.Values.FISH: true,
-	Captains.Values.RAT: true,
+	Captains.Values.FISH: false,
+	Captains.Values.RAT: false,
 	Captains.Values.CAT: false,
 	Captains.Values.BOSS: false,
 }

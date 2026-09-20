@@ -1,6 +1,8 @@
 class_name EntitiesSpawner
 extends Node2D
 
+signal pattern_spawned(count: int)
+
 @export var scene: PlaySceneManager
 @export var pattern: SpawnPattern
 @export var warns_orchestrator: WarnsOrchestrator
@@ -9,10 +11,13 @@ extends Node2D
 var health_entity: EntityResource = preload("res://Resources/Entities/health_entity.tres")
 
 var entity_scene: PackedScene = preload("res://Scenes/Prefabs/entity.tscn")
+var capt_scene: PackedScene = preload("res://Scenes/Prefabs/captain.tscn")
 
 var wait_time: float
 var working: bool
 var ducks_count: int
+
+var pattern_count: int
 
 func _on_play() -> void:
 	working = true
@@ -51,6 +56,13 @@ func spawn() -> void:
 			add_child(heart)
 	
 	wait_time = pattern.wait_time
+	pattern_count += 1
+	pattern_spawned.emit(pattern_count)
+
+func _init() -> void:
+	pattern_spawned.connect(ScreenStateMachine._on_pattern_spawned)
+	ScreenStateMachine.spawn_captain.connect(_on_spawn_captain)
+	ScreenStateMachine.captain_defeated.connect(_on_captain_defeated)
 
 func _process(delta: float) -> void:
 	if not working: return
@@ -69,3 +81,14 @@ func _on_hit(entity: Entity) -> void:
 	
 	if entity.health.enabled and not entity.attack.enabled and not entity.gold.enabled:
 		ducks_count += 1
+
+func _on_spawn_captain(capt_res: CaptainResource) -> void:
+	var capt: CaptainBehaviour = capt_scene.instantiate()
+	capt.res = capt_res
+	capt.position.x = Lanes.coordinates(Lanes.Values.CENTER)
+	capt.position.y = 57
+	add_child(capt)
+	working = false
+
+func _on_captain_defeated() -> void:
+	working = true

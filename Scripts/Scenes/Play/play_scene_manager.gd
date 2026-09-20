@@ -14,6 +14,7 @@ signal pause();
 signal game_over();
 
 @onready var title_screen: PackedScene = preload("res://Scenes/title_screen.tscn")
+@onready var dialogue_box: PackedScene = preload("res://Scenes/Prefabs/chat_box.tscn")
 
 @export var hud: Control
 
@@ -46,13 +47,11 @@ var health: int
 var cooldown: float
 
 func _ready() -> void:
-	ScreenStateMachine.state = ScreenStateMachine.States.TITLE
-	ScreenStateMachine.connect_signal(_on_title_screen_state)
-	
-	ScreenStateMachine.state = ScreenStateMachine.States.PLAY
-	ScreenStateMachine.connect_signal(_on_play_screen_state)
+	ScreenStateMachine.connect_signal(ScreenStateMachine.States.TITLE, _on_title_screen_state)
+	ScreenStateMachine.connect_signal(ScreenStateMachine.States.PLAY, _on_play_screen_state)
 	
 	Audio.get_controller().play_side_bgm("waves")
+	
 	ScreenStateMachine.state = ScreenStateMachine.States.TITLE
 
 func _process(delta: float) -> void:

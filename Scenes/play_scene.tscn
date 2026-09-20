@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://c4t06lg00gjy" path="res://Assets/Sprites/coin.png" id="10_knw1p"]
 [ext_resource type="Script" uid="uid://cgsv7pym7c47w" path="res://Scripts/Entities/entities_spawner.gd" id="11_knw1p"]
 [ext_resource type="Script" uid="uid://dlc0aw4h320c2" path="res://Scripts/Scenes/Play/despawn_area.gd" id="13_io55t"]
-[ext_resource type="Resource" uid="uid://d17rkl5h52jgj" path="res://Resources/Patterns/heart.tres" id="15_2kn3l"]
+[ext_resource type="Resource" uid="uid://cygdykjq4iyla" path="res://Resources/Patterns/keg.tres" id="15_2kn3l"]
 [ext_resource type="Script" uid="uid://bhhsvxw0a532n" path="res://Scripts/Scenes/Play/animation_player_controller.gd" id="21_lneu0"]
 [ext_resource type="PackedScene" uid="uid://cqpjkry3jvpc" path="res://Scenes/Prefabs/warning_sign.tscn" id="23_1mfr0"]
 [ext_resource type="Script" uid="uid://bmdigctt2283x" path="res://Scripts/Scenes/Play/warns_orchestrator.gd" id="23_cqpud"]
@@ -422,14 +422,12 @@ lane = 3
 lane = 4
 
 [node name="PlayerSpawner" type="VisibleOnScreenNotifier2D" parent="." unique_id=48098516 node_paths=PackedStringArray("scene", "health_ctrl", "gold_ctrl")]
-position = Vector2(80, 128)
+position = Vector2(80, 136)
 rect = Rect2(-8, -8, 16, 16)
 script = ExtResource("23_s0476")
 scene = NodePath("..")
 health_ctrl = NodePath("../HUD/HealthBar")
 gold_ctrl = NodePath("../HUD/GoldLabel")
-
-[node name="CaptFish" type="Area2D" parent="." unique_id=946271517]
 
 [connection signal="game_over" from="." to="." method="_on_game_over"]
 [connection signal="game_over" from="." to="AnimationPlayer" method="_on_game_over"]

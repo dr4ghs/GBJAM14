@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://c13ua2yxk50pu" path="res://Assets/Sprites/duck.png" id="4_iamhd"]
 [ext_resource type="Texture2D" uid="uid://d1ucmwkm6y4b5" path="res://Assets/Sprites/kraken.png" id="4_kkkno"]
 [ext_resource type="Texture2D" uid="uid://cpa13ngxytl8t" path="res://Assets/Sprites/health.png" id="5_bt3ky"]
+[ext_resource type="Texture2D" uid="uid://bgrwj0uhnyuw5" path="res://Assets/Sprites/keg.png" id="6_gxtm0"]
 [ext_resource type="Script" uid="uid://dxog6kjcml6jo" path="res://Scripts/Entities/Components/health_component.gd" id="8_epjcc"]
 [ext_resource type="Script" uid="uid://cufqc7uphjeqk" path="res://Scripts/Entities/Components/attack_component.gd" id="9_iamhd"]
 [ext_resource type="Script" uid="uid://du71nvsnl50jr" path="res://Scripts/Entities/Components/gold_component.gd" id="10_8eqxr"]
@@ -52,6 +53,14 @@ region = Rect2(0, 0, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_sbdm1"]
 atlas = ExtResource("5_bt3ky")
 region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eki8i"]
+atlas = ExtResource("6_gxtm0")
+region = Rect2(0, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a5i5f"]
+atlas = ExtResource("6_gxtm0")
+region = Rect2(32, 0, 32, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dsqdn"]
 atlas = ExtResource("4_kkkno")
@@ -127,6 +136,17 @@ animations = [{
 }],
 "loop": 1,
 "name": &"health",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eki8i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a5i5f")
+}],
+"loop": 1,
+"name": &"keg",
 "speed": 5.0
 }, {
 "frames": [{
@@ -229,9 +249,8 @@ gold = NodePath("GoldComponent")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1312803242]
 clip_children = 2
 sprite_frames = SubResource("SpriteFrames_ipgva")
-animation = &"health"
-frame = 1
-frame_progress = 0.06638317
+animation = &"keg"
+frame_progress = 0.88738674
 
 [node name="Mask" type="Sprite2D" parent="AnimatedSprite2D" unique_id=1205552088]
 scale = Vector2(5, 5)
