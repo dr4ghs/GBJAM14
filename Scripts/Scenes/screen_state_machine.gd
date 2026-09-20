@@ -79,7 +79,6 @@ func _on_captain_defeated(capt: Captains.Values) -> void:
 		next_capt_goal = 20 + 20 * next_captain
 
 func _on_pattern_spawned(count: int) -> void:
-	print("%d/%d" % [count, next_capt_goal])
 	if count == next_capt_goal:
 		capt_stage = Captains.Stages.ENTER
 		spawn_captain.emit(capt_dict[next_captain])

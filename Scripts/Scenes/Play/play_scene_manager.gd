@@ -48,12 +48,15 @@ var golds: int
 var health: int
 var cooldown: float
 
+var won: bool
+
 func _init() -> void:
 	ScreenStateMachine.captain_defeated.connect(_on_captain_defeated)
 
 func _ready() -> void:
 	ScreenStateMachine.connect_signal(ScreenStateMachine.States.TITLE, _on_title_screen_state)
 	ScreenStateMachine.connect_signal(ScreenStateMachine.States.PLAY, _on_play_screen_state)
+	ScreenStateMachine.end.connect(_on_game_end)
 	ScreenStateMachine.captain_won.connect(_on_captain_won)
 	
 	Audio.get_controller().play_side_bgm("waves")
@@ -80,6 +83,8 @@ func _process(delta: float) -> void:
 		if Input.is_action_just_pressed("menu"):
 			Audio.get_controller().pause_bgm()
 			state = State.PAUSE
+		if Input.is_action_just_pressed("select"):
+			ScreenStateMachine.state = ScreenStateMachine.States.END
 
 func _on_death() -> void:
 	if ScreenStateMachine.capt_stage == Captains.Stages.FIGHT:
@@ -102,6 +107,7 @@ func _on_gold_gained(amount: int) -> void:
 	gold_ctrl.gold_lbl.text = str(golds)
 
 func _on_start() -> void:
+	won = false
 	health = PlayerStats.health
 	cooldown = PlayerStats.cooldown
 
@@ -109,6 +115,12 @@ func _on_game_over() -> void:
 	Audio.get_controller().stop_bgm()
 	PlayerStats.golds += golds;
 	golds = 0
+	if ScreenStateMachine.state == ScreenStateMachine.States.END:
+		ScreenStateMachine.state = ScreenStateMachine.States.TITLE
+
+func _on_game_end() -> void:
+	state = State.GAME_OVER
+	won = true
 
 func play_sfx(sfx_name: String, volume: float) -> void:
 	Audio.get_controller().play_sfx(sfx_name, volume)
