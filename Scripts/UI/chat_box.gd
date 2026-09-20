@@ -1,7 +1,7 @@
 class_name ChatBox
 extends Control
 
-signal speak_end()
+signal speak_end(state: DialogueResource.States)
 
 @export var anim_player: AnimationPlayer
 @export var audio: AudioStreamPlayer
@@ -65,7 +65,7 @@ func _process(delta: float) -> void:
 		cursor += 1
 
 func _on_hide_anim_start() -> void:
-	speak_end.emit()
+	speak_end.emit(state)
 
 func _on_hide_anim_end() -> void:
 	queue_free()

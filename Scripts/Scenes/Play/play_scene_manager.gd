@@ -54,6 +54,7 @@ func _init() -> void:
 func _ready() -> void:
 	ScreenStateMachine.connect_signal(ScreenStateMachine.States.TITLE, _on_title_screen_state)
 	ScreenStateMachine.connect_signal(ScreenStateMachine.States.PLAY, _on_play_screen_state)
+	ScreenStateMachine.captain_won.connect(_on_captain_won)
 	
 	Audio.get_controller().play_side_bgm("waves")
 	
@@ -65,7 +66,7 @@ func _process(delta: float) -> void:
 	if cooldown > 0: cooldown -= delta;
 	
 	if state == State.GAME_OVER and Input.is_action_just_pressed("action"):
-		state = State.START;
+		if ScreenStateMachine.capt_stage == Captains.Stages.NONE: state = State.START;
 	
 	elif state == State.PAUSE: 
 		if Input.is_action_just_pressed("menu"):
@@ -82,7 +83,7 @@ func _process(delta: float) -> void:
 
 func _on_death() -> void:
 	if ScreenStateMachine.capt_stage == Captains.Stages.FIGHT:
-		ScreenStateMachine.capt_stage = Captains.Stages.LOSE
+		ScreenStateMachine.captain_won.emit()
 	else:
 		state = State.GAME_OVER;
 
@@ -133,3 +134,6 @@ func _on_speak(capt: CaptainResource, dialogue_state: DialogueResource.States) -
 	hud.add_child(chat_box)
 	chat_box.captain = capt
 	chat_box.state = dialogue_state
+
+func _on_captain_won() -> void:
+	state = State.GAME_OVER

@@ -28,6 +28,7 @@ func _process(delta: float) -> void:
 func process_input() -> void:
 	if player.malus:
 		scene.cooldown = PlayerStats.cooldown + 4
+		player.malus = false
 	
 	if ScreenStateMachine.capt_stage != Captains.Stages.NONE and ScreenStateMachine.capt_stage != Captains.Stages.FIGHT: return
 	if not enable_input: return

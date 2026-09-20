@@ -26,6 +26,7 @@ func _init() -> void:
 
 func _process(delta: float) -> void:
 	if ScreenStateMachine.capt_stage != Captains.Stages.FIGHT: return
+	if health <= 0: return
 	
 	if not damaged:
 		cooldown -= delta
@@ -52,7 +53,6 @@ func damage() -> void:
 	Audio.get_controller().play_sfx("hit")
 	
 	if health <= 0: 
-		ScreenStateMachine.capt_stage = Captains.Stages.WIN
 		Audio.get_controller().stop_bgm()
 		speak.emit(res, DialogueResource.States.WIN)
 
@@ -97,3 +97,4 @@ func _on_captain_defeated(_capt: Captains.Values) -> void:
 
 func _on_captain_won() -> void:
 	speak.emit(res, DialogueResource.States.LOSE)
+	damaged = true

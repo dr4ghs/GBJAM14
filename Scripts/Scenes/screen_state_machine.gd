@@ -42,8 +42,7 @@ var capt_stage: Captains.Stages:
 		if _capt_stage == Captains.Stages.FIGHT:
 			Audio.get_controller().resume_bgm()
 		if _capt_stage == Captains.Stages.LOSE:
-			Audio.get_controller().stop_bgm()
-			captain_won.emit()
+			Audio.get_controller().pause_bgm()
 
 var next_captain: Captains.Values
 var next_capt_goal: int
@@ -76,20 +75,25 @@ func _on_captain_defeated(capt: Captains.Values) -> void:
 	else: 
 		next_captain = (capt + 1) as Captains.Values
 		next_capt_goal = 50 + 50 * next_captain
-	
-	capt_stage = Captains.Stages.NONE
 
 func _on_pattern_spawned(count: int) -> void:
 	if count == next_capt_goal:
 		capt_stage = Captains.Stages.ENTER
 		spawn_captain.emit(capt_dict[next_captain])
 
-func _on_speak_end() -> void:
+func _on_speak_end(dialogue_state: DialogueResource.States) -> void:
 	if capt_stage == Captains.Stages.ENTER:
 		capt_stage = Captains.Stages.FIGHT
 	
+	if capt_stage == Captains.Stages.FIGHT:
+		if dialogue_state == DialogueResource.States.WIN:
+			captain_defeated.emit(next_captain)
+			capt_stage = Captains.Stages.WIN
+		elif dialogue_state == DialogueResource.States.LOSE:
+			capt_stage = Captains.Stages.LOSE
+	
 	if capt_stage == Captains.Stages.WIN:
-		captain_defeated.emit(next_captain)
+		capt_stage = Captains.Stages.NONE
 	
 	if capt_stage == Captains.Stages.LOSE:
 		capt_stage = Captains.Stages.NONE
