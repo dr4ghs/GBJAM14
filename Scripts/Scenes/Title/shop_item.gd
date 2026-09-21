@@ -34,7 +34,7 @@ func update() -> void:
 	var lvl: int = PlayerStats.get_level(stat)
 	
 	(level.texture as AtlasTexture).region.position.y = (lvl - 1) * 16
-	cost = int(lvl * 2.5 * 100)
+	cost = int(lvl * 1.25 * 100)
 	if lvl == 4: cost_lbl.text = "-"
 	else: cost_lbl.text = str(cost)
 	selected = selected
