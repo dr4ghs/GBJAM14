@@ -1,0 +1,74 @@
+[gd_resource type="Resource" script_class="SpawnPattern" format=3 uid="uid://bb4atep1qvf6j"]
+
+[ext_resource type="Script" uid="uid://buq1dvdvcbo5g" path="res://Scripts/Resources/spawn_entry.gd" id="1_37owd"]
+[ext_resource type="Script" uid="uid://dxrsmg2rofqnv" path="res://Scripts/Resources/spawn_pattern.gd" id="2_15xp0"]
+[ext_resource type="Resource" uid="uid://qulyym73n8fl" path="res://Resources/Entities/shark_entity.tres" id="2_karsa"]
+[ext_resource type="Resource" uid="uid://csijcc10nc2mj" path="res://Resources/Entities/coin_entity.tres" id="3_8loyj"]
+
+[sub_resource type="Resource" id="Resource_karsa"]
+script = ExtResource("1_37owd")
+entity = ExtResource("2_karsa")
+lane = 0
+distance = 2.0
+metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
+
+[sub_resource type="Resource" id="Resource_8loyj"]
+script = ExtResource("1_37owd")
+entity = ExtResource("3_8loyj")
+lane = 1
+distance = 2.0
+metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
+
+[sub_resource type="Resource" id="Resource_sarml"]
+script = ExtResource("1_37owd")
+entity = ExtResource("2_karsa")
+distance = 2.0
+metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
+
+[sub_resource type="Resource" id="Resource_bdfh7"]
+script = ExtResource("1_37owd")
+entity = ExtResource("3_8loyj")
+lane = 3
+distance = 2.0
+metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
+
+[sub_resource type="Resource" id="Resource_p5sxx"]
+script = ExtResource("1_37owd")
+entity = ExtResource("2_karsa")
+lane = 3
+distance = 2.0
+metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
+
+[sub_resource type="Resource" id="Resource_friq5"]
+script = ExtResource("1_37owd")
+entity = ExtResource("2_karsa")
+lane = 0
+metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
+
+[sub_resource type="Resource" id="Resource_2barc"]
+script = ExtResource("1_37owd")
+entity = ExtResource("2_karsa")
+lane = 1
+metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
+
+[sub_resource type="Resource" id="Resource_7al4i"]
+script = ExtResource("1_37owd")
+entity = ExtResource("3_8loyj")
+metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
+
+[sub_resource type="Resource" id="Resource_1g500"]
+script = ExtResource("1_37owd")
+entity = ExtResource("2_karsa")
+lane = 3
+metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
+
+[sub_resource type="Resource" id="Resource_a38qx"]
+script = ExtResource("1_37owd")
+entity = ExtResource("2_karsa")
+lane = 4
+metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
+
+[resource]
+script = ExtResource("2_15xp0")
+entities = Array[ExtResource("1_37owd")]([SubResource("Resource_karsa"), SubResource("Resource_8loyj"), SubResource("Resource_sarml"), SubResource("Resource_bdfh7"), SubResource("Resource_p5sxx"), SubResource("Resource_friq5"), SubResource("Resource_2barc"), SubResource("Resource_7al4i"), SubResource("Resource_1g500"), SubResource("Resource_a38qx")])
+metadata/_custom_type_script = "uid://dxrsmg2rofqnv"

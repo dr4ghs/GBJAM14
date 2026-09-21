@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="SpawnPattern" format=3 uid="uid://b8pqa8cbpp50x"]
+
+[ext_resource type="Script" uid="uid://buq1dvdvcbo5g" path="res://Scripts/Resources/spawn_entry.gd" id="1_dkqlw"]
+[ext_resource type="Resource" uid="uid://qulyym73n8fl" path="res://Resources/Entities/shark_entity.tres" id="2_7jhqp"]
+[ext_resource type="Script" uid="uid://dxrsmg2rofqnv" path="res://Scripts/Resources/spawn_pattern.gd" id="2_kmnql"]
+
+[sub_resource type="Resource" id="Resource_7jhqp"]
+script = ExtResource("1_dkqlw")
+entity = ExtResource("2_7jhqp")
+lane = 1
+metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
+
+[sub_resource type="Resource" id="Resource_75owc"]
+script = ExtResource("1_dkqlw")
+entity = ExtResource("2_7jhqp")
+lane = 3
+metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
+
+[resource]
+script = ExtResource("2_kmnql")
+entities = Array[ExtResource("1_dkqlw")]([SubResource("Resource_7jhqp"), SubResource("Resource_75owc")])
+wait_time = 3.0
+random_lane = true
+metadata/_custom_type_script = "uid://dxrsmg2rofqnv"

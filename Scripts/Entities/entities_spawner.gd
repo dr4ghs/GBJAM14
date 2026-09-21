@@ -4,7 +4,7 @@ extends Node2D
 signal pattern_spawned(count: int)
 
 @export var scene: PlaySceneManager
-@export var pattern: SpawnPattern
+@export var patterns: Array[SpawnPattern]
 @export var warns_orchestrator: WarnsOrchestrator
 @export var player_spawner: PlayerSpawner
 
@@ -13,7 +13,6 @@ var health_entity: EntityResource = preload("res://Resources/Entities/health_ent
 var entity_scene: PackedScene = preload("res://Scenes/Prefabs/entity.tscn")
 var capt_scene: PackedScene = preload("res://Scenes/Prefabs/captain.tscn")
 
-var wait_time: float
 var working: bool
 var ducks_count: int
 
@@ -41,12 +40,14 @@ func _on_game_over() -> void:
 	working = false
 
 func spawn() -> void:
+	var pattern = patterns[randi() % (5 * int(ScreenStateMachine.next_captain + 1))]
+	
 	var lane: float = pattern.lane_shift
 	if pattern.random_lane:
 		lane = randi() % len(Lanes.Values)
 	for res in pattern.entities:
 		var entity: Entity = entity_scene.instantiate()
-		entity.populate(res.entity, int(res.distance), float(ducks_count) / 10)
+		entity.populate(res.entity, int(res.distance) + (0.5 * ScreenStateMachine.next_captain), float(ducks_count) / 10)
 		entity.hit.connect(_on_hit)
 		entity.lane = int(res.lane + lane) % len(Lanes.Values) as Lanes.Values
 		add_child(entity)
@@ -58,7 +59,6 @@ func spawn() -> void:
 			heart.lane = ((len(Lanes.Values) + res.lane - 2) % len(Lanes.Values)) as Lanes.Values
 			add_child(heart)
 	
-	wait_time = pattern.wait_time
 	pattern_count += 1
 	pattern_spawned.emit(pattern_count)
 

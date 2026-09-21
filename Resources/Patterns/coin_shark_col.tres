@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="SpawnPattern" format=3 uid="uid://diwt0cbeetmw5"]
+
+[ext_resource type="Script" uid="uid://buq1dvdvcbo5g" path="res://Scripts/Resources/spawn_entry.gd" id="1_v36u5"]
+[ext_resource type="Resource" uid="uid://qulyym73n8fl" path="res://Resources/Entities/shark_entity.tres" id="2_bldnh"]
+[ext_resource type="Script" uid="uid://dxrsmg2rofqnv" path="res://Scripts/Resources/spawn_pattern.gd" id="2_kwhby"]
+[ext_resource type="Resource" uid="uid://csijcc10nc2mj" path="res://Resources/Entities/coin_entity.tres" id="3_p6jcl"]
+
+[sub_resource type="Resource" id="Resource_bldnh"]
+script = ExtResource("1_v36u5")
+entity = ExtResource("2_bldnh")
+distance = 2.0
+metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
+
+[sub_resource type="Resource" id="Resource_p6jcl"]
+script = ExtResource("1_v36u5")
+entity = ExtResource("3_p6jcl")
+distance = 1.0
+metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
+
+[sub_resource type="Resource" id="Resource_qm26n"]
+script = ExtResource("1_v36u5")
+entity = ExtResource("3_p6jcl")
+metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
+
+[resource]
+script = ExtResource("2_kwhby")
+entities = Array[ExtResource("1_v36u5")]([SubResource("Resource_bldnh"), SubResource("Resource_p6jcl"), SubResource("Resource_qm26n")])
+wait_time = 3.0
+random_lane = true
+metadata/_custom_type_script = "uid://dxrsmg2rofqnv"

@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="SpawnPattern" format=3 uid="uid://5dh445b8nktg"]
+
+[ext_resource type="Script" uid="uid://buq1dvdvcbo5g" path="res://Scripts/Resources/spawn_entry.gd" id="1_tio6w"]
+[ext_resource type="Script" uid="uid://dxrsmg2rofqnv" path="res://Scripts/Resources/spawn_pattern.gd" id="2_8uucc"]
+[ext_resource type="Resource" uid="uid://qulyym73n8fl" path="res://Resources/Entities/shark_entity.tres" id="2_y0wfs"]
+[ext_resource type="Resource" uid="uid://csijcc10nc2mj" path="res://Resources/Entities/coin_entity.tres" id="3_ra1ry"]
+
+[sub_resource type="Resource" id="Resource_y0wfs"]
+script = ExtResource("1_tio6w")
+entity = ExtResource("2_y0wfs")
+lane = 0
+metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
+
+[sub_resource type="Resource" id="Resource_d71aa"]
+script = ExtResource("1_tio6w")
+entity = ExtResource("2_y0wfs")
+lane = 1
+metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
+
+[sub_resource type="Resource" id="Resource_65p0r"]
+script = ExtResource("1_tio6w")
+entity = ExtResource("3_ra1ry")
+metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
+
+[sub_resource type="Resource" id="Resource_wlbx8"]
+script = ExtResource("1_tio6w")
+entity = ExtResource("2_y0wfs")
+lane = 3
+metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
+
+[sub_resource type="Resource" id="Resource_6v0gg"]
+script = ExtResource("1_tio6w")
+entity = ExtResource("2_y0wfs")
+lane = 4
+metadata/_custom_type_script = "uid://buq1dvdvcbo5g"
+
+[resource]
+script = ExtResource("2_8uucc")
+entities = Array[ExtResource("1_tio6w")]([SubResource("Resource_y0wfs"), SubResource("Resource_d71aa"), SubResource("Resource_65p0r"), SubResource("Resource_wlbx8"), SubResource("Resource_6v0gg")])
+random_lane = true
+metadata/_custom_type_script = "uid://dxrsmg2rofqnv"

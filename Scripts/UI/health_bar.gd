@@ -6,15 +6,21 @@ class_name HealthBar extends HBoxContainer
 @export var empty_heart: AtlasTexture;
 
 func _on_start() -> void:
-	if len(hearts) == 0:
-		for i in PlayerStats.health:
-			var texture_rect: TextureRect = TextureRect.new();
-			texture_rect.texture = full_heart;
-			add_child(texture_rect);
-			hearts.append(texture_rect);
+	if len(hearts) == 0 or len(hearts) != PlayerStats.health:
+		if len(hearts) > 0:
+			for child in get_children():
+				child.queue_free()
+		populate()
 	else:
 		for hrt in hearts:
 			hrt.texture = full_heart;
+
+func populate() -> void:
+	for i in PlayerStats.health:
+		var texture_rect: TextureRect = TextureRect.new();
+		texture_rect.texture = full_heart;
+		add_child(texture_rect);
+		hearts.append(texture_rect);
 
 func update(health: int) -> void:
 	for i in len(hearts):
