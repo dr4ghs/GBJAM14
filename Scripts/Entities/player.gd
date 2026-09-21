@@ -10,6 +10,7 @@ var cannon_ball: PackedScene = preload("res://Scenes/Prefabs/cannon_ball.tscn");
 @export var ship_gfx: Sprite2D
 @export var coin: AnimationPlayer
 @export var cannon: ShipCannon
+@export var cannon_balls: Sprite2D
 
 @export var damaged: bool
 
@@ -51,5 +52,9 @@ func _on_area_entered(area: Area2D) -> void:
 		damage_taken.emit(1)
 		gold_taken.emit(-10)
 
+func _on_realoaded() -> void:
+	cannon_balls.visible = true
+
 func _on_fire(parent: Node2D) -> void:
 	cannon.spawn(parent)
+	cannon_balls.visible = false

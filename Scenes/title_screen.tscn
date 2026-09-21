@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://brtn7wnvrm0cf" path="res://Assets/Sprites/character_selection.png" id="1_klylv"]
 [ext_resource type="FontFile" uid="uid://bf4mqyyqtkx1x" path="res://Fonts/Early GameBoy.ttf" id="3_4gxqj"]
 [ext_resource type="Script" uid="uid://c3hls04dx5arj" path="res://Scripts/Scenes/Title/portraits_controller.gd" id="3_6vd4x"]
+[ext_resource type="Texture2D" uid="uid://cqno24r2cl13i" path="res://Assets/Sprites/title.png" id="3_sqelc"]
 [ext_resource type="Texture2D" uid="uid://b2kfh5kcaq110" path="res://Assets/Sprites/ui_frame.png" id="3_twnyg"]
 [ext_resource type="Script" uid="uid://coqtndbmeeuk8" path="res://Scripts/Scenes/Play/selections_input.gd" id="4_12m1t"]
 [ext_resource type="Script" uid="uid://cedw8pqlgurj1" path="res://Scripts/Scenes/Title/creds_inputs.gd" id="5_55kwv"]
@@ -314,10 +315,11 @@ _data = {
 layout_mode = 3
 anchors_preset = 0
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=393230509 node_paths=PackedStringArray("root", "main", "shop", "creds")]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=393230509 node_paths=PackedStringArray("root", "portraits", "main", "shop", "creds")]
 libraries/ = SubResource("AnimationLibrary_12m1t")
 script = ExtResource("1_6vd4x")
 root = NodePath("..")
+portraits = NodePath("../Portraits")
 main = NodePath("../Main")
 shop = NodePath("../Shop")
 creds = NodePath("../Creds")
@@ -327,6 +329,14 @@ layout_mode = 1
 offset_right = 160.0
 offset_bottom = 144.0
 texture = ExtResource("1_klylv")
+
+[node name="Title" type="TextureRect" parent="." unique_id=1205223356]
+layout_mode = 0
+offset_left = 33.0
+offset_top = 26.0
+offset_right = 145.0
+offset_bottom = 106.0
+texture = ExtResource("3_sqelc")
 
 [node name="Portraits" type="Control" parent="." unique_id=808797389 node_paths=PackedStringArray("capt_fish", "capt_rat", "capt_cat", "capt_king")]
 anchors_preset = 0
@@ -341,47 +351,51 @@ capt_king = NodePath("CaptKing")
 
 [node name="CaptFish" type="TextureRect" parent="Portraits" unique_id=788589154]
 visible = false
+z_index = 10
 layout_mode = 0
 offset_left = 6.0
-offset_top = 6.0
+offset_top = 150.0
 offset_right = 38.0
-offset_bottom = 38.0
+offset_bottom = 182.0
 texture = SubResource("AtlasTexture_ipgva")
 
 [node name="CaptRat" type="TextureRect" parent="Portraits" unique_id=926270069]
 visible = false
+z_index = 10
 layout_mode = 0
 offset_left = 122.0
-offset_top = 6.0
+offset_top = 150.0
 offset_right = 154.0
-offset_bottom = 38.0
+offset_bottom = 182.0
 texture = SubResource("AtlasTexture_twnyg")
 
 [node name="CaptCat" type="TextureRect" parent="Portraits" unique_id=1823526308]
 visible = false
+z_index = 10
 layout_mode = 0
 offset_left = 6.0
-offset_top = 106.0
+offset_top = 250.0
 offset_right = 38.0
-offset_bottom = 138.0
+offset_bottom = 282.0
 texture = SubResource("AtlasTexture_12m1t")
 
 [node name="CaptKing" type="TextureRect" parent="Portraits" unique_id=877297836]
 visible = false
+z_index = 10
 layout_mode = 0
 offset_left = 122.0
-offset_top = 106.0
+offset_top = 250.0
 offset_right = 154.0
-offset_bottom = 138.0
+offset_bottom = 282.0
 texture = SubResource("AtlasTexture_n82rj")
 
 [node name="Main" type="NinePatchRect" parent="." unique_id=1531353195 node_paths=PackedStringArray("cursor", "manager")]
 visible = false
 layout_mode = 0
 offset_left = 47.0
-offset_top = 84.0
+offset_top = 99.0
 offset_right = 113.0
-offset_bottom = 119.0
+offset_bottom = 134.0
 texture = ExtResource("3_twnyg")
 patch_margin_left = 8
 patch_margin_top = 8

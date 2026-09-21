@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://cwgyxeqswty2j"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_eb10t"]
+load_path = "res://.godot/imported/charge_bar.png-1caf99371c4ab6131a9cb98a5e2cdc40.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3wskg"]
+atlas = SubResource("CompressedTexture2D_eb10t")
+region = Rect2(48, 0, 16, 16)
+
+[node name="Icon" type="TextureRect" unique_id=2114588534]
+texture = SubResource("AtlasTexture_3wskg")

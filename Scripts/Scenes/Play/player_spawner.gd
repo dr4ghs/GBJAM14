@@ -2,6 +2,7 @@ class_name PlayerSpawner
 extends VisibleOnScreenNotifier2D
 
 signal fire(parent: Node2D)
+signal reloaded()
 signal death()
 
 var prefab: PackedScene = preload("res://Scenes/Prefabs/player.tscn")
@@ -33,10 +34,12 @@ func process_input() -> void:
 	if ScreenStateMachine.halt_input: return
 	if not enable_input: return
 	
-	if scene.cooldown <= 0 and Input.is_action_just_pressed("action"):
-		fire.emit(scene)
-		Audio.get_controller().play_side_sfx("damage")
-		scene.cooldown = PlayerStats.cooldown
+	if scene.cooldown <= 0:
+		reloaded.emit()
+		if Input.is_action_just_pressed("action"):
+			fire.emit(scene)
+			Audio.get_controller().play_side_sfx("damage")
+			scene.cooldown = PlayerStats.cooldown
 	
 	if Input.is_action_just_pressed("left") and player.lane > 0:
 		player.lane = (player.lane - 1) as Lanes.Values
@@ -56,6 +59,7 @@ func _on_start() -> void:
 	scene.add_child(player)
 	
 	fire.connect(player._on_fire)
+	reloaded.connect(player._on_realoaded)
 	death.connect(player._on_death)
 
 func _on_play() -> void:

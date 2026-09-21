@@ -1,3 +1,4 @@
+class_name PortraitsController
 extends Control
 
 @export var capt_fish: TextureRect

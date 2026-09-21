@@ -4,6 +4,7 @@ extends AnimationPlayer
 @export var play_scene: PlaySceneManager
 @export var root: Control
 
+@export var portraits: PortraitsController
 @export var main: TitleScreenEntry
 @export var shop: TitleScreenEntry
 @export var creds: TitleScreenEntry
@@ -27,6 +28,7 @@ func close() -> void:
 	play(&"exit")
 
 func _on_enter_anim_start() -> void:
+	portraits.refresh()
 	to_screen.visible = true
 
 func _on_enter_anim_end() -> void:

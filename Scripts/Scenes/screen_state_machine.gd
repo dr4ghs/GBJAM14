@@ -12,7 +12,7 @@ signal title()
 signal play()
 signal end()
 
-const MIN_SPAWN_RATE = 20
+const MIN_SPAWN_RATE = 3
 
 var _state: States
 var state: States:
