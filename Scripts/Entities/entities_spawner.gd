@@ -39,6 +39,10 @@ func _on_pause() -> void:
 func _on_game_over() -> void:
 	working = false
 
+func clear() -> void:
+	for child in get_children():
+		child.queue_free()
+
 func spawn() -> void:
 	var pattern = patterns[randi() % (5 * int(ScreenStateMachine.next_captain + 1))]
 	

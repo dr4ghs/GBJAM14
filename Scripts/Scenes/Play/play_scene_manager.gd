@@ -70,8 +70,12 @@ func _process(delta: float) -> void:
 	
 	if cooldown > 0: cooldown -= delta;
 	
-	if state == State.GAME_OVER and Input.is_action_just_pressed("action"):
-		if ScreenStateMachine.capt_stage == Captains.Stages.NONE: state = State.START;
+	if state == State.GAME_OVER:
+		if Input.is_action_just_pressed("action"):
+			if ScreenStateMachine.capt_stage == Captains.Stages.NONE: state = State.START;
+		if Input.is_action_just_pressed("cancel"):
+			entity_spawn.clear()
+			ScreenStateMachine.state = ScreenStateMachine.States.TITLE
 	
 	elif state == State.PAUSE: 
 		if Input.is_action_just_pressed("menu"):

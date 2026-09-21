@@ -336,7 +336,6 @@ label_settings = SubResource("LabelSettings_ipgva")
 horizontal_alignment = 1
 
 [node name="Overlay" type="Control" parent="HUD" unique_id=801283551 node_paths=PackedStringArray("anim_player", "main_lbl", "hint_lbl")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -349,20 +348,36 @@ main_lbl = NodePath("Main")
 hint_lbl = NodePath("Hint")
 
 [node name="Main" type="Label" parent="HUD/Overlay" unique_id=1001979456]
-layout_mode = 0
-offset_top = 65.0
-offset_right = 160.0
-offset_bottom = 83.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -9.0
+offset_right = 80.0
+offset_bottom = 9.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "READY"
 label_settings = SubResource("LabelSettings_loj0l")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Hint" type="Label" parent="HUD/Overlay" unique_id=745716466]
-layout_mode = 0
-offset_top = 76.0
-offset_right = 160.0
-offset_bottom = 90.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = 6.0
+offset_right = 80.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "B - BACK"
 label_settings = SubResource("LabelSettings_bqlsl")
 horizontal_alignment = 1

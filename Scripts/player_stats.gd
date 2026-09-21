@@ -6,7 +6,7 @@ enum {
 	COOLDOWN,
 }
 
-var golds: int = 50
+var golds: int
 
 const BASE_SPEED: float = 0.2
 var _speed_lvl: int = 1

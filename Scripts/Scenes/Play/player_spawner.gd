@@ -28,7 +28,7 @@ func _process(delta: float) -> void:
 
 func process_input() -> void:
 	if player.malus:
-		scene.cooldown = PlayerStats.cooldown + 4
+		scene.cooldown = PlayerStats.cooldown + 1
 		player.malus = false
 	
 	if ScreenStateMachine.halt_input: return
