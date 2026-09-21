@@ -447,5 +447,6 @@ gold_ctrl = NodePath("../HUD/GoldLabel")
 [connection signal="start" from="." to="HUD/Overlay" method="_on_start"]
 [connection signal="start" from="." to="EntitiesSpawner" method="_on_start"]
 [connection signal="start" from="." to="PlayerSpawner" method="_on_start"]
+[connection signal="win" from="." to="." method="_on_win"]
 [connection signal="area_entered" from="DespawnArea" to="DespawnArea" method="_on_area_entered"]
 [connection signal="area_exited" from="WarnsOrchestrator" to="WarnsOrchestrator" method="_on_area_exited"]

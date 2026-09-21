@@ -9,7 +9,7 @@ enum {
 var golds: int
 
 const BASE_SPEED: float = 0.2
-var _speed_lvl: int = 4
+var _speed_lvl: int = 1
 var speed_lvl: int:
 	get: return _speed_lvl
 	set(value): 

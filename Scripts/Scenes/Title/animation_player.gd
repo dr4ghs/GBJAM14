@@ -1,7 +1,6 @@
 class_name TitleScreenManager
 extends AnimationPlayer
 
-@export var play_scene: PlaySceneManager
 @export var root: Control
 
 @export var portraits: PortraitsController
@@ -14,6 +13,8 @@ var to_screen: TitleScreenEntry
 
 func _ready() -> void:
 	to_screen = main
+	if ScreenStateMachine.state == ScreenStateMachine.States.END:
+		to_screen = creds
 	to_screen.enabled = false
 	
 	play(&"enter")

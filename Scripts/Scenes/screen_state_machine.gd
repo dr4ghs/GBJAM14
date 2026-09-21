@@ -75,8 +75,7 @@ func _on_play() -> void:
 func _on_captain_defeated(capt: Captains.Values) -> void:
 	PlayerStats.progress[capt] = true
 	
-	if capt == Captains.Values.BOSS: state = States.END
-	else: 
+	if not capt == Captains.Values.BOSS:
 		next_captain = (capt + 1) as Captains.Values
 		next_capt_goal = MIN_SPAWN_RATE + MIN_SPAWN_RATE * next_captain
 

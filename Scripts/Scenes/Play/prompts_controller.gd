@@ -22,6 +22,8 @@ func _on_pause() -> void:
 	hint_lbl.visible = true
 
 func _on_game_over() -> void:
+	if ScreenStateMachine.state == ScreenStateMachine.States.END: return
+	
 	main_lbl.text = "GAME OVER"
 	hint_lbl.text = "A - RESTART"
 	visible = true;

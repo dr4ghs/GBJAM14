@@ -31,15 +31,13 @@ func _init() -> void:
 	ScreenStateMachine.captain_defeated.connect(_on_captain_defeated)
 	ScreenStateMachine.captain_won.connect(_on_captain_won)
 
-func _process(delta: float) -> void:
+func update(delta: float) -> void:
 	if ScreenStateMachine.capt_stage != Captains.Stages.FIGHT: return
 	if health <= 0: return
 	
-	if not damaged:
-		cooldown -= delta
-	
+	cooldown -= delta
 	if not acting:
-		if cooldown <= 0:
+		if cooldown <= 0 and not damaged:
 			var choice: float = randf()
 			if res.captain == Captains.Values.FISH:
 				capt_fish_behaviour(choice)
@@ -114,17 +112,13 @@ func capt_cat_rush() -> void:
 	anim_player.play(&"capt_cat/rush")
 
 func capt_cat_warn() -> void:
+	lane = (lane + 1 + randi() % (len(Lanes.Values) - 1)) % len(Lanes.Values) as Lanes.Values
 	warn_rush.emit(lane)
 
 func capt_king_behaviour(choice: float) -> void:
-	if choice <= 1.0 / 3:
-		capt_fish_behaviour(choice)
-	elif choice <= 2.0 / 3:
-		cat_state = 1
-		capt_rat_behaviour(choice)
-	else:
-		capt_cat_behaviour(choice)
-	cooldown *= 2.0 / 3
+	if choice <= 1.0 / 3: capt_fish_behaviour(choice)
+	elif choice <= 2.0 / 3: capt_cat_behaviour(choice)
+	else: capt_cat_behaviour(choice)
 
 func show_dialogue(state: int) -> void:
 	ScreenStateMachine.halt_input = true
@@ -135,9 +129,13 @@ func _on_enter_anim_start() -> void:
 
 func _on_death_anim_end() -> void:
 	Audio.get_controller().play_bgm("main_theme")
+	if res.captain == Captains.Values.BOSS:
+		ScreenStateMachine.state = ScreenStateMachine.States.END
 	queue_free()
 
 func play_damage_sfx() -> void:
+	if res.captain == Captains.Values.BOSS:
+		ScreenStateMachine.halt_input = true
 	Audio.get_controller().play_sfx("damage")
 
 func _on_captain_defeated(_capt: Captains.Values) -> void:

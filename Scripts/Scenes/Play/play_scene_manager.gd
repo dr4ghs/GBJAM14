@@ -6,12 +6,14 @@ enum State {
 	PLAY,
 	PAUSE,
 	GAME_OVER,
+	WIN,
 };
 
 signal start();
 signal play();
 signal pause();
 signal game_over();
+signal win();
 
 @onready var title_screen: PackedScene = preload("res://Scenes/title_screen.tscn")
 @onready var dialogue_box: PackedScene = preload("res://Scenes/Prefabs/chat_box.tscn")
@@ -41,14 +43,14 @@ signal game_over();
 			pause.emit();
 		elif state == State.GAME_OVER:
 			game_over.emit()
+		elif state == State.WIN:
+			win.emit()
 
 var chat_box: ChatBox
 
 var golds: int
 var health: int
 var cooldown: float
-
-var won: bool
 
 func _init() -> void:
 	ScreenStateMachine.captain_defeated.connect(_on_captain_defeated)
@@ -103,11 +105,12 @@ func _on_damage_taken(dmg: int) -> void:
 		health_bar.update(health)
 
 func _on_gold_gained(amount: int) -> void:
-	golds += amount
+	if golds + amount < 0: golds = 0
+	else: golds += amount
+	
 	gold_ctrl.gold_lbl.text = str(golds)
 
 func _on_start() -> void:
-	won = false
 	health = PlayerStats.health
 	cooldown = PlayerStats.cooldown
 
@@ -115,12 +118,12 @@ func _on_game_over() -> void:
 	Audio.get_controller().stop_bgm()
 	PlayerStats.golds += golds;
 	golds = 0
-	if ScreenStateMachine.state == ScreenStateMachine.States.END:
-		ScreenStateMachine.state = ScreenStateMachine.States.TITLE
+
+func _on_win() -> void:
+	_on_title_screen_state()
 
 func _on_game_end() -> void:
-	state = State.GAME_OVER
-	won = true
+	state = State.WIN
 
 func play_sfx(sfx_name: String, volume: float) -> void:
 	Audio.get_controller().play_sfx(sfx_name, volume)

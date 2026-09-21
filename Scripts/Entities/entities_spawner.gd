@@ -68,6 +68,8 @@ func _init() -> void:
 	ScreenStateMachine.captain_defeated.connect(_on_captain_defeated)
 
 func _process(delta: float) -> void:
+	if curr_capt != null: curr_capt.update(delta)
+	
 	if scene.state != PlaySceneManager.State.PLAY: return
 	if ScreenStateMachine.halt_input: return
 	if working and len(get_children()) == 0: spawn()
